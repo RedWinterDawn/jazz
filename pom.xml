@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.jive.myco</groupId>
     <artifactId>parent</artifactId>
-    <version>15</version>
+    <version>16</version>
   </parent>
 
   <groupId>com.jive.myco.jazz.api</groupId>
@@ -22,12 +22,6 @@
     <url>https://github.com/jive/com.jive.myco.jazz.api</url>
     <tag>HEAD</tag>
   </scm>
-
-  <properties>
-    <!-- ##### File encoding ##### -->
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-  </properties>
 
   <modules>
     <module>bom</module>

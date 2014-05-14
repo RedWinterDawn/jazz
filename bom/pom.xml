@@ -15,16 +15,9 @@
   <name>Jazz :: API :: BOM</name>
 
   <description>Provides a bill of materials POM for Jazz API based projects.</description>
-
-  <properties>
-    <!-- ##### File encoding ##### -->
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-  </properties>
   
   <dependencyManagement>
     <dependencies>
-      <!-- TODO -->
     </dependencies>
   </dependencyManagement>
 
