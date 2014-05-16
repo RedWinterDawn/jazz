@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.jive.myco.jazz.api.core.InstanceTypeId;
+
 /**
  * Tests for {@link InstanceTypeId}.
  *

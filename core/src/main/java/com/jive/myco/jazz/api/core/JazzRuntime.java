@@ -1,10 +1,10 @@
-package com.jive.myco.jazz.core;
+package com.jive.myco.jazz.api.core;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Builder;
 
-import com.jive.myco.jazz.core.coordinates.Coordinates;
+import com.jive.myco.jazz.api.core.coordinates.Coordinates;
 
 /**
  * Represents information about the Jazz runtime environment.

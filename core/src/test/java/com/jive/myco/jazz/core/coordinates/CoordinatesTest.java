@@ -4,6 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.jive.myco.jazz.api.core.coordinates.Coordinates;
+import com.jive.myco.jazz.api.core.coordinates.InstanceId;
+import com.jive.myco.jazz.api.core.coordinates.ProviderId;
+
 /**
  * Tests for {@link Coordinates} and its constituent components.
  *

@@ -4,6 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.jive.myco.jazz.api.core.coordinates.ClusterId;
+import com.jive.myco.jazz.api.core.coordinates.DatacenterId;
+import com.jive.myco.jazz.api.core.coordinates.Locality;
+import com.jive.myco.jazz.api.core.coordinates.RegionId;
+
 /**
  * @author Brandon Pedersen &lt;bpedersen@getjive.com&gt;
  */
