@@ -1,4 +1,4 @@
-package com.jive.myco.jazz.core.coordinates;
+package com.jive.myco.jazz.api.core.coordinates;
 
 import static org.junit.Assert.*;
 

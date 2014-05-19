@@ -1,4 +1,4 @@
-package com.jive.myco.jazz.core;
+package com.jive.myco.jazz.api.core;
 
 import static org.junit.Assert.*;
 

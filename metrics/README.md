@@ -8,7 +8,7 @@ This module provides interfaces used to interact with a metrics library, current
 ## <a name="usage"></a>Usage
 
 
-The example code below demonstrates how to manage the lifecycle of the  and to leverage *MetricsManager* and *MetricsManagerContext*s to provide uniform naming of metrics within an application.
+The example code below demonstrates how to leverage the *MetricsManager* and *MetricsManagerContext*s to provide uniform naming of metrics within an application.  The *MetricsManager* is an injectable resource within Jazz and is provided to you by Jazz at runtime.  You will not need to instantiate a *MetricsManager* or to manage the manager's lifecycle.
 
 
 ```java    
