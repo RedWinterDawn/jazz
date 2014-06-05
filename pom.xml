@@ -15,6 +15,12 @@
   <name>Jazz :: API :: Root</name>
   
   <description>The API of the Jazz Framework.</description>
+  
+  <properties>
+    <deps.servlet.version>3.1.0</deps.servlet.version>
+    <deps.myco-commons.version>0.0.6</deps.myco-commons.version>
+    <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
+  </properties>
 
   <scm>
     <connection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</connection>
@@ -22,10 +28,36 @@
     <url>https://github.com/jive/com.jive.myco.jazz.api</url>
     <tag>HEAD</tag>
   </scm>
+  
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.jive.myco.commons</groupId>
+        <artifactId>myco-commons-bom</artifactId>
+        <version>${deps.myco-commons.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>${deps.servlet.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>javax.ws.rs</groupId>
+        <artifactId>javax.ws.rs-api</artifactId>
+        <version>${deps.jax-rs-api.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <modules>
     <module>bom</module>
     <module>core</module>
     <module>metrics</module>
+    <module>rest</module>
+    <module>web</module>
   </modules>
 </project>

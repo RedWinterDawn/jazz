@@ -32,6 +32,41 @@
         <version>${project.version}</version>
         <scope>provided</scope>
       </dependency>
+      
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>jazz-api-rest</artifactId>
+        <version>${project.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>jazz-api-web</artifactId>
+        <version>${project.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>${deps.servlet.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      
+      <dependency>
+        <groupId>javax.ws.rs</groupId>
+        <artifactId>javax.ws.rs-api</artifactId>
+        <version>${deps.jax-rs-api.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.jive.myco.commons</groupId>
+        <artifactId>myco-commons-concurrent</artifactId>
+        <version>${deps.myco-commons.version}</version>
+        <scope>provided</scope>
+      </dependency>
 
     </dependencies>
   </dependencyManagement>
