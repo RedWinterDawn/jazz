@@ -9,6 +9,11 @@ import lombok.NonNull;
 import lombok.Value;
 import lombok.experimental.Builder;
 
+/**
+ * Represents a named network available in the environment.
+ *
+ * @author David Valeri
+ */
 @Builder
 @Value
 public final class Network

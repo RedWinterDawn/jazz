@@ -11,7 +11,11 @@ import java.util.stream.Collectors;
 import lombok.NonNull;
 import lombok.experimental.Builder;
 
-
+/**
+ * Represents a collection of named networks in the environment.
+ *
+ * @author David Valeri
+ */
 public class Networks
 {
   private final Map<NetworkId, Network> networkIdMap;
