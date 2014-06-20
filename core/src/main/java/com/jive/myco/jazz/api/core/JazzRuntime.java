@@ -5,6 +5,7 @@ import lombok.NonNull;
 import lombok.experimental.Builder;
 
 import com.jive.myco.jazz.api.core.coordinates.Coordinates;
+import com.jive.myco.jazz.api.core.network.Networks;
 
 /**
  * Represents information about the Jazz runtime environment.
@@ -32,4 +33,10 @@ public class JazzRuntime
    */
   @NonNull
   private final InstanceTypeId instanceType;
+
+  /**
+   * The network information for this environment.
+   */
+  @NonNull
+  private final Networks networks;
 }
