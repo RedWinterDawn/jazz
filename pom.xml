@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.jive.myco</groupId>
     <artifactId>parent</artifactId>
-    <version>20-SNAPSHOT</version>
+    <version>20</version>
   </parent>
 
   <groupId>com.jive.myco.jazz.api</groupId>
@@ -13,9 +13,9 @@
   <packaging>pom</packaging>
 
   <name>Jazz :: API :: Root</name>
-  
+
   <description>The API of the Jazz Framework.</description>
-  
+
   <properties>
     <deps.servlet.version>3.1.0</deps.servlet.version>
     <deps.myco-commons.version>0.0.6</deps.myco-commons.version>
@@ -28,7 +28,7 @@
     <url>https://github.com/jive/com.jive.myco.jazz.api</url>
     <tag>HEAD</tag>
   </scm>
-  
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -38,13 +38,13 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-    
+
       <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>javax.servlet-api</artifactId>
         <version>${deps.servlet.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>javax.ws.rs</groupId>
         <artifactId>javax.ws.rs-api</artifactId>
