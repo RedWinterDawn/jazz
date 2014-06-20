@@ -23,9 +23,7 @@ import com.jive.myco.jazz.api.web.StaticResourceDescriptor;
 @Getter
 public final class RestServiceDescriptor
 {
-  private final Set<Object> resources;
-
-  private final Set<Object> providers;
+  private final Set<Object> singletons;
 
   private final List<FilterMappingDescriptor> filters;
 
@@ -33,13 +31,11 @@ public final class RestServiceDescriptor
 
   @Builder
   private RestServiceDescriptor(
-      @NonNull final Set<Object> resources,
-      @NonNull final Set<Object> providers,
+      @NonNull final Set<Object> singletons,
       @NonNull final List<FilterMappingDescriptor> filters,
       @NonNull final List<StaticResourceDescriptor> staticResources)
   {
-    this.resources = Collections.unmodifiableSet(new HashSet<>(resources));
-    this.providers = Collections.unmodifiableSet(new HashSet<>(providers));
+    this.singletons = Collections.unmodifiableSet(new HashSet<>(singletons));
     this.staticResources =
         Collections.unmodifiableSet(new HashSet<>(staticResources));
     this.filters =
@@ -53,163 +49,109 @@ public final class RestServiceDescriptor
    */
   public static final class RestServiceDescriptorBuilder
   {
-    private final Set<Object> resources = new HashSet<>();
-
-    private final Set<Object> providers = new HashSet<>();
+    private final Set<Object> singletons = new HashSet<>();
 
     private final List<FilterMappingDescriptor> filters = new LinkedList<>();
 
     private final List<StaticResourceDescriptor> staticResources = new LinkedList<>();
 
     /**
-     * Adds a resource to the resources provided via the descriptor.
+     * Adds a singleton to the singletons provided via the descriptor.
      * <p>
-     * If a resource that {@link Object#equals(Object) equals} {@code resource} has already been
+     * If a singleton that {@link Object#equals(Object) equals} {@code singleton} has already been
      * configured, this call overwrites the previous value.
+     * <p>
+     * Singletons may be any JAX-RS related object including a REST resource or a {@code Provider}
      *
-     * @param resource
-     *          the resource to add
+     * @param singleton
+     *          the singleton JAX-RS resource to add
      *
      * @return this builder for chaining
      */
-    public RestServiceDescriptorBuilder addResource(final Object resource)
+    public RestServiceDescriptorBuilder addSingleton(final Object singleton)
     {
-      resources.add(resource);
+      singletons.add(singleton);
       return this;
     }
 
     /**
-     * Adds resources to the resources provided via the descriptor.
+     * Adds singletons to the singletons provided via the descriptor.
      * <p>
-     * If a resource that {@link Object#equals(Object) equals} a value provided by {@code resources}
-     * has already been configured, this call overwrites the previous value.
+     * If a singleton that {@link Object#equals(Object) equals} a value provided by
+     * {@code singleton} has already been configured, this call overwrites the previous value.
      *
-     * @param resources
-     *          the resources to add
+     * @param singletons
+     *          the singletons to add
      *
      * @return this builder for chaining
      */
-    public RestServiceDescriptorBuilder addResources(
-        @NonNull final Iterable<? extends Object> resources)
+    public RestServiceDescriptorBuilder addSingletons(
+        @NonNull final Iterable<? extends Object> singletons)
     {
-      resources.forEach(this.resources::add);
+      singletons.forEach(this.singletons::add);
       return this;
     }
 
     /**
-     * Adds resources to the resources provided via the descriptor.
+     * Adds singletons to the singletons provided via the descriptor.
      * <p>
-     * If a resource that {@link Object#equals(Object) equals} a value provided by {@code resources}
-     * has already been configured, this call overwrites the previous value.
+     * If a singleton that {@link Object#equals(Object) equals} a value provided by
+     * {@code singletons} has already been configured, this call overwrites the previous value.
      *
-     * @param resources
-     *          the resources to add
+     * @param singletons
+     *          the singletons to add
      *
      * @return this builder for chaining
      */
-    public RestServiceDescriptorBuilder addResources(@NonNull final Object... resources)
+    public RestServiceDescriptorBuilder addSingletons(@NonNull final Object... singletons)
     {
-      Collections.addAll(this.resources, resources);
+      Collections.addAll(this.singletons, singletons);
       return this;
     }
-
-    /**
-     * Adds a provider to the resources provided via the descriptor.
-     * <p>
-     * If a resource that {@link Object#equals(Object) equals} {@code provider} has already been
-     * configured, this call overwrites the previous value.
-     *
-     * @param provider
-     *          the provider to add
-     *
-     * @return this builder for chaining
-     */
-    public RestServiceDescriptorBuilder addProvider(final Object provider)
-    {
-      providers.add(provider);
-      return this;
-    }
-
-    /**
-     * Adds providers to the resources provided via the descriptor.
-     * <p>
-     * If a provider that {@link Object#equals(Object) equals} a value provided by {@code providers}
-     * has already been configured, this call overwrites the previous value.
-     *
-     * @param providers
-     *          the providers to add
-     *
-     * @return this builder for chaining
-     */
-    public RestServiceDescriptorBuilder addProviders(
-        @NonNull final Iterable<? extends Object> providers)
-    {
-      providers.forEach(this.providers::add);
-      return this;
-    }
-
-    /**
-     * Adds providers to the resources provided via the descriptor.
-     * <p>
-     * If a provider that {@link Object#equals(Object) equals} a value provided by {@code providers}
-     * has already been configured, this call overwrites the previous value.
-     *
-     * @param resources
-     *          the resources to add
-     *
-     * @return this builder for chaining
-     */
-    public RestServiceDescriptorBuilder addProviders(@NonNull final Object... providers)
-    {
-      Collections.addAll(this.providers, providers);
-      return this;
-    }
-
 
     /**
      * Adds a filter to the filters provided via the descriptor.
      * <p>
      * Filters are provided in the order in which they are added to this builder.
      *
-     * @param filter
+     * @param filterDescriptor
      *          the filter to add
      *
      * @return this builder for chaining
      */
-    public RestServiceDescriptorBuilder addFilter(
-        final FilterMappingDescriptor filterMappingDescriptor)
+    public RestServiceDescriptorBuilder addFilter(final FilterMappingDescriptor filterDescriptor)
     {
-      filters.add(filterMappingDescriptor);
+      filters.add(filterDescriptor);
       return this;
     }
 
     /**
      * Adds a filter to the filters provided via the descriptor.
      *
-     * @param filterMappingDescriptors
+     * @param filterDescriptors
      *          the filters to add
      *
      * @return this builder for chaining
      */
     public RestServiceDescriptorBuilder addFilters(
-        @NonNull final Iterable<? extends FilterMappingDescriptor> filterMappingDescriptors)
+        @NonNull final Iterable<? extends FilterMappingDescriptor> filterDescriptors)
     {
-      filterMappingDescriptors.forEach(this.filters::add);
+      filterDescriptors.forEach(this.filters::add);
       return this;
     }
 
     /**
      * Adds filters to the filters provided via the descriptor.
      *
-     * @param filterMappingDescriptors
+     * @param filterDescriptors
      *          the filters to add
      *
      * @return this builder for chaining
      */
     public RestServiceDescriptorBuilder addFilters(
-        @NonNull final FilterMappingDescriptor... filterMappingDescriptors)
+        @NonNull final FilterMappingDescriptor... filterDescriptors)
     {
-      Collections.addAll(this.filters, filterMappingDescriptors);
+      Collections.addAll(this.filters, filterDescriptors);
       return this;
     }
 
@@ -260,14 +202,7 @@ public final class RestServiceDescriptor
 
     // Hidden because of Lombok
     @SuppressWarnings("unused")
-    private RestServiceDescriptorBuilder resources(final Set<Object> resources)
-    {
-      return this;
-    }
-
-    // Hidden because of Lombok
-    @SuppressWarnings("unused")
-    private RestServiceDescriptorBuilder providers(final Set<Object> providers)
+    private RestServiceDescriptorBuilder singletons(final Set<Object> singletons)
     {
       return this;
     }
