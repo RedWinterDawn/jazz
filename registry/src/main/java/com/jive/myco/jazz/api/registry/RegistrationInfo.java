@@ -9,9 +9,6 @@ import com.jive.myco.jazz.api.core.coordinates.Locality;
 
 public interface RegistrationInfo {
   PnkyPromise<Void> unRegister();
-  String getGroupId();
-  Locality getLocality();
-  boolean isLeader();
+  String getInterface();
   String getServiceHealth();
-  String getLifecycle();
 }
