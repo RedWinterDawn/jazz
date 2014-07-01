@@ -73,8 +73,8 @@ public interface AggregateHealthCheck extends HealthStatusable
   PnkyPromise<Void> addListener(final AggregateHealthCheckListener listener, final Executor executor);
 
   /**
-   * Adds a listener from the check. Removing a listener that has not previously been
-   * {@link #addListener(HealthCheckListener) added} has no effect.
+   * Removes a listener from the check. Removing a listener that has not previously been
+   * {@link #addListener(AggregateHealthCheckListener) added} has no effect.
    *
    * @param listener
    *          the listener to remove

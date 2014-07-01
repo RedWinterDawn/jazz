@@ -14,7 +14,7 @@ public interface HealthCheckManager
   /**
    * Creates a new {@link AggregateHealthCheck} based on the supplied descriptor.
    *
-   * @param desrciptor
+   * @param descriptor
    *          the descriptor to process
    *
    * @return a future that completes when the aggregate health check has been created or an error

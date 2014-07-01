@@ -3,9 +3,8 @@ package com.jive.myco.jazz.api.health;
 import java.util.concurrent.Executor;
 
 /**
- * TODO
- *
- * Implementations are expected to be thread safe.
+ * Provides a view into a resource of that resources health status. Implementations are expected to
+ * be thread safe.
  *
  * @author David Valeri
  */

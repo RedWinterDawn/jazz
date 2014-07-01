@@ -63,8 +63,8 @@ public class AggregateHealthCheckDescriptor
      * If a health check that {@link Object#equals(Object) equals} a value provided by
      * {@code healthChecks} has already been configured, this call overwrites the previous value.
      *
-     * @param healthCheck
-     *          the health check to add
+     * @param healthChecks
+     *          the health checks to add
      *
      * @return this builder for chaining
      */
@@ -81,8 +81,8 @@ public class AggregateHealthCheckDescriptor
      * If a health check that {@link Object#equals(Object) equals} a value provided by
      * {@code healthChecks} has already been configured, this call overwrites the previous value.
      *
-     * @param singletons
-     *          the singletons to add
+     * @param healthChecks
+     *          the health checks to add
      *
      * @return this builder for chaining
      */
@@ -94,7 +94,7 @@ public class AggregateHealthCheckDescriptor
     }
 
     @SuppressWarnings("unused")
-    private final void healthChecks()
+    private void healthChecks()
     {
       // Hidden from Lombok
     }

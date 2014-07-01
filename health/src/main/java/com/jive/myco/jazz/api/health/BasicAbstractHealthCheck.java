@@ -21,9 +21,8 @@ public abstract class BasicAbstractHealthCheck extends AbstractHealthCheck imple
   }
 
   /**
-   * Called from {@link #getHealthStatus()} to calculate a new value for this check's current status
-   * in the event that {@link #isCaching()} returns {@code false}. Subclasses may also use this
-   * method to calculate a new status via an external trigger such as a timer.
+   * Called from {@link #updateHealthStatus()} to calculate a new value for this check's current
+   * status.
    *
    * @return the new status for the check
    */
