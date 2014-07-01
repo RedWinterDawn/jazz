@@ -78,7 +78,7 @@ public final class RestServiceDescriptor
      * Adds singletons to the singletons provided via the descriptor.
      * <p>
      * If a singleton that {@link Object#equals(Object) equals} a value provided by
-     * {@code singleton} has already been configured, this call overwrites the previous value.
+     * {@code singletons} has already been configured, this call overwrites the previous value.
      *
      * @param singletons
      *          the singletons to add

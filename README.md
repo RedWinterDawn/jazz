@@ -11,6 +11,12 @@ The API for components of the Jazz framework.
 
 ## <a name="changes"></a>Change Log
 
+#### 0.1.2
+* Upgrading from 0.1.1
+  * None
+* Change Log
+  * US3598 - Added health check API
+
 #### 0.1.1
 * Upgrading from 0.1.0
   * None
