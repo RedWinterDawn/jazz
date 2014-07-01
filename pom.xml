@@ -22,7 +22,8 @@
     <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
   </properties>
 
-  <scm>
+
+	<scm>
     <connection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</connection>
     <developerConnection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</developerConnection>
     <url>https://github.com/jive/com.jive.myco.jazz.api</url>
@@ -59,5 +60,6 @@
     <module>metrics</module>
     <module>rest</module>
     <module>web</module>
+	  <module>registry</module>
   </modules>
 </project>
