@@ -9,7 +9,7 @@ public class ServiceAddressTest {
   @Test
   public void testParseAddressJDBC() throws Exception {
     String address = "jdbc:postgresql://10.199.4.2:5432/pbxs";
-    ServiceAddress serviceAddress = ServiceAddress.parseAddress(address);
+    ServiceAddress serviceAddress = ServiceAddress.valueOf(address);
 
     assertEquals(serviceAddress.getProtocol(),"jdbc:postgresql");
     assertEquals(serviceAddress.getServer(),"10.199.4.2");
@@ -21,7 +21,7 @@ public class ServiceAddressTest {
   @Test
   public void testParseAddressIPNoPort() throws Exception {
     String address = "http://10.199.4.2/pbxs";
-    ServiceAddress serviceAddress = ServiceAddress.parseAddress(address);
+    ServiceAddress serviceAddress = ServiceAddress.valueOf(address);
 
     assertEquals(serviceAddress.getProtocol(),"http");
     assertEquals(serviceAddress.getServer(),"10.199.4.2");
@@ -34,7 +34,7 @@ public class ServiceAddressTest {
   @Test
   public void testParseAddressIP() throws Exception {
     String address = "http://10.199.4.2:8080/pbxs";
-    ServiceAddress serviceAddress = ServiceAddress.parseAddress(address);
+    ServiceAddress serviceAddress = ServiceAddress.valueOf(address);
 
     assertEquals(serviceAddress.getProtocol(),"http");
     assertEquals(serviceAddress.getServer(),"10.199.4.2");
@@ -46,7 +46,7 @@ public class ServiceAddressTest {
   @Test
   public void testParseAddressDNSNoPort() throws Exception {
     String address = "http://www.jive.com/pbxs";
-    ServiceAddress serviceAddress = ServiceAddress.parseAddress(address);
+    ServiceAddress serviceAddress = ServiceAddress.valueOf(address);
 
     assertEquals(serviceAddress.getProtocol(),"http");
     assertEquals(serviceAddress.getServer(),"www.jive.com");

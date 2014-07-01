@@ -1,24 +1,23 @@
 package com.jive.myco.jazz.api.registry;
 
 /**
- * Created by jnorton on 6/30/14.
+ * @author John Norton
  */
 
 
+import java.util.Properties;
 
+import com.jive.myco.commons.versions.Version;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import com.jive.myco.jazz.api.core.coordinates.Locality;
-import lombok.Data;
 
-import java.util.Map;
-
-/**
- * The type Service instance.
- */
-@Data
+@Getter
+@AllArgsConstructor
 public class ServiceInstance {
-  private String version;
-  private Map<String, String> serviceProoperties;
+  private Version version;
+  private Properties serviceProperties;
   private String instanceId;
   private Locality locality;
   private ServiceAddress serviceAddress;

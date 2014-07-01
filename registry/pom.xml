@@ -2,22 +2,30 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<artifactId>root</artifactId>
-		<groupId>com.jive.myco.jazz.api</groupId>
-		<version>0.1.2-SNAPSHOT</version>
-	</parent>
-	<modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>root</artifactId>
+    <groupId>com.jive.myco.jazz.api</groupId>
+    <version>0.1.2-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
 
 
-	<artifactId>jazz-api-registry</artifactId>
+  <artifactId>jazz-api-registry</artifactId>
 
-	<name>Jazz :: API :: Registry</name>
-	<dependencies>
-	<dependency>
-		<groupId>${project.groupId}</groupId>
-		<artifactId>jazz-api-core</artifactId>
-		<version>${project.version}</version>
-	</dependency>
-	</dependencies>
+  <name>Jazz :: API :: Registry</name>
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>jazz-api-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jive.myco.commons</groupId>
+      <artifactId>myco-commons-concurrent</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.jive.myco.commons</groupId>
+      <artifactId>myco-commons-versions</artifactId>
+    </dependency>
+  </dependencies>
 </project>

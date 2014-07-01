@@ -1,10 +1,13 @@
 package com.jive.myco.jazz.api.registry;
 
 /**
- * Created by jnorton on 7/1/14.
+ * @author John Norton
  */
+
+
 public class FailedToRegisterServiceException extends Exception {
 
+  static final long serialVersionUID = -3387516993124229948L;
 
   public FailedToRegisterServiceException(Throwable cause)
   {

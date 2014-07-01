@@ -1,12 +1,17 @@
 package com.jive.myco.jazz.api.registry;
 
 import com.jive.myco.commons.concurrent.PnkyPromise;
+import com.jive.myco.jazz.api.core.coordinates.Locality;
 
 /**
- * Created by jnorton on 7/1/14.
- */
-
+ * @author John Norton
+*/
 
 public interface RegistrationInfo {
-  public PnkyPromise<Void> unRegister();
+  PnkyPromise<Void> unRegister();
+  String getGroupId();
+  Locality getLocality();
+  boolean isLeader();
+  String getServiceHealth();
+  String getLifecycle();
 }
