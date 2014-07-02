@@ -12,44 +12,23 @@ import lombok.Getter;
 @Getter
 public class ServiceAddress
 {
-  private String protocol;
-  private String server;
-  private String port;
-  private String path;
+  private String address;
+
 
   private ServiceAddress(String address)
   {
-    Pattern pattern = Pattern.compile("(.*):\\/{2}(.*)\\/(.*)");
-    Matcher matcher = pattern.matcher(address);
-    if (matcher.matches())
-    {
-      protocol = matcher.group(1);
-      if (matcher.group(2).split(":").length == 1)
-      {
-        server = matcher.group(2);
-      }
-      else
-      {
-        server = matcher.group(2).split(":")[0];
-        port = matcher.group(2).split(":")[1];
-      }
-      path = matcher.group(3);
-    }
+    this.address = address;
+
   }
 
   @Override
   public String toString()
   {
-    if (port == null)
-    {
-      return String.format("%s://%s/%s", protocol, server, path);
-    }
-    return String.format("%s://%s:%s/%s", protocol, server, port, path);
+    return address;
   }
 
   public static ServiceAddress valueOf(String value)
   {
     return new ServiceAddress(value);
-
-  }
+ }
 }

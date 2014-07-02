@@ -1,4 +1,4 @@
-package com.jive.myco.jazz.api.registry;
+package com.jive.myco.jazz.api.registry.exceptions;
 
 /**
  * @author John Norton
