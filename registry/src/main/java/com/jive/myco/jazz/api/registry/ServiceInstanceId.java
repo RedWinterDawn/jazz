@@ -28,7 +28,7 @@ public class ServiceInstanceId
     }
     throw new RegistryValueParseException(
         String.format(
-            "Failed to parse value for class ServiceInstanceId.  Acceptable pattern is %s",
+            "Failed to parse value of %s for class ServiceInstanceId.  Acceptable pattern is %s", value,
             SERVICE_INSTANCE_ID_PATTERN));
   }
 
