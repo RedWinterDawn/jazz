@@ -9,19 +9,18 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-
   <artifactId>jazz-api-registry</artifactId>
 
   <name>Jazz :: API :: Registry</name>
   <dependencies>
     <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>jazz-api-core</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
       <groupId>com.jive.myco.commons</groupId>
       <artifactId>myco-commons-concurrent</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.jive.myco.jazz.api</groupId>
+      <artifactId>jazz-api-core</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>com.jive.myco.commons</groupId>
