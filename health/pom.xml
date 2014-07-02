@@ -8,11 +8,11 @@
     <version>0.1.2-SNAPSHOT</version>
   </parent>
 
-  <artifactId>jazz-api-rest</artifactId>
+  <artifactId>jazz-api-health</artifactId>
 
-  <name>Jazz :: API :: REST</name>
+  <name>Jazz :: API :: Health</name>
 
-  <description>Provides REST functions for Jazz Framework based code.</description>
+  <description>Provides health check functions for Jazz Framework based code.</description>
 
   <dependencies>
     <dependency>
@@ -22,24 +22,13 @@
     </dependency>
 
     <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>jazz-api-web</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
       <groupId>com.jive.myco.commons</groupId>
       <artifactId>myco-commons-concurrent</artifactId>
     </dependency>
-
+    
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>javax.ws.rs-api</artifactId>
+      <groupId>com.jive.myco.commons</groupId>
+      <artifactId>myco-commons-listenable</artifactId>
     </dependency>
   </dependencies>
 </project>
