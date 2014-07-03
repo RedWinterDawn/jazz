@@ -4,8 +4,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lombok.Getter;
+import lombok.NonNull;
 
 /**
+ *
+ * Represents an address of the service; Any string valid except null;
+ * 
  * @author John Norton
  */
 
@@ -25,7 +29,7 @@ public class ServiceAddress
     return address;
   }
 
-  public static ServiceAddress valueOf(String value)
+  public static ServiceAddress valueOf(final @NonNull String value)
   {
     return new ServiceAddress(value);
   }

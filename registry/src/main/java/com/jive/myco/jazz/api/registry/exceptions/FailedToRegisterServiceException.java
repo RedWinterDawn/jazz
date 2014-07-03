@@ -1,6 +1,7 @@
 package com.jive.myco.jazz.api.registry.exceptions;
 
 /**
+ * Exception received when service registration fails;
  * @author John Norton
  */
 

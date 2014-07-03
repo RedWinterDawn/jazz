@@ -3,13 +3,16 @@ package com.jive.myco.jazz.api.registry;
 import lombok.NonNull;
 
 /**
+ * Represents an instance id of a service in the registry.<p>
+ *
+ * Valid characters include a-z, 0-9 period(.) dash(-) and underscore(_).
+ *
  * @author John Norton
  */
 
 public class ServiceInstanceId
 {
 
-  @NonNull
   private final String serviceInstanceId;
 
   private static String SERVICE_INSTANCE_ID_PATTERN = "^[a-z_\\-\\.0-9]+$";
@@ -19,7 +22,8 @@ public class ServiceInstanceId
     this.serviceInstanceId = value;
   }
 
-  public static ServiceInstanceId valueOf(final String value)
+
+  public static ServiceInstanceId valueOf(final @NonNull String value)
   {
     if (value.matches(SERVICE_INSTANCE_ID_PATTERN))
     {
@@ -31,6 +35,7 @@ public class ServiceInstanceId
             value,
             SERVICE_INSTANCE_ID_PATTERN));
   }
+
 
   @Override
   public String toString()

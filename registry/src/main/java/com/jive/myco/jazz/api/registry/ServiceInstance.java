@@ -11,8 +11,7 @@ import com.jive.myco.jazz.api.core.coordinates.Locality;
  *
  * Represents a registered service in the service registry.
  *
- * @see com.jive.myco.jazz.api.registry.ServiceInterfaceName
- * @see com.jive.myco.jazz.api.registry.ServiceInstanceId
+ * @see com.jive.myco.jazz.api.registry.ServiceInterface
  * @see com.jive.myco.jazz.api.registry.ServiceAddress
  * @see com.jive.myco.commons.versions.Version
  * @see com.jive.myco.jazz.api.core.coordinates.Locality

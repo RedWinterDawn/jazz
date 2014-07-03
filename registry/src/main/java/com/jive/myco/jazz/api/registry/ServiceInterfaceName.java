@@ -3,6 +3,10 @@ package com.jive.myco.jazz.api.registry;
 import lombok.NonNull;
 
 /**
+ * Represents an Name of a service in the registry.<p>
+ *
+ * Valid characters include a-z, 0-9 period(.) dash(-) and underscore(_).
+ *
  * @author John Norton
  */
 
