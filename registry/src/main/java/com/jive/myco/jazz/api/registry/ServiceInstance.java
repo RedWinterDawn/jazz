@@ -23,7 +23,7 @@ public class ServiceInstance
   @NonNull
   private final ServiceAddress serviceAddress;
   @NonNull
-  private final Version version;
+  private final Version serviceInterfaceVersion;
   @NonNull
   private final Locality locality;
 
