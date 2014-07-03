@@ -9,7 +9,6 @@ import lombok.Getter;
  * @author John Norton
  */
 
-@Getter
 public class ServiceAddress
 {
   private String address;
