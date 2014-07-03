@@ -27,7 +27,8 @@ public class ServiceInstanceId
     }
     throw new IllegalArgumentException(
         String.format(
-            "Failed to parse value of %s for class ServiceInstanceId.  Acceptable pattern is %s", value,
+            "Failed to parse value of %s for class ServiceInstanceId.  Acceptable pattern is %s",
+            value,
             SERVICE_INSTANCE_ID_PATTERN));
   }
 

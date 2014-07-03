@@ -10,6 +10,8 @@ import com.jive.myco.commons.concurrent.PnkyPromise;
 
 public interface RegistryManager
 {
-  PnkyPromise<ServiceRegistrationInfo> registerService(ServiceInstanceDescriptor serviceInstanceDescriptor) throws Exception;
-  PnkyPromise<Set<ServiceInstanceDescriptor>> getServiceInstances(ServiceInterface serviceInterface);
+  PnkyPromise<ServiceRegistrationInfo> registerService(
+      ServiceInstanceDescriptor serviceInstanceDescriptor) throws Exception;
+
+  PnkyPromise<Set<ServiceInstance>> getServiceInstances(ServiceInterface serviceInterface);
 }

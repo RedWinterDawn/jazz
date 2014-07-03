@@ -1,5 +1,9 @@
 package com.jive.myco.jazz.api.registry;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import lombok.Getter;
 
 /**
  * @author John Norton
@@ -7,10 +11,9 @@ package com.jive.myco.jazz.api.registry;
 
 public class ServiceAddress
 {
-  private final String address;
+  private String address;
 
-
-  private ServiceAddress(final String address)
+  private ServiceAddress(String address)
   {
     this.address = address;
 
@@ -22,8 +25,8 @@ public class ServiceAddress
     return address;
   }
 
-  public static ServiceAddress valueOf(final String value)
+  public static ServiceAddress valueOf(String value)
   {
     return new ServiceAddress(value);
- }
+  }
 }

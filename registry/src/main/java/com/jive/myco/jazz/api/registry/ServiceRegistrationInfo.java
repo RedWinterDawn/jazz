@@ -4,8 +4,10 @@ import com.jive.myco.commons.concurrent.PnkyPromise;
 
 /**
  * @author John Norton
-*/
-public interface ServiceRegistrationInfo {
+ */
+public interface ServiceRegistrationInfo
+{
   PnkyPromise<Void> unRegister();
-  ServiceInstanceDescriptor getServiceInstanceDescriptor();
+
+  ServiceInstance getServiceInstance();
 }
