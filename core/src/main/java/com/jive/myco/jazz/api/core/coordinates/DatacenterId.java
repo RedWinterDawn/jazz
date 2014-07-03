@@ -22,6 +22,12 @@ public final class DatacenterId
 
   private final String id;
 
+  @Override
+  public String toString()
+  {
+    return id;
+  }
+
   public static DatacenterId valueOf(final String id)
   {
     if (!DATACENTER_ID_PATTERN.matcher(id).matches())

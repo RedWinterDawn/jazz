@@ -26,6 +26,12 @@ public final class ClusterId
 
   private final String id;
 
+  @Override
+  public String toString()
+  {
+    return id;
+  }
+
   public static ClusterId valueOf(@NonNull final String id)
   {
     if (!CLUSTER_ID_PATTERN.matcher(id).matches())
