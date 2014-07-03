@@ -28,6 +28,16 @@
     
     <dependency>
       <groupId>com.jive.myco.commons</groupId>
+      <artifactId>myco-commons-hawtdispatch</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.jive.myco.commons</groupId>
+      <artifactId>myco-commons-lifecycle</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.jive.myco.commons</groupId>
       <artifactId>myco-commons-listenable</artifactId>
     </dependency>
   </dependencies>
