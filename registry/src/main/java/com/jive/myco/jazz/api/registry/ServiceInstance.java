@@ -8,6 +8,16 @@ import com.jive.myco.commons.versions.Version;
 import com.jive.myco.jazz.api.core.coordinates.Locality;
 
 /**
+ *
+ * Represents a registered service in the service registry.
+ *
+ * @see com.jive.myco.jazz.api.registry.ServiceInterfaceName
+ * @see com.jive.myco.jazz.api.registry.ServiceInstanceId
+ * @see com.jive.myco.jazz.api.registry.ServiceAddress
+ * @see com.jive.myco.commons.versions.Version
+ * @see com.jive.myco.jazz.api.core.coordinates.Locality
+ *
+ *
  * @author John Norton
  */
 
@@ -17,13 +27,11 @@ public class ServiceInstance
 {
 
   @NonNull
-  private final ServiceInterfaceName serviceInterfaceName;
+  private final ServiceInterface serviceInterface;
   @NonNull
   private final ServiceInstanceId serviceInstanceId;
   @NonNull
   private final ServiceAddress serviceAddress;
-  @NonNull
-  private final Version serviceInterfaceVersion;
   @NonNull
   private final Locality locality;
 
