@@ -53,6 +53,13 @@
         <version>${project.version}</version>
         <scope>provided</scope>
       </dependency>
+
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>jazz-api-registry</artifactId>
+        <version>${project.version}</version>
+        <scope>provided</scope>
+      </dependency>
       
       <dependency>
         <groupId>javax.servlet</groupId>
