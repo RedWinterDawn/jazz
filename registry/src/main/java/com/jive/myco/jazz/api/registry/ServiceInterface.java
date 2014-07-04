@@ -1,5 +1,6 @@
 package com.jive.myco.jazz.api.registry;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Builder;
@@ -13,9 +14,9 @@ import com.jive.myco.commons.versions.Version;
  * @see com.jive.myco.jazz.api.registry.ServiceInterfaceName
  * @author John Norton
  */
-
 @Builder
 @Getter
+@EqualsAndHashCode
 public class ServiceInterface
 {
   @NonNull

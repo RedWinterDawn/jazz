@@ -1,10 +1,10 @@
 package com.jive.myco.jazz.api.registry;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Builder;
 
-import com.jive.myco.commons.versions.Version;
 import com.jive.myco.jazz.api.core.coordinates.Locality;
 
 /**
@@ -22,6 +22,7 @@ import com.jive.myco.jazz.api.core.coordinates.Locality;
 
 @Builder
 @Getter
+@EqualsAndHashCode
 public class ServiceInstance
 {
 
@@ -33,5 +34,4 @@ public class ServiceInstance
   private final ServiceAddress serviceAddress;
   @NonNull
   private final Locality locality;
-
 }

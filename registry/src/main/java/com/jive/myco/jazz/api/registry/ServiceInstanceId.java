@@ -1,5 +1,6 @@
 package com.jive.myco.jazz.api.registry;
 
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
 /**
@@ -9,15 +10,14 @@ import lombok.NonNull;
  *
  * @author John Norton
  */
-
+@EqualsAndHashCode
 public class ServiceInstanceId
 {
+  private static String SERVICE_INSTANCE_ID_PATTERN = "^[a-z_\\-\\.0-9]+$";
 
   private final String serviceInstanceId;
 
-  private static String SERVICE_INSTANCE_ID_PATTERN = "^[a-z_\\-\\.0-9]+$";
-
-  private ServiceInstanceId(final String value)
+  private ServiceInstanceId(@NonNull final String value)
   {
     this.serviceInstanceId = value;
   }
@@ -42,5 +42,4 @@ public class ServiceInstanceId
   {
     return this.serviceInstanceId;
   }
-
 }

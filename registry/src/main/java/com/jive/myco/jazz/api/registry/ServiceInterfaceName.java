@@ -1,5 +1,6 @@
 package com.jive.myco.jazz.api.registry;
 
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
 /**
@@ -9,16 +10,14 @@ import lombok.NonNull;
  *
  * @author John Norton
  */
-
+@EqualsAndHashCode
 public class ServiceInterfaceName
 {
-
   private static String SERVICE_INTERFACE_NAME_PATTERN = "^[a-z_\\-\\.0-9]+$";
 
-  @NonNull
   private final String serviceInterfaceName;
 
-  private ServiceInterfaceName(final String serviceInterfaceName)
+  private ServiceInterfaceName(@NonNull final String serviceInterfaceName)
   {
     this.serviceInterfaceName = serviceInterfaceName;
   }

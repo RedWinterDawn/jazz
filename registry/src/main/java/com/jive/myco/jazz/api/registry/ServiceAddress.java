@@ -1,9 +1,6 @@
 package com.jive.myco.jazz.api.registry;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import lombok.Getter;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
 /**
@@ -12,12 +9,12 @@ import lombok.NonNull;
  * 
  * @author John Norton
  */
-
+@EqualsAndHashCode
 public class ServiceAddress
 {
-  private String address;
+  private final String address;
 
-  private ServiceAddress(String address)
+  private ServiceAddress(final String address)
   {
     this.address = address;
 
