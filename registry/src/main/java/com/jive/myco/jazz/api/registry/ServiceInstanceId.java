@@ -4,16 +4,16 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
 /**
- * Represents an instance id of a service in the registry.<p>
- *
- * Valid characters include a-z, 0-9 period(.) dash(-) and underscore(_).
+ * Represents the unique ID of a service instance in the registry.
+ * <p>
+ * Valid characters include a-z, A-Z, 0-9, period(.), dash(-), and underscore(_).
  *
  * @author John Norton
  */
 @EqualsAndHashCode
-public class ServiceInstanceId
+public final class ServiceInstanceId
 {
-  private static String SERVICE_INSTANCE_ID_PATTERN = "^[a-z_\\-\\.0-9]+$";
+  private static String SERVICE_INSTANCE_ID_PATTERN = "^[\\w.-]+$";
 
   private final String serviceInstanceId;
 
@@ -21,7 +21,6 @@ public class ServiceInstanceId
   {
     this.serviceInstanceId = value;
   }
-
 
   public static ServiceInstanceId valueOf(final @NonNull String value)
   {

@@ -4,14 +4,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
 /**
- * Represents an Name of a service in the registry.<p>
- *
+ * Represents the name of a service interface in the registry.
+ * <p>
  * Valid characters include a-z, 0-9 period(.) dash(-) and underscore(_).
  *
  * @author John Norton
  */
 @EqualsAndHashCode
-public class ServiceInterfaceName
+public final class ServiceInterfaceName
 {
   private static String SERVICE_INTERFACE_NAME_PATTERN = "^[a-z_\\-\\.0-9]+$";
 

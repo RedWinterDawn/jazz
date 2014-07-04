@@ -8,7 +8,6 @@ import lombok.experimental.Builder;
 import com.jive.myco.jazz.api.core.coordinates.Locality;
 
 /**
- *
  * Represents a registered service in the service registry.
  *
  * @see com.jive.myco.jazz.api.registry.ServiceInterface
@@ -16,22 +15,22 @@ import com.jive.myco.jazz.api.core.coordinates.Locality;
  * @see com.jive.myco.commons.versions.Version
  * @see com.jive.myco.jazz.api.core.coordinates.Locality
  *
- *
  * @author John Norton
  */
-
 @Builder
 @Getter
 @EqualsAndHashCode
-public class ServiceInstance
+public final class ServiceInstance
 {
-
   @NonNull
   private final ServiceInterface serviceInterface;
+
   @NonNull
   private final ServiceInstanceId serviceInstanceId;
+
   @NonNull
   private final ServiceAddress serviceAddress;
+
   @NonNull
   private final Locality locality;
 }

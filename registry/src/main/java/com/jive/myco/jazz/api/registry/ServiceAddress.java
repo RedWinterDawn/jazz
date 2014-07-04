@@ -4,13 +4,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
 /**
+ * Represents an address of the service. Any string valid except null.
  *
- * Represents an address of the service; Any string valid except null;
- * 
  * @author John Norton
  */
 @EqualsAndHashCode
-public class ServiceAddress
+public final class ServiceAddress
 {
   private final String address;
 

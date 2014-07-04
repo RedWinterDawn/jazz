@@ -6,42 +6,44 @@ import com.jive.myco.commons.concurrent.PnkyPromise;
 
 /**
  * Used to register and lookup services in the service Registry.
- * 
+ *
  * @see com.jive.myco.commons.concurrent.PnkyPromise
- * @see com.jive.myco.jazz.api.registry.ServiceRegistrationInfo
+ * @see com.jive.myco.jazz.api.registry.ServiceInstanceBinding
  * @see com.jive.myco.jazz.api.registry.ServiceInstanceDescriptor
+ *
  * @author John Norton
  */
-
 public interface RegistryManager
 {
   /**
-   * 
-   * Registers a service
-   * 
+   * Registers a service instance.
+   * <p>
+   * NOTE: The exceptions declared to be thrown in this JavaDoc are actually used to complete the
+   * returned future rather than being thrown.
+   *
    * @param serviceInstanceDescriptor
    *          information about the service to be registered
-   *          {@link com.jive.myco.jazz.api.registry.ServiceInstanceDescriptor}
-   * 
+   *
    * @return future with information about the registered service
-   * 
+   *
    * @throws com.jive.myco.jazz.api.registry.exceptions.FailedToRegisterServiceException
    *           part of future
-   * 
    */
-  PnkyPromise<ServiceRegistrationInfo> registerService(
-      ServiceInstanceDescriptor serviceInstanceDescriptor);
+  PnkyPromise<ServiceInstanceBinding> registerService(
+      final ServiceInstanceDescriptor serviceInstanceDescriptor);
 
   /**
-   * Searches registry for the given interface. Services returned should be checked for locality and
-   * health before use.
-   * 
+   * Searches the registry for registered service instances providing the given service interface.
+   * The returned services are guaranteed to implement the major version of the supplied interface
+   * but are not guaranteed to be healthy or available.
+   * <p>
+   * NOTE: The exceptions declared to be thrown in this JavaDoc are actually used to complete the
+   * returned future rather than being thrown.
+   *
    * @param serviceInterface
-   *          Represents search parameters {@link com.jive.myco.jazz.api.registry.ServiceInterface}
-   * 
-   * @return Collection (SET) of ServiceInstances found.
-   *         {@link com.jive.myco.jazz.api.registry.ServiceInstance}
+   *          represents search parameters {@link com.jive.myco.jazz.api.registry.ServiceInterface}
+   *
+   * @return a set of service interfaces providing the requested service interface
    */
-
-  PnkyPromise<Set<ServiceInstance>> getServiceInstances(ServiceInterface serviceInterface);
+  PnkyPromise<Set<ServiceInstance>> getServiceInstances(final ServiceInterface serviceInterface);
 }
