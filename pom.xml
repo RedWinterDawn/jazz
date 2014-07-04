@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.jive.myco</groupId>
     <artifactId>parent</artifactId>
-    <version>21-SNAPSHOT</version>
+    <version>21</version>
   </parent>
 
   <groupId>com.jive.myco.jazz.api</groupId>
@@ -19,7 +19,7 @@
 
   <properties>
     <deps.servlet.version>3.1.0</deps.servlet.version>
-    <deps.myco-commons.version>0.0.7-SNAPSHOT</deps.myco-commons.version>
+    <deps.myco-commons.version>0.0.7</deps.myco-commons.version>
     <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
   </properties>
 

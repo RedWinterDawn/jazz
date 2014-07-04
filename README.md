@@ -16,6 +16,7 @@ The API for components of the Jazz framework.
   * None
 * Change Log
   * US3598 - Added health check API
+  * US2261 - Added service registry API
 
 #### 0.1.1
 * Upgrading from 0.1.0
