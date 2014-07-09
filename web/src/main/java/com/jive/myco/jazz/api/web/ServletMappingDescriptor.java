@@ -1,10 +1,10 @@
 package com.jive.myco.jazz.api.web;
 
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.Servlet;
 
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.Builder;
 
 /**
@@ -12,7 +12,6 @@ import lombok.experimental.Builder;
  *
  * @author David Valeri
  */
-@RequiredArgsConstructor
 @Getter
 @Builder
 public final class ServletMappingDescriptor
@@ -20,12 +19,28 @@ public final class ServletMappingDescriptor
   /**
    * The URL pattern used to map requests to the filter in this descriptor.
    */
-  @NonNull
   private final String urlPattern;
 
   /**
    * The servlet to use.
    */
-  @NonNull
   private final Servlet servlet;
+
+  /**
+   * An optional multipart config element used to configure multi-part support on the servlet.
+   */
+  private final MultipartConfigElement multipartConfigElement;
+
+  public ServletMappingDescriptor(final String urlPattern, final Servlet servlet)
+  {
+    this(urlPattern, servlet, null);
+  }
+
+  public ServletMappingDescriptor(@NonNull final String urlPattern, @NonNull final Servlet servlet,
+      final MultipartConfigElement multipartConfigElement)
+  {
+    this.urlPattern = urlPattern;
+    this.servlet = servlet;
+    this.multipartConfigElement = multipartConfigElement;
+  }
 }
