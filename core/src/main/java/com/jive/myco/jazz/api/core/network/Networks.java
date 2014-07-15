@@ -63,13 +63,16 @@ public class Networks
     private final Set<Network> networks = new HashSet<>();
 
     public NetworksBuilder addNetworks(@NonNull final Network network,
-        @NonNull final Network... rest)
+        final Network... rest)
     {
       networks.add(network);
 
-      for (final Network nw : rest)
+      if (rest != null)
       {
-        networks.add(nw);
+        for (final Network nw : rest)
+        {
+          networks.add(nw);
+        }
       }
 
       return this;
