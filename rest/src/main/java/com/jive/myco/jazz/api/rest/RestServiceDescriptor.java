@@ -80,15 +80,15 @@ public final class RestServiceDescriptor
      * If a singleton that {@link Object#equals(Object) equals} a value provided by
      * {@code singletons} has already been configured, this call overwrites the previous value.
      *
-     * @param singletons
+     * @param additionalSingletons
      *          the singletons to add
      *
      * @return this builder for chaining
      */
     public RestServiceDescriptorBuilder addSingletons(
-        @NonNull final Iterable<? extends Object> singletons)
+        @NonNull final Iterable<? extends Object> additionalSingletons)
     {
-      singletons.forEach(this.singletons::add);
+      additionalSingletons.forEach(singletons::add);
       return this;
     }
 
@@ -98,14 +98,14 @@ public final class RestServiceDescriptor
      * If a singleton that {@link Object#equals(Object) equals} a value provided by
      * {@code singletons} has already been configured, this call overwrites the previous value.
      *
-     * @param singletons
+     * @param additionalSingletons
      *          the singletons to add
      *
      * @return this builder for chaining
      */
-    public RestServiceDescriptorBuilder addSingletons(@NonNull final Object... singletons)
+    public RestServiceDescriptorBuilder addSingletons(@NonNull final Object... additionalSingletons)
     {
-      Collections.addAll(this.singletons, singletons);
+      Collections.addAll(singletons, additionalSingletons);
       return this;
     }
 
@@ -202,7 +202,7 @@ public final class RestServiceDescriptor
 
     // Hidden because of Lombok
     @SuppressWarnings("unused")
-    private RestServiceDescriptorBuilder singletons(final Set<Object> singletons)
+    private RestServiceDescriptorBuilder singletons(final Set<Object> additionalSingletons)
     {
       return this;
     }
@@ -218,7 +218,7 @@ public final class RestServiceDescriptor
     // Hidden because of Lombok
     @SuppressWarnings("unused")
     private RestServiceDescriptorBuilder filters(
-        final List<StaticResourceDescriptor> filters)
+        final List<StaticResourceDescriptor> additionalFilters)
     {
       return this;
     }
