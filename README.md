@@ -11,6 +11,12 @@ The API for components of the Jazz framework.
 
 ## <a name="changes"></a>Change Log
 
+#### 0.1.3
+* Upgrading from 0.1.2
+  * None
+* Change Log
+  * US4536 - Upgraded to Myco Commons 0.0.8
+
 #### 0.1.2
 * Upgrading from 0.1.1
   * None

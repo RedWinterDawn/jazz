@@ -63,15 +63,15 @@ public class AggregateHealthCheckDescriptor
      * If a health check that {@link Object#equals(Object) equals} a value provided by
      * {@code healthChecks} has already been configured, this call overwrites the previous value.
      *
-     * @param healthChecks
+     * @param additionalHealthChecks
      *          the health checks to add
      *
      * @return this builder for chaining
      */
     public AggregateHealthCheckDescriptorBuilder addHealthChecks(
-        @NonNull final Iterable<? extends HealthCheck> healthChecks)
+        @NonNull final Iterable<? extends HealthCheck> additionalHealthChecks)
     {
-      healthChecks.forEach(this.healthChecks::add);
+      additionalHealthChecks.forEach(healthChecks::add);
       return this;
     }
 
@@ -81,15 +81,15 @@ public class AggregateHealthCheckDescriptor
      * If a health check that {@link Object#equals(Object) equals} a value provided by
      * {@code healthChecks} has already been configured, this call overwrites the previous value.
      *
-     * @param healthChecks
+     * @param additionalHealthChecks
      *          the health checks to add
      *
      * @return this builder for chaining
      */
     public AggregateHealthCheckDescriptorBuilder addHealthChecks(
-        @NonNull final HealthCheck... healthChecks)
+        @NonNull final HealthCheck... additionalHealthChecks)
     {
-      Collections.addAll(this.healthChecks, healthChecks);
+      Collections.addAll(healthChecks, additionalHealthChecks);
       return this;
     }
 

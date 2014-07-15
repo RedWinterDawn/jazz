@@ -67,19 +67,16 @@ public class Networks
     {
       networks.add(network);
 
-      if (rest != null)
+      for (final Network nw : rest)
       {
-        for (final Network nw : rest)
-        {
-          networks.add(nw);
-        }
+        networks.add(nw);
       }
 
       return this;
     }
 
     @SuppressWarnings("unused")
-    private void networks(final Set<? extends Network> networks)
+    private void networks()
     {
       // Hidden (Lombok)
     }

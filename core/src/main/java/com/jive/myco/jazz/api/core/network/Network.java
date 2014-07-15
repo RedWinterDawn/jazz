@@ -54,11 +54,11 @@ public final class Network
       return this;
     }
 
-    public NetworkBuilder addAddresses(final Iterable<? extends InetAddress> inetAddresses)
+    public NetworkBuilder addAddresses(final Iterable<? extends InetAddress> additionalInetAddresses)
     {
-      for (final InetAddress address : inetAddresses)
+      for (final InetAddress address : additionalInetAddresses)
       {
-        this.inetAddresses.add(address);
+        inetAddresses.add(address);
       }
 
       return this;
