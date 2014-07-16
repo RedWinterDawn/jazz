@@ -15,7 +15,7 @@ The API for components of the Jazz framework.
 * Upgrading from 0.1.2
   * None
 * Change Log
-  * US4536 - Upgraded to Myco Commons 0.0.8
+  * US4536 - Upgraded to Myco Commons 0.0.8 and latest Myco Parent
 
 #### 0.1.2
 * Upgrading from 0.1.1
