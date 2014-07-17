@@ -4,9 +4,10 @@ The API for components of the Jazz framework.
 
 * **[BOM](./bom/README.md)**
 * **[Core](./core)**
+* **[Health](./health/README.md)**
 * **[Metrics](./metrics/README.md)**
-* **[REST](./rest)**
-* **[Web](./web)**
+* **[REST](./rest/README.md)**
+* **[Web](./web/README.md)**
 * **[Change Log](#changes)**
 
 ## <a name="changes"></a>Change Log
