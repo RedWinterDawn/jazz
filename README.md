@@ -14,9 +14,9 @@ The API for components of the Jazz framework.
 
 ### 0.2.0
 * Upgrading from 0.1.3
-  * None
-* Change Log
   * TBD
+* Change Log
+  * US4842, US4843 - Updated to Myco Parent 26
 
 ### 0.1.3
 * Upgrading from 0.1.2
