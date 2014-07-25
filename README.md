@@ -12,6 +12,12 @@ The API for components of the Jazz framework.
 
 ## <a name="changes"></a>Change Log
 
+### 0.2.0
+* Upgrading from 0.1.3
+  * None
+* Change Log
+  * TBD
+
 ### 0.1.3
 * Upgrading from 0.1.2
   * None

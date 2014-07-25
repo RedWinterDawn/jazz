@@ -36,7 +36,7 @@ public final class ClusterId
   {
     if (!CLUSTER_ID_PATTERN.matcher(id).matches())
     {
-      throw new IllegalArgumentException(id + " is not a valid region ID");
+      throw new IllegalArgumentException(id + " is not a valid cluster ID");
     }
 
     return new ClusterId(id);

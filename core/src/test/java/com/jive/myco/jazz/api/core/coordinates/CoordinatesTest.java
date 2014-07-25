@@ -4,10 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.jive.myco.jazz.api.core.coordinates.Coordinates;
-import com.jive.myco.jazz.api.core.coordinates.InstanceId;
-import com.jive.myco.jazz.api.core.coordinates.ProviderId;
-
 /**
  * Tests for {@link Coordinates} and its constituent components.
  *
@@ -15,115 +11,18 @@ import com.jive.myco.jazz.api.core.coordinates.ProviderId;
  */
 public class CoordinatesTest
 {
-  @Test
-  public void testProviderId()
-  {
-    assertEquals("a", ProviderId.valueOf("a").getId());
-    assertEquals("z", ProviderId.valueOf("z").getId());
-    assertEquals("A", ProviderId.valueOf("A").getId());
-    assertEquals("Z", ProviderId.valueOf("Z").getId());
-    assertEquals("0", ProviderId.valueOf("0").getId());
-    assertEquals("9", ProviderId.valueOf("9").getId());
 
-    try
-    {
-      ProviderId.valueOf("-");
-      fail();
-    }
-    catch (final IllegalArgumentException e)
-    {
-      // expected
-    }
 
-    try
-    {
-      ProviderId.valueOf(" ");
-      fail();
-    }
-    catch (final IllegalArgumentException e)
-    {
-      // expected
-    }
 
-    try
-    {
-      ProviderId.valueOf("");
-      fail();
-    }
-    catch (final IllegalArgumentException e)
-    {
-      // expected
-    }
-
-    try
-    {
-      ProviderId.valueOf(null);
-      fail();
-    }
-    catch (final NullPointerException e)
-    {
-      // expected
-    }
-  }
-
-  @Test
-  public void testInstanceId()
-  {
-    assertEquals("a", InstanceId.valueOf("a").getId());
-    assertEquals("z", InstanceId.valueOf("z").getId());
-    assertEquals("A", InstanceId.valueOf("A").getId());
-    assertEquals("Z", InstanceId.valueOf("Z").getId());
-    assertEquals("0", InstanceId.valueOf("0").getId());
-    assertEquals("9", InstanceId.valueOf("9").getId());
-
-    try
-    {
-      InstanceId.valueOf("-");
-      fail();
-    }
-    catch (final IllegalArgumentException e)
-    {
-      // expected
-    }
-
-    try
-    {
-      InstanceId.valueOf(" ");
-      fail();
-    }
-    catch (final IllegalArgumentException e)
-    {
-      // expected
-    }
-
-    try
-    {
-      InstanceId.valueOf("");
-      fail();
-    }
-    catch (final IllegalArgumentException e)
-    {
-      // expected
-    }
-
-    try
-    {
-      InstanceId.valueOf(null);
-      fail();
-    }
-    catch (final NullPointerException e)
-    {
-      // expected
-    }
-  }
 
   @Test
   public void testCoordinates()
   {
-    final Coordinates coordinates = Coordinates.valueOf("A:pvu-1a:B");
+    final Coordinates coordinates = Coordinates.valueOf("A:pvu-1a:blah-blah-blah:B");
 
     assertEquals("A", coordinates.getProvider().toString());
     assertEquals("pvu-1a", coordinates.getLocality().toString());
+    assertEquals("blah-blah-blah", coordinates.getInstanceType().toString());
     assertEquals("B", coordinates.getInstance().toString());
 
     try
@@ -138,7 +37,7 @@ public class CoordinatesTest
 
     try
     {
-      Coordinates.valueOf("pvu-1a:B");
+      Coordinates.valueOf("blah:pvu-1a:B");
       fail();
     }
     catch (final IllegalArgumentException e)
@@ -148,7 +47,7 @@ public class CoordinatesTest
 
     try
     {
-      Coordinates.valueOf("A:vu-1a:B");
+      Coordinates.valueOf("A:blah:vu-1a:B");
       fail();
     }
     catch (final IllegalArgumentException e)
@@ -158,7 +57,7 @@ public class CoordinatesTest
 
     try
     {
-      Coordinates.valueOf("A:pvu-1a");
+      Coordinates.valueOf("A:blah:pvu-1a");
       fail();
     }
     catch (final IllegalArgumentException e)
@@ -168,7 +67,7 @@ public class CoordinatesTest
 
     try
     {
-      Coordinates.valueOf("A:pvu-1a:!");
+      Coordinates.valueOf("A:blah:pvu-1a:!");
       fail();
     }
     catch (final IllegalArgumentException e)
