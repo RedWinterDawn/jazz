@@ -3,6 +3,7 @@ package com.jive.myco.jazz.api.runtime;
 import java.util.Optional;
 
 import com.codahale.metrics.MetricRegistry;
+import com.jive.jotter.client.advanced.api.AdvancedJotterClientFactory;
 import com.jive.myco.jazz.api.config.ConfigurationManager;
 import com.jive.myco.jazz.api.config.JazzConfiguration;
 import com.jive.myco.jazz.api.health.HealthCheckManager;
@@ -33,4 +34,6 @@ public interface JazzCore<T extends JazzConfiguration>
   MetricRegistry getMetricRegistry();
 
   ConfigurationManager<T> getConfigurationManager();
+
+  Optional<AdvancedJotterClientFactory> getAdvancedJotterClientFactory();
 }

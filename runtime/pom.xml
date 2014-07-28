@@ -66,11 +66,15 @@
       <groupId>com.jive.myco.commons</groupId>
       <artifactId>myco-commons-concurrent</artifactId>
     </dependency>
+    
+    <dependency>
+      <groupId>com.jive.jotter</groupId>
+      <artifactId>jotter-client-advanced-api</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>com.jive.myco.lattice</groupId>
       <artifactId>lattice-api</artifactId>
-      <version>1.0.1</version>
     </dependency>
 
   </dependencies>
