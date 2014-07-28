@@ -84,21 +84,4 @@ public final class Coordinates
         InstanceTypeId.valueOf(matcher.group("instanceType")),
         InstanceId.valueOf(matcher.group("instance")));
   }
-
-  public static final class CoordinatesBuilder
-  {
-    public CoordinatesBuilder instanceType(final InstanceTypeId instanceType)
-    {
-      this.instanceType = instanceType;
-      return this;
-    }
-
-    @Deprecated
-    public CoordinatesBuilder instanceType(
-        final com.jive.myco.jazz.api.core.InstanceTypeId instanceType)
-    {
-      instanceType(InstanceTypeId.valueOf(instanceType.toString()));
-      return this;
-    }
-  }
 }

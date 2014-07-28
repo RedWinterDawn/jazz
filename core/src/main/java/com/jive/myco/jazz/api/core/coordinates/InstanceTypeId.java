@@ -2,6 +2,12 @@ package com.jive.myco.jazz.api.core.coordinates;
 
 import java.util.regex.Pattern;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
+
 /**
  * Represents the type identifier for the instance within the Jazz ecosystem.
  * <p>
@@ -11,38 +17,25 @@ import java.util.regex.Pattern;
  *
  * @author David Valeri
  */
-@SuppressWarnings("deprecation")
-public final class InstanceTypeId extends com.jive.myco.jazz.api.core.InstanceTypeId
+@Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@EqualsAndHashCode
+public final class InstanceTypeId
 {
   protected static Pattern INSTANCE_TYPE_ID_PATTERN = Pattern.compile("[^\\s:]+");
 
-  private InstanceTypeId(final String id)
-  {
-    super(id);
-  }
+  @NonNull
+  private final String id;
 
-  @Override
-  public String getId()
-  {
-    return super.getId();
-  }
-
+  /**
+   * Returns the string representation of the instance ID.
+   *
+   * @see #valueOf(String)
+   */
   @Override
   public String toString()
   {
-    return super.toString();
-  }
-
-  @Override
-  public boolean equals(final Object obj)
-  {
-    return super.equals(obj);
-  }
-
-  @Override
-  public int hashCode()
-  {
-    return super.hashCode();
+    return id;
   }
 
   /**
