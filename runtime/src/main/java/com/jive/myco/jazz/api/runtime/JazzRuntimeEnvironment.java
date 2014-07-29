@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Properties;
 
 import com.google.common.net.HostAndPort;
+import com.jive.myco.jazz.api.core.BuildMetadata;
 import com.jive.myco.jazz.api.core.EnvironmentId;
 import com.jive.myco.jazz.api.core.coordinates.Coordinates;
 import com.jive.myco.jazz.api.core.network.Networks;
@@ -52,6 +53,16 @@ public interface JazzRuntimeEnvironment
 
   /**
    * Returns the identifier for this environment.
+   * <p>
+   * An environment represents a broad classification of the space in which the runtime exists. For
+   * instance, {@link EnvironmentId} defines constants for the production and staging environments
+   * while a runtime executing on a developers workstation will have an entirely different
+   * environment.
    */
   EnvironmentId getEnvironmentId();
+
+  /**
+   * Returns the resolved build metadata for the launcher starting the runtime.
+   */
+  Optional<BuildMetadata> getBuildMetadata();
 }

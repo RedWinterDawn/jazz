@@ -21,9 +21,13 @@ public class EnvironmentId
 {
   private static final String PROD_ENV_ID = "prod";
 
+  private static final String STAGING_ENV_ID = "staging";
+
   protected static final Pattern INSTANCE_TYPE_ID_PATTERN = Pattern.compile("[^\\s]+");
 
   public static final EnvironmentId PRODUCTION = EnvironmentId.valueOf(PROD_ENV_ID);
+
+  public static final EnvironmentId STAGING = EnvironmentId.valueOf(STAGING_ENV_ID);
 
   @NonNull
   private final String id;
