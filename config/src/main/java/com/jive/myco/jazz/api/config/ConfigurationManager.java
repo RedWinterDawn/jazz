@@ -12,15 +12,15 @@ import com.jive.myco.commons.listenable.Listenable;
  * @param <T>
  */
 public interface ConfigurationManager<T extends JazzConfiguration> extends
-    Listenable<JazzConfigurationListener<T>>
+    Listenable<JazzConfigurationListener<? super T>>
 {
   PnkyPromise<T> getConfiguration();
 
   @Override
-  void addListener(final JazzConfigurationListener<T> listener);
+  void addListener(final JazzConfigurationListener<? super T> listener);
 
   @Override
-  void addListener(final JazzConfigurationListener<T> listener, final Executor executor);
+  void addListener(final JazzConfigurationListener<? super T> listener, final Executor executor);
 
   @Override
   void removeListener(final Object listener);
