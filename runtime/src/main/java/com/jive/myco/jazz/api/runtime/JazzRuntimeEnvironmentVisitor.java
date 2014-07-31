@@ -1,6 +1,7 @@
 package com.jive.myco.jazz.api.runtime;
 
 /**
+ * Visitor interface for {@link JazzRuntimeEnvironment}s.
  *
  * @author David Valeri
  */

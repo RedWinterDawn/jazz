@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NonNull;
 
 /**
+ * A base class for concrete implementations of {@link JazzConfiguration}. Subclasses should
+ * maintain the immutable pattern.
  *
  * @author David Valeri
  */
@@ -20,6 +22,14 @@ public abstract class AbstractJazzConfiguration implements JazzConfiguration
   @Getter
   private final Optional<Integer> jazzHealthServicePort;
 
+  /**
+   * Creates a new instance.
+   *
+   * @param logLevels
+   *          see {@link JazzConfiguration#getLogLevels()}
+   * @param jazzHealthServicePort
+   *          see {@link JazzConfiguration#getJazzHealthServicePort()}
+   */
   public AbstractJazzConfiguration(@NonNull final Map<String, String> logLevels,
       final Integer jazzHealthServicePort)
   {

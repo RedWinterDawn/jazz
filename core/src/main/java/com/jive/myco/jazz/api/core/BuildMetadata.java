@@ -7,6 +7,8 @@ import lombok.ToString;
 import lombok.experimental.Builder;
 
 /**
+ * Provides information regarding the ultimate source of something in the context of version control
+ * and the build server.
  *
  * @author David Valeri
  */

@@ -11,6 +11,8 @@ import com.jive.myco.jazz.api.core.coordinates.Coordinates;
 import com.jive.myco.jazz.api.core.network.Networks;
 
 /**
+ * Represents the most generic aspects of the Jazz runtime environment common to all environment
+ * types.
  *
  * @author David Valeri
  */

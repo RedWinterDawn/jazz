@@ -1,7 +1,7 @@
 package com.jive.myco.jazz.api.runtime;
 
 /**
- * Top level generic exception class for issues in the launcher.
+ * Top level generic exception class for issues in the launcher and associated runtime components.
  *
  * @author David Valeri
  */

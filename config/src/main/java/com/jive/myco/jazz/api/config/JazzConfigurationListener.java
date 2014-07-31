@@ -11,9 +11,9 @@ package com.jive.myco.jazz.api.config;
 public interface JazzConfigurationListener<T extends JazzConfiguration>
 {
   /**
-   * Event handler invoked on initial {@link JazzConfiguration#addListener(Object) addition} (or
-   * {@link JazzConfiguration#addListener(Object, java.util.concurrent.Executor) alternative
-   * addition}) of this listener with a {@link JazzConfiguration}.
+   * Event handler invoked on initial addition ({@link JazzConfiguration#addListener(Object)} (or
+   * {@link JazzConfiguration#addListener(Object, java.util.concurrent.Executor)}) of this listener
+   * with a {@link ConfigurationManager}.
    *
    * @param configuration
    *          the current configuration at the time this listener was added
@@ -21,9 +21,11 @@ public interface JazzConfigurationListener<T extends JazzConfiguration>
   void initialConfiguration(final T configuration);
 
   /**
-   * Event handler invoked on subsequent updates of the observed configuration.
+   * Event handler invoked on subsequent updates of the observed configuration after the invocation
+   * of {@link #initialConfiguration(JazzConfiguration)}.
    *
    * @param configuration
+   *          the current configuration
    */
   void onConfigurationChange(final T configuration);
 }

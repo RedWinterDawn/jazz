@@ -60,6 +60,10 @@ public class EnvironmentId
     {
       return PRODUCTION;
     }
+    else if (STAGING_ENV_ID.equals(value))
+    {
+      return PRODUCTION;
+    }
     else if (!INSTANCE_TYPE_ID_PATTERN.matcher(value).matches())
     {
       throw new IllegalArgumentException(value + " is not a valid environment ID");

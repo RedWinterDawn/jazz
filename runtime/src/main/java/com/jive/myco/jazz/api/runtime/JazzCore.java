@@ -14,6 +14,10 @@ import com.jive.myco.jazz.api.web.HttpServerManager;
 import com.jive.myco.lattice.api.ServiceRegistry;
 
 /**
+ * Provides access to the core components of the Jazz Framework.
+ *
+ * @param <T>
+ *          the type of the configuration object managed by the {@link ConfigurationManager}.
  *
  * @author David Valeri
  */
