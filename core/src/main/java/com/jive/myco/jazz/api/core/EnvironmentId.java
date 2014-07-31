@@ -62,7 +62,7 @@ public class EnvironmentId
     }
     else if (STAGING_ENV_ID.equals(value))
     {
-      return PRODUCTION;
+      return STAGING;
     }
     else if (!INSTANCE_TYPE_ID_PATTERN.matcher(value).matches())
     {
