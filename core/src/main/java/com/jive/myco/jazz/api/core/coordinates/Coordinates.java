@@ -33,7 +33,7 @@ public final class Coordinates
   private static Pattern COORDINATES_PATTERN = Pattern.compile(
       "(?<provider>" + ProviderId.PROVIDER_ID_PATTERN.pattern() + "):"
           + "(?<locality>" + Locality.LOCALITY_PATTERN.pattern() + "):"
-          + "(?<instanceType>" + InstanceTypeId.INSTANCE_TYPE_ID_PATTERN + "):"
+          + "(?<instanceType>" + InstanceTypeId.INSTANCE_TYPE_ID_PATTERN.pattern() + "):"
           + "(?<instance>" + InstanceId.INSTANCE_ID_PATTERN.pattern() + ")");
 
   @NonNull

@@ -25,9 +25,9 @@ public class EnvironmentId
 
   protected static final Pattern INSTANCE_TYPE_ID_PATTERN = Pattern.compile("[^\\s]+");
 
-  public static final EnvironmentId PRODUCTION = EnvironmentId.valueOf(PROD_ENV_ID);
+  public static final EnvironmentId PRODUCTION = new EnvironmentId(PROD_ENV_ID);
 
-  public static final EnvironmentId STAGING = EnvironmentId.valueOf(STAGING_ENV_ID);
+  public static final EnvironmentId STAGING = new EnvironmentId(STAGING_ENV_ID);
 
   @NonNull
   private final String id;
