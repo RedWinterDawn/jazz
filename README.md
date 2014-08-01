@@ -12,6 +12,13 @@ The API for components of the Jazz framework.
 
 ## <a name="changes"></a>Change Log
 
+### 0.2.0
+* Upgrading from 0.1.3
+  * TBD
+* Change Log
+  * US4842, US4843 - Updated to Myco Parent 26
+  * US4842, US4843 - Updated to Jotter 2.0.6
+
 ### 0.1.3
 * Upgrading from 0.1.2
   * None

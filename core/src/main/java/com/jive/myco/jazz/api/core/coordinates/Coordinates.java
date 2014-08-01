@@ -14,14 +14,16 @@ import lombok.experimental.Builder;
  * information for an instance.
  * <p>
  * Coordinates may be represented as a string in the format
- * {@code <PROVIDER_ID>:<LOCALITY>:<INSTANCE_ID>} where {@code <PROVIDER_ID>}, {@code <LOCALITY>},
- * and {@code <INSTANCE_ID>} are valid {@link ProviderId}, {@link Locality}, and {@link InstanceId}
- * string representations, respectively.
+ * {@code <PROVIDER_ID>:<LOCALITY>:<INSTANCE_TYPE_ID>:<INSTANCE_ID>} where {@code <PROVIDER_ID>},
+ * {@code <LOCALITY>}, {@code <INSTANCE_TYPE_ID>}, and {@code <INSTANCE_ID>} are valid
+ * {@link ProviderId}, {@link Locality}, {@link InstanceTypeId}, and {@link InstanceId} string
+ * representations, respectively.
  *
  * @author David Valeri
  *
  * @see ProviderId
  * @see Locality
+ * @see InstanceTypeId
  * @see InstanceId
  */
 @Value
@@ -31,6 +33,7 @@ public final class Coordinates
   private static Pattern COORDINATES_PATTERN = Pattern.compile(
       "(?<provider>" + ProviderId.PROVIDER_ID_PATTERN.pattern() + "):"
           + "(?<locality>" + Locality.LOCALITY_PATTERN.pattern() + "):"
+          + "(?<instanceType>" + InstanceTypeId.INSTANCE_TYPE_ID_PATTERN.pattern() + "):"
           + "(?<instance>" + InstanceId.INSTANCE_ID_PATTERN.pattern() + ")");
 
   @NonNull
@@ -38,6 +41,9 @@ public final class Coordinates
 
   @NonNull
   private final Locality locality;
+
+  @NonNull
+  private final InstanceTypeId instanceType;
 
   @NonNull
   private final InstanceId instance;
@@ -50,7 +56,7 @@ public final class Coordinates
   @Override
   public String toString()
   {
-    return locality.toString() + ":" + instance.toString();
+    return String.format("%s:%s:%s:%s", provider, locality, instanceType, instance);
   }
 
   /**
@@ -72,8 +78,10 @@ public final class Coordinates
       throw new IllegalArgumentException(value + " is not a valid coordinates format");
     }
 
-    return new Coordinates(ProviderId.valueOf(matcher.group("provider")),
+    return new Coordinates(
+        ProviderId.valueOf(matcher.group("provider")),
         Locality.valueOf(matcher.group("locality")),
+        InstanceTypeId.valueOf(matcher.group("instanceType")),
         InstanceId.valueOf(matcher.group("instance")));
   }
 }

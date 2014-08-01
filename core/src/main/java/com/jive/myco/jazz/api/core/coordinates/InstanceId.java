@@ -20,7 +20,7 @@ import lombok.Value;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public final class InstanceId
 {
-  protected static Pattern INSTANCE_ID_PATTERN = Pattern.compile("[a-zA-Z0-9]+");
+  protected static Pattern INSTANCE_ID_PATTERN = Pattern.compile("[^\\s:]+");
 
   @NonNull
   private final String id;

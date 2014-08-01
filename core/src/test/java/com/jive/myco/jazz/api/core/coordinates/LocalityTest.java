@@ -4,11 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.jive.myco.jazz.api.core.coordinates.ClusterId;
-import com.jive.myco.jazz.api.core.coordinates.DatacenterId;
-import com.jive.myco.jazz.api.core.coordinates.Locality;
-import com.jive.myco.jazz.api.core.coordinates.RegionId;
-
 /**
  * @author Brandon Pedersen &lt;bpedersen@getjive.com&gt;
  */
@@ -235,15 +230,15 @@ public class LocalityTest
   {
     Locality locality = Locality.valueOf("us_west_1-ba");
     assertEquals("us_west_1-ba", locality.toString());
-    assertEquals("us_west_1", locality.getRegion().getId());
-    assertEquals("b", locality.getDatacenter().getId());
-    assertEquals("a", locality.getCluster().getId());
+    assertEquals("us_west_1", locality.getRegion().toString());
+    assertEquals("b", locality.getDatacenter().toString());
+    assertEquals("a", locality.getCluster().toString());
 
     locality = Locality.valueOf("pvu-1b");
     assertEquals("pvu-1b", locality.toString());
-    assertEquals("pvu", locality.getRegion().getId());
-    assertEquals("1", locality.getDatacenter().getId());
-    assertEquals("b", locality.getCluster().getId());
+    assertEquals("pvu", locality.getRegion().toString());
+    assertEquals("1", locality.getDatacenter().toString());
+    assertEquals("b", locality.getCluster().toString());
 
     try
     {

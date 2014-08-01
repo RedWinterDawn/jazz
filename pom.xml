@@ -3,12 +3,12 @@
   <parent>
     <groupId>com.jive.myco</groupId>
     <artifactId>parent</artifactId>
-    <version>24</version>
+    <version>26</version>
   </parent>
 
   <groupId>com.jive.myco.jazz.api</groupId>
   <artifactId>root</artifactId>
-  <version>0.1.4-SNAPSHOT</version>
+  <version>0.2.0-SNAPSHOT</version>
 
   <packaging>pom</packaging>
 
@@ -18,7 +18,8 @@
 
   <properties>
     <deps.servlet.version>3.1.0</deps.servlet.version>
-    <deps.myco-commons.version>0.0.8</deps.myco-commons.version>
+    <deps.myco-commons.version>0.0.9</deps.myco-commons.version>
+    <deps.jotter.version>2.0.6</deps.jotter.version>
     <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
   </properties>
 
@@ -35,6 +36,14 @@
         <groupId>com.jive.myco.commons</groupId>
         <artifactId>myco-commons-bom</artifactId>
         <version>${deps.myco-commons.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.jive.jotter</groupId>
+        <artifactId>jotter-client-bom</artifactId>
+        <version>${deps.jotter.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -55,10 +64,12 @@
 
   <modules>
     <module>bom</module>
+    <module>config</module>
     <module>core</module>
     <module>health</module>
     <module>metrics</module>
     <module>rest</module>
+    <module>runtime</module>
     <module>web</module>
     <module>registry</module>
   </modules>

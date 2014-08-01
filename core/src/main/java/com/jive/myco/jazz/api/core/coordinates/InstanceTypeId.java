@@ -1,26 +1,28 @@
-package com.jive.myco.jazz.api.core;
+package com.jive.myco.jazz.api.core.coordinates;
 
 import java.util.regex.Pattern;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NonNull;
-import lombok.Value;
 
 /**
  * Represents the type identifier for the instance within the Jazz ecosystem.
  * <p>
  * An instance type ID may be represented as a string in the following format
- * {@code <INSTANCE_TYPE_ID>} where {@code <INSTANCE_TYPE_ID>} is one or more non-whitespace
- * characters.
+ * {@code <INSTANCE_TYPE_ID>} where {@code <INSTANCE_TYPE_ID>} is one or more non-whitespace or
+ * colon ":" characters.
  *
  * @author David Valeri
  */
-@Value
+@Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class InstanceTypeId
+@EqualsAndHashCode
+public final class InstanceTypeId
 {
-  protected static Pattern INSTANCE_TYPE_ID_PATTERN = Pattern.compile("[^\\s]+");
+  protected static Pattern INSTANCE_TYPE_ID_PATTERN = Pattern.compile("[^\\s:]+");
 
   @NonNull
   private final String id;

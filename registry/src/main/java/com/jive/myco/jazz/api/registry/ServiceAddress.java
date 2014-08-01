@@ -16,7 +16,6 @@ public final class ServiceAddress
   private ServiceAddress(final String address)
   {
     this.address = address;
-
   }
 
   @Override
