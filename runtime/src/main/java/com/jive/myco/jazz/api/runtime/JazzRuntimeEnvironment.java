@@ -73,5 +73,5 @@ public interface JazzRuntimeEnvironment
    * distinct from the branch name that appears in the {@link #getBuildMetadata() build metadata}
    * depending on the environment of execution.
    */
-  Optional<String> getBranch();
+  Optional<String> getEnvironmentBranch();
 }
