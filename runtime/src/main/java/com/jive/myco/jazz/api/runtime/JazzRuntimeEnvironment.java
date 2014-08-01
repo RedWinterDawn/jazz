@@ -67,4 +67,11 @@ public interface JazzRuntimeEnvironment
    * Returns the resolved build metadata for the launcher starting the runtime.
    */
   Optional<BuildMetadata> getBuildMetadata();
+
+  /**
+   * Returns the branch from which the environment was deployed/created. This branch name may be
+   * distinct from the branch name that appears in the {@link #getBuildMetadata() build metadata}
+   * depending on the environment of execution.
+   */
+  Optional<String> getBranch();
 }
