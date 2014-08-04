@@ -17,7 +17,8 @@ The API for components of the Jazz framework.
   * TBD
 * Change Log
   * US4842, US4843 - Updated to Myco Parent 26
-  * US4842, US4843 - Updated to Jotter 2.0.6
+  * US4842, US4843, US5033 - Updated to Jotter 2.0.7
+  * US5033 - Updated manager APIs to implement `ListenableLifecycled`
 
 ### 0.1.3
 * Upgrading from 0.1.2
