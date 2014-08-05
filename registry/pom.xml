@@ -22,6 +22,10 @@
     </dependency>
     <dependency>
       <groupId>com.jive.myco.commons</groupId>
+      <artifactId>myco-commons-lifecycle</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.jive.myco.commons</groupId>
       <artifactId>myco-commons-versions</artifactId>
     </dependency>
   </dependencies>

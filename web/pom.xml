@@ -25,6 +25,11 @@
       <groupId>com.jive.myco.commons</groupId>
       <artifactId>myco-commons-concurrent</artifactId>
     </dependency>
+    
+    <dependency>
+      <groupId>com.jive.myco.commons</groupId>
+      <artifactId>myco-commons-lifecycle</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>javax.servlet</groupId>

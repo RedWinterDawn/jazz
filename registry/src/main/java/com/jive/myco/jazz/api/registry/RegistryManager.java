@@ -3,6 +3,7 @@ package com.jive.myco.jazz.api.registry;
 import java.util.Set;
 
 import com.jive.myco.commons.concurrent.PnkyPromise;
+import com.jive.myco.commons.lifecycle.ListenableLifecycled;
 
 /**
  * Used to register and lookup services in the service Registry.
@@ -13,7 +14,7 @@ import com.jive.myco.commons.concurrent.PnkyPromise;
  *
  * @author John Norton
  */
-public interface RegistryManager
+public interface RegistryManager extends ListenableLifecycled
 {
   /**
    * Registers a service instance.

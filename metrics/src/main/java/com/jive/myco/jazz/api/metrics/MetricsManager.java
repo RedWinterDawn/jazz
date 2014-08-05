@@ -1,13 +1,14 @@
 package com.jive.myco.jazz.api.metrics;
 
 import com.codahale.metrics.Metric;
+import com.jive.myco.commons.lifecycle.ListenableLifecycled;
 
 /**
  * A manager for working with Jazz metrics.
  *
  * @author David Valeri
  */
-public interface MetricsManager
+public interface MetricsManager extends ListenableLifecycled
 {
   /**
    * Removes a metric from the registry.

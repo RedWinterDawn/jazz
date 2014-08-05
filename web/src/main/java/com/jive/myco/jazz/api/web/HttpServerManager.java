@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import javax.servlet.Servlet;
 
 import com.jive.myco.commons.concurrent.PnkyPromise;
+import com.jive.myco.commons.lifecycle.ListenableLifecycled;
 import com.jive.myco.jazz.api.core.network.NetworkId;
 
 /**
@@ -32,7 +33,7 @@ import com.jive.myco.jazz.api.core.network.NetworkId;
  *
  * @author David Valeri
  */
-public interface HttpServerManager
+public interface HttpServerManager extends ListenableLifecycled
 {
   /**
    * Binds a servlet into the manager and exposes it on the desired connector. Connector resolution

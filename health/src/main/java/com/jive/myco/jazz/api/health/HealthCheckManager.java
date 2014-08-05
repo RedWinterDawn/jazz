@@ -3,13 +3,15 @@ package com.jive.myco.jazz.api.health;
 import java.util.Set;
 
 import com.jive.myco.commons.concurrent.PnkyPromise;
+import com.jive.myco.commons.lifecycle.Lifecycled;
+import com.jive.myco.commons.lifecycle.ListenableLifecycled;
 
 /**
  * A manager for orchestrating the creation of various health check components.
  *
  * @author David Valeri
  */
-public interface HealthCheckManager
+public interface HealthCheckManager extends Lifecycled, ListenableLifecycled
 {
   /**
    * Creates a new {@link AggregateHealthCheck} based on the supplied descriptor.
