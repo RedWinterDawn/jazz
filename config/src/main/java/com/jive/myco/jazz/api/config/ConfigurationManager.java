@@ -3,6 +3,8 @@ package com.jive.myco.jazz.api.config;
 import java.util.concurrent.Executor;
 
 import com.jive.myco.commons.concurrent.PnkyPromise;
+import com.jive.myco.commons.lifecycle.Lifecycled;
+import com.jive.myco.commons.lifecycle.ListenableLifecycled;
 import com.jive.myco.commons.listenable.Listenable;
 
 /**
@@ -15,7 +17,7 @@ import com.jive.myco.commons.listenable.Listenable;
  *          the type of the configuration object managed by the manager
  */
 public interface ConfigurationManager<T extends JazzConfiguration> extends
-    Listenable<JazzConfigurationListener<? super T>>
+    Listenable<JazzConfigurationListener<? super T>>, Lifecycled, ListenableLifecycled
 {
   /**
    * Returns the current snapshot of the configuration.

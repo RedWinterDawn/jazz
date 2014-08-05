@@ -3,6 +3,7 @@ package com.jive.myco.jazz.api.rest;
 import java.net.InetAddress;
 
 import com.jive.myco.commons.concurrent.PnkyPromise;
+import com.jive.myco.commons.lifecycle.ListenableLifecycled;
 import com.jive.myco.jazz.api.core.network.NetworkId;
 
 /**
@@ -32,7 +33,7 @@ import com.jive.myco.jazz.api.core.network.NetworkId;
  *
  * @author David Valeri
  */
-public interface RestServiceManager
+public interface RestServiceManager extends ListenableLifecycled
 {
   /**
    * Binds a {@link RestServiceDescriptor set of REST resources} to be served with the provided
