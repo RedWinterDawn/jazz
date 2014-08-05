@@ -1,2 +1,3 @@
 properties:
   com.jive.myco.commons : deps.myco-commons.version
+  com.jive.jotter : deps.jotter.version
