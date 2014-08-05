@@ -1,67 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.jive.myco</groupId>
     <artifactId>parent</artifactId>
     <version>26</version>
   </parent>
-
   <groupId>com.jive.myco.jazz.api</groupId>
   <artifactId>root</artifactId>
   <version>0.2.0-SNAPSHOT</version>
-
   <packaging>pom</packaging>
-
   <name>Jazz :: API :: Root</name>
-
   <description>The API of the Jazz Framework.</description>
-
-  <properties>
-    <deps.servlet.version>3.1.0</deps.servlet.version>
-    <deps.myco-commons.version>0.0.9</deps.myco-commons.version>
-    <deps.jotter.version>2.0.7-SNAPSHOT</deps.jotter.version>
-    <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
-  </properties>
-
-  <scm>
-    <connection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</connection>
-    <developerConnection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</developerConnection>
-    <url>https://github.com/jive/com.jive.myco.jazz.api</url>
-    <tag>HEAD</tag>
-  </scm>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>com.jive.myco.commons</groupId>
-        <artifactId>myco-commons-bom</artifactId>
-        <version>${deps.myco-commons.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      
-      <dependency>
-        <groupId>com.jive.jotter</groupId>
-        <artifactId>jotter-client-bom</artifactId>
-        <version>${deps.jotter.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>${deps.servlet.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>javax.ws.rs</groupId>
-        <artifactId>javax.ws.rs-api</artifactId>
-        <version>${deps.jax-rs-api.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <modules>
     <module>bom</module>
     <module>config</module>
@@ -73,4 +24,43 @@
     <module>web</module>
     <module>registry</module>
   </modules>
+  <scm>
+    <connection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</connection>
+    <developerConnection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</developerConnection>
+    <url>https://github.com/jive/com.jive.myco.jazz.api</url>
+  </scm>
+  <properties>
+    <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
+    <deps.servlet.version>3.1.0</deps.servlet.version>
+    <deps.jotter.version>2.0.7</deps.jotter.version>
+    <deps.myco-commons.version>0.0.9</deps.myco-commons.version>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.jive.myco.commons</groupId>
+        <artifactId>myco-commons-bom</artifactId>
+        <version>${deps.myco-commons.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.jive.jotter</groupId>
+        <artifactId>jotter-client-bom</artifactId>
+        <version>${deps.jotter.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>${deps.servlet.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.ws.rs</groupId>
+        <artifactId>javax.ws.rs-api</artifactId>
+        <version>${deps.jax-rs-api.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>
