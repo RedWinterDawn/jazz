@@ -13,7 +13,6 @@ import org.fusesource.hawtdispatch.DispatchQueue;
 
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.jive.myco.commons.callbacks.Callback;
 import com.jive.myco.commons.concurrent.Pnky;
 import com.jive.myco.commons.concurrent.PnkyPromise;
 import com.jive.myco.commons.hawtdispatch.DefaultDispatchQueueBuilder;
@@ -93,25 +92,10 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
     return lifecycledHelper.init();
   }
 
-  @Deprecated
-  @Override
-  public final void init(final Callback<Void> callback)
-  {
-    lifecycledHelper.init(callback);
-
-  }
-
   @Override
   public final PnkyPromise<Void> destroy()
   {
     return lifecycledHelper.destroy();
-  }
-
-  @Deprecated
-  @Override
-  public final void destroy(final Callback<Void> callback)
-  {
-    lifecycledHelper.destroy(callback);
   }
 
   @Override

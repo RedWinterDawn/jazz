@@ -12,9 +12,24 @@ The API for components of the Jazz framework.
 
 ## <a name="changes"></a>Change Log
 
+### 0.2.2
+* Upgrading from 0.2.1
+  * No changes required.
+* Change Log
+  * NS - Upgraded to Myco Commons 0.1.0
+
+### 0.2.1
+* Upgrading from 0.2.0
+  * No changes required.
+* Change Log
+  * NS - Updated dependencies
+
 ### 0.2.0
 * Upgrading from 0.1.3
-  * TBD
+  * A number of breaking changes in the API.  See `JazzRuntimeEnvironment` as a replacement for
+    `JazzRuntime`.  The `JazzInjector` has been removed.  Applications should not extend one of the
+    abstract `JazzRuntimeLauncher` implementations in the runtime module to provide lifecycle
+    support fot their application.
 * Change Log
   * US4842, US4843 - Updated to Myco Parent 26
   * US4842, US4843, US5033 - Updated to Jotter 2.0.7

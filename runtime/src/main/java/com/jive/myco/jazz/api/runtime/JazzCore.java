@@ -3,7 +3,6 @@ package com.jive.myco.jazz.api.runtime;
 import java.util.Optional;
 
 import com.codahale.metrics.MetricRegistry;
-import com.jive.jotter.client.advanced.api.AdvancedJotterClientFactory;
 import com.jive.myco.jazz.api.config.ConfigurationManager;
 import com.jive.myco.jazz.api.config.JazzConfiguration;
 import com.jive.myco.jazz.api.health.HealthCheckManager;
@@ -11,7 +10,8 @@ import com.jive.myco.jazz.api.metrics.MetricsManager;
 import com.jive.myco.jazz.api.registry.RegistryManager;
 import com.jive.myco.jazz.api.rest.RestServiceManager;
 import com.jive.myco.jazz.api.web.HttpServerManager;
-import com.jive.myco.lattice.api.ServiceRegistry;
+import com.jive.v5.isp.client.IspClient;
+import com.jive.v5.isp.jumpy.Jumpy;
 
 /**
  * Provides access to the core components of the Jazz Framework.
@@ -23,10 +23,6 @@ import com.jive.myco.lattice.api.ServiceRegistry;
  */
 public interface JazzCore<T extends JazzConfiguration>
 {
-  Optional<RegistryManager> getRegistryManager();
-
-  Optional<ServiceRegistry> getServiceRegistry();
-
   Optional<HttpServerManager> getHttpServerManager();
 
   Optional<RestServiceManager> getRestServiceManager();
@@ -39,5 +35,9 @@ public interface JazzCore<T extends JazzConfiguration>
 
   ConfigurationManager<T> getConfigurationManager();
 
-  Optional<AdvancedJotterClientFactory> getAdvancedJotterClientFactory();
+  Optional<IspClient> getIspClient();
+
+  Optional<Jumpy> getJumpy();
+
+  Optional<RegistryManager> getRegistryManager();
 }
