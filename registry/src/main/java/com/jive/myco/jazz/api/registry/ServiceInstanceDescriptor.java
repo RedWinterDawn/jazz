@@ -1,5 +1,7 @@
 package com.jive.myco.jazz.api.registry;
 
+import java.util.Map;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
@@ -27,11 +29,9 @@ public final class ServiceInstanceDescriptor
   private final ServiceInterfaceName serviceInterfaceName;
 
   @NonNull
-  private final ServiceInstanceId serviceInstanceId;
-
-  @NonNull
   private final ServiceAddress serviceAddress;
 
-  @NonNull
   private final Version serviceInterfaceVersion;
+
+  private final Map<String, String> properties;
 }

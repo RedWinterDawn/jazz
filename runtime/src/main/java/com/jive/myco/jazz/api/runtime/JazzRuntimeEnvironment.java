@@ -49,6 +49,11 @@ public interface JazzRuntimeEnvironment
   Optional<List<HostAndPort>> getZkAddresses();
 
   /**
+   * Returns the host and port tuples for ISP reflectors, if available.
+   */
+  Optional<List<HostAndPort>> getReflectorAddresses();
+
+  /**
    * Returns resolved properties for the environment.
    */
   Properties getProperties();
