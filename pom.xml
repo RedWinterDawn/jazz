@@ -32,7 +32,7 @@
   <properties>
     <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
     <deps.servlet.version>3.1.0</deps.servlet.version>
-    <deps.myco-commons.version>0.0.10</deps.myco-commons.version>
+    <deps.myco-commons.version>0.1.0-SNAPSHOT</deps.myco-commons.version>
     <deps.isp.version>0.7</deps.isp.version>
   </properties>
   <dependencyManagement>
