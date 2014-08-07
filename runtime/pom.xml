@@ -60,13 +60,11 @@
     <dependency>
       <groupId>com.jive.v5.isp</groupId>
       <artifactId>client</artifactId>
-      <version>${deps.isp.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.jive.v5.isp</groupId>
       <artifactId>jumpy</artifactId>
-      <version>${deps.isp.version}</version>
     </dependency>
 
     <dependency>
