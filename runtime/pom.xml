@@ -58,12 +58,12 @@
 
     <dependency>
       <groupId>com.jive.v5.isp</groupId>
-      <artifactId>client</artifactId>
+      <artifactId>client-api</artifactId>
     </dependency>
 
     <dependency>
       <groupId>com.jive.v5.isp</groupId>
-      <artifactId>jumpy</artifactId>
+      <artifactId>jumpy-api</artifactId>
     </dependency>
 
     <dependency>
