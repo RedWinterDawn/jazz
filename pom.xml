@@ -31,7 +31,7 @@
   </scm>
   <properties>
     <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
-    <deps.isp.version>0.7</deps.isp.version>
+    <deps.isp.version>0.8-SNAPSHOT</deps.isp.version>
     <deps.servlet.version>3.1.0</deps.servlet.version>
     <deps.myco-commons.version>0.1.0</deps.myco-commons.version>
   </properties>
@@ -46,13 +46,10 @@
       </dependency>
       <dependency>
         <groupId>com.jive.v5.isp</groupId>
-        <artifactId>client</artifactId>
+        <artifactId>isp-bom</artifactId>
         <version>${deps.isp.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.jive.v5.isp</groupId>
-        <artifactId>jumpy</artifactId>
-        <version>${deps.isp.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>javax.servlet</groupId>
