@@ -46,13 +46,10 @@
       </dependency>
       <dependency>
         <groupId>com.jive.v5.isp</groupId>
-        <artifactId>client-api</artifactId>
+        <artifactId>isp-bom</artifactId>
         <version>${deps.isp.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.jive.v5.isp</groupId>
-        <artifactId>jumpy-api</artifactId>
-        <version>${deps.isp.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>javax.servlet</groupId>
