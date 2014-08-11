@@ -1,27 +1,25 @@
 package com.jive.myco.jazz.api.rules;
 
-import java.util.List;
-import java.util.regex.Pattern;
-
 import lombok.EqualsAndHashCode;
 import lombok.Value;
+import lombok.experimental.Builder;
 
 /**
  * Represents a rule. 
- * @author jnorton && zmorin
+ * @author jnorton
+ * @author zmorin
  *
  */
+@Builder
 @Value
 @EqualsAndHashCode(of={"description"})
-public class Rule
+public class SimpleRule
 {
   public int getKey(){
     return this.hashCode();
   }
-  
   private String description;
-  private Pattern pattern;
-  private List<Action> actions;
+  private RuleExpression expression;
+  private Action action;
   private int priority;
-  
 }
