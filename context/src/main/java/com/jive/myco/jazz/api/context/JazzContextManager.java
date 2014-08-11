@@ -14,7 +14,7 @@ public interface JazzContextManager
    *
    * @return the new jazz context
    */
-  MutableJazzContext initializeRequestContext();
+  MutableJazzContext initializeContext();
 
   /**
    * Clears the current context for this thread and initializes a new jazz context with all values
