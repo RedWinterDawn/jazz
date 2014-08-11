@@ -30,40 +30,46 @@
         <artifactId>jazz-api-core</artifactId>
         <version>${project.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>jazz-api-health</artifactId>
         <version>${project.version}</version>
       </dependency>
-    
+
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>jazz-api-metrics</artifactId>
         <version>${project.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>jazz-api-registry</artifactId>
         <version>${project.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>jazz-api-rest</artifactId>
         <version>${project.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>jazz-api-runtime</artifactId>
         <version>${project.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>jazz-api-web</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>jazz-api-context</artifactId>
         <version>${project.version}</version>
       </dependency>
 
@@ -72,13 +78,13 @@
         <artifactId>javax.servlet-api</artifactId>
         <version>${deps.servlet.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>javax.ws.rs</groupId>
         <artifactId>javax.ws.rs-api</artifactId>
         <version>${deps.jax-rs-api.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>com.jive.myco.commons</groupId>
         <artifactId>myco-commons-concurrent</artifactId>
