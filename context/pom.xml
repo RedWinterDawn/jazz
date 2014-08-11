@@ -13,5 +13,11 @@
 
   <name>Jazz :: API :: Context</name>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.fusesource.hawtdispatch</groupId>
+      <artifactId>hawtdispatch</artifactId>
+    </dependency>
+  </dependencies>
 
 </project>
