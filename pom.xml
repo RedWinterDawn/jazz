@@ -22,6 +22,7 @@
     <module>runtime</module>
     <module>web</module>
     <module>registry</module>
+    <module>rules</module>
   </modules>
   <scm>
     <connection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</connection>
