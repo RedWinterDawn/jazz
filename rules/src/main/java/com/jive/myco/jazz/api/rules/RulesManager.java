@@ -1,12 +1,13 @@
 package com.jive.myco.jazz.api.rules;
 
 import com.jive.myco.jazz.api.core.coordinates.Coordinates;
+import com.jive.myco.jazz.api.rules.exceptions.RuleException;
 
 public interface RulesManager
 {
-    RuleSet getRuleSet(Coordinates coordinates);
-    void addRule(RuleSet ruleSet, SimpleRule rule, SimpleRule addAfterRule);
-    void removeRule(RuleSet ruleSet, SimpleRule rule);
+    RuleSet getRuleSet(Coordinates coordinates) throws Exception;
+    void addRule(RuleSet ruleSet, SimpleRule rule, SimpleRule addAfterRule) throws RuleException;
+    void removeRule(RuleSet ruleSet, SimpleRule rule) throws RuleException;
 }  
 
   // @Override

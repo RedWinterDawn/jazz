@@ -1,7 +1,6 @@
 package com.jive.myco.jazz.api.rules;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 import lombok.experimental.Builder;
