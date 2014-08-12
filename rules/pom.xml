@@ -19,6 +19,11 @@
       <artifactId>jazz-api-core</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.jive.myco.jazz.api</groupId>
+      <artifactId>jazz-api-context</artifactId>
+      <version>0.2.5-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 
 </project>

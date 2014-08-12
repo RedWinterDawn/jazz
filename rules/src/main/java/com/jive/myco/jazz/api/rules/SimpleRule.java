@@ -1,25 +1,35 @@
 package com.jive.myco.jazz.api.rules;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 import lombok.experimental.Builder;
 
+import com.jive.myco.jazz.api.context.JazzContextManager;
+
 /**
- * Represents a rule. 
+ * Represents a rule.
+ * 
  * @author jnorton
  * @author zmorin
  *
  */
 @Builder
 @Value
-@EqualsAndHashCode(of={"description"})
+@EqualsAndHashCode(of = { "expression" })
+@AllArgsConstructor
 public class SimpleRule
 {
-  public int getKey(){
-    return this.hashCode();
+  private final String description;
+  private final RuleExpression expression;
+  private final Action action;
+
+  public void applyRule(JazzContextManager contextManager)
+  {
+    if (expression.eval(contextManager.getLocalContext().toMap()))
+    {
+      contextManager.getContext().put(action.getKey(), action.getValue());
+    }
   }
-  private String description;
-  private RuleExpression expression;
-  private Action action;
-  private int priority;
 }

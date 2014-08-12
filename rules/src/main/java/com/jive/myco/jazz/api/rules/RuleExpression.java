@@ -4,24 +4,30 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lombok.NonNull;
+import lombok.Value;
+import lombok.experimental.Builder;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.jive.myco.jazz.api.rules.exceptions.RuleException;
 
-import lombok.NonNull;
-
+@Builder
+@Value
 public class RuleExpression
 {
 
   private final static String OPERATOR_EQUALS = "equals";
   private final static String OPERATOR_MATCHES = "matches";
 
-  private final Pattern pattern = Pattern.compile("^([A-z.]+)\\s(equals|matches)\\s([A-z.]+)$");
+  private final static Pattern pattern = Pattern
+      .compile("^([A-z.]+)\\s(equals|matches)\\s([A-z.]+)$");
   private String expression;
   private String leftSide;
   private String operator;
   private String rightSide;
-
-  public boolean eval(Map<String, String> variables)
+  
+  protected boolean eval(Map<String, String> variables)
   {
     String valueToCompare = variables.get(leftSide);
 
@@ -40,20 +46,26 @@ public class RuleExpression
   }
 
   @JsonCreator
-  public void valueOf(@NonNull String expression) throws RuleException
+  public static RuleExpression valueOf(@NonNull String expression) throws RuleException
   {
+   
     Matcher matcher = pattern.matcher(expression);
     if (matcher.matches())
     {
-      this.expression = expression;
-      this.leftSide = matcher.group(0);
-      this.operator = matcher.group(1);
-      this.rightSide = matcher.group(2);
+      return RuleExpression.builder()
+        .expression(expression)
+        .leftSide(matcher.group(1))
+        .operator(matcher.group(2))
+        .rightSide(matcher.group(3)).build();
     }
-    throw new RuleException(String.format("Expression [%s] does not match pattern [%s]",
-        expression, pattern.pattern()));
+    else
+    {
+      throw new RuleException(String.format("Expression [%s] does not match pattern [%s]",
+          expression, pattern.pattern()));
+    }
   }
 
+  @JsonValue
   public String toString()
   {
     return expression;

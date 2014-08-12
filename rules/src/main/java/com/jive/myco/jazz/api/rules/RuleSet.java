@@ -3,26 +3,21 @@ package com.jive.myco.jazz.api.rules;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import lombok.AllArgsConstructor;
+import lombok.Value;
+
 import com.jive.myco.jazz.api.core.coordinates.Coordinates;
 
-import lombok.Data;
-import lombok.Value;
-import lombok.experimental.Builder;
-
-@Data
+@Value
+@AllArgsConstructor
 public class RuleSet
-{ 
-  private Pattern ruleCoordinates; 
-  private final List<SimpleRule> rules;
-  private final int version;
-  
-  public boolean checkCoordinates(Coordinates coordinates){
-    return ruleCoordinates.matcher(coordinates.toString()).matches();
-  }
-  
-  public void setRuleCoordinates(String coordinatesPattern){
-    if(Pattern.matches("^(\\S+):(\\S+):(\\S+):(\\S+)$", coordinatesPattern)){
-      ruleCoordinates = Pattern.compile(coordinatesPattern);
-    }
+{
+  private Pattern ruleCoordinatesPattern;
+  private List<SimpleRule> rules;
+  private int version;
+
+  public boolean checkCoordinates(Coordinates coordinates)
+  {
+    return ruleCoordinatesPattern.matcher(coordinates.toString()).matches();
   }
 }
