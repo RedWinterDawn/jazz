@@ -111,6 +111,16 @@ public interface JazzContextManager
   JazzContextManager putAllIfAbsent(final Map<String, String> values);
 
   /**
+   * Set the value for {@code key} if the value is absent.
+   *
+   * @param key
+   *          the key for which to remove the value
+   *
+   * @return this instance for chaining
+   */
+  JazzContextManager remove(final Object key);
+
+  /**
    * Clear all the context parameters.
    *
    * @return this instance for chaining
