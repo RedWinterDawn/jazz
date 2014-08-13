@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.codahale.metrics.MetricRegistry;
 import com.jive.myco.jazz.api.config.ConfigurationManager;
 import com.jive.myco.jazz.api.config.JazzConfiguration;
+import com.jive.myco.jazz.api.context.JazzContextManager;
 import com.jive.myco.jazz.api.health.HealthCheckManager;
 import com.jive.myco.jazz.api.metrics.MetricsManager;
 import com.jive.myco.jazz.api.registry.RegistryManager;
@@ -40,4 +41,6 @@ public interface JazzCore<T extends JazzConfiguration>
   Optional<Jumpy> getJumpy();
 
   Optional<RegistryManager> getRegistryManager();
+
+  JazzContextManager getContextManager();
 }

@@ -1,5 +1,6 @@
 package com.jive.myco.jazz.api.context;
 
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 /**
@@ -17,5 +18,5 @@ public interface ContextExecutor extends Executor
    *
    * @see #execute(Runnable)
    */
-  void execute(Runnable task, JazzContext context);
+  void execute(final Runnable task, final Map<String, String> context);
 }

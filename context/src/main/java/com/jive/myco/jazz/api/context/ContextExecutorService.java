@@ -1,5 +1,6 @@
 package com.jive.myco.jazz.api.context;
 
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -19,19 +20,19 @@ public interface ContextExecutorService extends ExecutorService, ContextExecutor
    *
    * @see #submit(Callable)
    */
-  <T> Future<T> submit(Callable<T> task, JazzContext context);
+  <T> Future<T> submit(final Callable<T> task, final Map<String, String> context);
 
   /**
    * Executes the given task, adding the given context to the current context data.
    *
    * @see #submit(Runnable, Object)
    */
-  <T> Future<T> submit(Runnable task, T result, JazzContext context);
+  <T> Future<T> submit(final Runnable task, final T result, final Map<String, String> context);
 
   /**
    * Executes the given task, adding the given context to the current context data.
    *
    * @see #submit(Runnable)
    */
-  Future<?> submit(Runnable task, JazzContext context);
+  Future<?> submit(final Runnable task, final Map<String, String> context);
 }

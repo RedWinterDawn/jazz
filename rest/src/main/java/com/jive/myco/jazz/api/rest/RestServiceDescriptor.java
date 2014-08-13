@@ -29,17 +29,25 @@ public final class RestServiceDescriptor
 
   private final Set<StaticResourceDescriptor> staticResources;
 
+  private final boolean includeJazzContextFilter;
+
+  private final boolean includeJazzMdcFilter;
+
   @Builder
   private RestServiceDescriptor(
       @NonNull final Set<Object> singletons,
       @NonNull final List<FilterMappingDescriptor> filters,
-      @NonNull final List<StaticResourceDescriptor> staticResources)
+      @NonNull final List<StaticResourceDescriptor> staticResources,
+      final boolean includeJazzContextFilter,
+      final boolean includeJazzMdcFilter)
   {
     this.singletons = Collections.unmodifiableSet(new HashSet<>(singletons));
     this.staticResources =
         Collections.unmodifiableSet(new HashSet<>(staticResources));
     this.filters =
         Collections.unmodifiableList(new ArrayList<>(filters));
+    this.includeJazzContextFilter = includeJazzContextFilter;
+    this.includeJazzMdcFilter = includeJazzMdcFilter;
   }
 
   /**
@@ -54,6 +62,10 @@ public final class RestServiceDescriptor
     private final List<FilterMappingDescriptor> filters = new LinkedList<>();
 
     private final List<StaticResourceDescriptor> staticResources = new LinkedList<>();
+
+    private boolean includeJazzContextFilter = true;
+
+    private boolean includeJazzMdcFilter = true;
 
     /**
      * Adds a singleton to the singletons provided via the descriptor.

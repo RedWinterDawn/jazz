@@ -1,5 +1,6 @@
 package com.jive.myco.jazz.api.context;
 
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -21,29 +22,30 @@ public interface ContextScheduledExecutorService
    *
    * @see #schedule(Runnable, long, TimeUnit, JazzContext)
    */
-  ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit, JazzContext context);
+  ScheduledFuture<?> schedule(final Runnable command, final long delay, final TimeUnit unit,
+      final Map<String, String> context);
 
   /**
    * Executes the given task, adding the given context to the current context data.
    *
    * @see #schedule(Callable, long, TimeUnit)
    */
-  <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit,
-      JazzContext context);
+  <V> ScheduledFuture<V> schedule(final Callable<V> callable, final long delay, final TimeUnit unit,
+      final Map<String, String> context);
 
   /**
    * Executes the given task, adding the given context to the current context data.
    *
    * @see #scheduleAtFixedRate(Runnable, long, long, TimeUnit)
    */
-  ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay,
-      long period, TimeUnit unit, JazzContext context);
+  ScheduledFuture<?> scheduleAtFixedRate(final Runnable command, final long initialDelay,
+      final long period, final TimeUnit unit, final Map<String, String> context);
 
   /**
    * Executes the given task, adding the given context to the current context data.
    *
    * @see #scheduleWithFixedDelay(Runnable, long, long, TimeUnit)
    */
-  ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay,
-      long delay, TimeUnit unit, JazzContext context);
+  ScheduledFuture<?> scheduleWithFixedDelay(final Runnable command, final long initialDelay,
+      final long delay, final TimeUnit unit, final Map<String, String> context);
 }

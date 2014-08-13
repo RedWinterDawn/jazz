@@ -1,6 +1,8 @@
 package com.jive.myco.jazz.api.context;
 
+import java.util.Map;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * Manager for the context in an application. Only 1 of these should be available in an application.
@@ -9,40 +11,21 @@ import java.util.function.Supplier;
  */
 public interface JazzContextManager
 {
-  /**
-   * Clears the current context for this thread and initializes a new blank jazz context.
-   *
-   * @return the new jazz context
-   */
-  MutableJazzContext initializeContext();
+  static final String JAZZ_CONTEXT_ID_KEY = "jazz.context.id";
 
-  /**
-   * Clears the current context for this thread and initializes a new jazz context with all values
-   * from the provided context.
-   *
-   * @param context
-   *          the context to use for the request context
-   * @return the new jazz context
-   */
-  MutableJazzContext initializeRequestContext(JazzContext context);
+  static final String JAZZ_TRACE_ID_KEY = "jazz.trace.id";
 
-  /**
-   * Get the context for the currently executing thread. This context represents the context
-   * information that has been extracted from the incoming external request and any additional
-   * context information that has been added and is passed through with the entire lifecycle of the
-   * request.
-   *
-   * @return the current jazz context
-   */
-  MutableJazzContext getContext();
+  static final String JAZZ_RUNTIME_APPLICATION_VERSION_KEY =
+      "jazz.runtime.application.version";
 
-  /**
-   * Get the immutable local context of the current system executing the request. This information
-   * is static and will not change from one request to another.
-   *
-   * @return the local system context
-   */
-  JazzContext getLocalContext();
+  static final String JAZZ_RUNTIME_SERVICE_NAME_KEY = "jazz.runtime.service.name";
+
+  static final String JAZZ_RUNTIME_COORDINATES_KEY = "jazz.runtime.coordinates";
+
+  static final String JAZZ_RUNTIME_ENVIRONMENT_ID_KEY = "jazz.runtime.environment.id";
+
+  static final String JAZZ_RUNTIME_ENVIRONMENT_BRANCH_KEY =
+      "jazz.runtime.environment.branch";
 
   /**
    * Get a context parameter from the local context first, then from the incoming context if not
@@ -52,7 +35,7 @@ public interface JazzContextManager
    *          the non-{@code null} context key
    * @return the context value
    */
-  String get(String key);
+  String get(final String key);
 
   /**
    * Get a context parameter or {@code defaultValue} if not present.
@@ -63,7 +46,7 @@ public interface JazzContextManager
    *          the default value if not present
    * @return the context value or default value if not present
    */
-  String get(String key, String defaultValue);
+  String get(final String key, final String defaultValue);
 
   /**
    * Get a context parameter, invoking {@code defaultProvider} if not present for the default value.
@@ -74,5 +57,74 @@ public interface JazzContextManager
    *          provider to invoke if the {@code key} is not present
    * @return the context value or default value if not present
    */
-  String get(String key, Supplier<String> defaultProvider);
+  String get(final String key, final Supplier<String> defaultProvider);
+
+  /**
+   * Set a context parameter.
+   *
+   * @param key
+   *          the non-{@code null} context key
+   * @param value
+   *          the context value
+   * @return this instance for chaining
+   */
+  JazzContextManager put(final String key, final String value);
+
+  /**
+   * Set the value for {@code key} if the value is absent.
+   *
+   * @param key
+   *          the the non-{@code null} context key
+   * @param valueIfAbsent
+   *          the value to set if not already set
+   * @return this instance for chaining
+   */
+  JazzContextManager putIfAbsent(final String key, final String valueIfAbsent);
+
+  /**
+   * Set the value for {@code key} if the value is absent invoking the provided
+   * {@code valueSupplier} to get the value to set.
+   *
+   * @param key
+   *          the the non-{@code null} context key
+   * @param valueSupplier
+   *          a supplier to lazily provide the value if absent
+   * @return this instance for chaining
+   */
+  JazzContextManager putIfAbsent(final String key, final Supplier<String> valueSupplier);
+
+  /**
+   * Put all the given values into the context.
+   *
+   * @param values
+   *          the values to add to the context
+   */
+  JazzContextManager putAll(final Map<String, String> values);
+
+  /**
+   * Put all the given values into the context but only if they do not already exist in the context.
+   *
+   * @param values
+   *          the values to add to the context
+   * @return this instance for chaining
+   */
+  JazzContextManager putAllIfAbsent(final Map<String, String> values);
+
+  /**
+   * Clear all the context parameters.
+   *
+   * @return this instance for chaining
+   */
+  JazzContextManager clear();
+
+  /**
+   * Transform this context into a map. The resulting map will not be backed by this instance.
+   * Modifications to the returned map will not affect this context.
+   */
+  Map<String, String> toMap();
+
+  /**
+   * Provides a Stream from all the values in the context.
+   */
+  Stream<Map.Entry<String, String>> stream();
 }
