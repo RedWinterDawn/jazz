@@ -14,13 +14,12 @@ import com.jive.myco.jazz.api.rules.czar.exceptions.RuleException;
 @Value
 public class RuleExpression
 {
-
-  private final static String OPERATOR_EQUALS = "equals";
-  private final static String OPERATOR_MATCHES = "matches";
-  private final static String OPERATOR_IS_EMPTY = "is empty";
+  public final static String OPERATOR_EQUALS = "equals";
+  public final static String OPERATOR_MATCHES = "matches";
+  public final static String OPERATOR_IS_EMPTY = "isempty";
 
   private final static Pattern EXPRESSION_PATTERN = Pattern
-      .compile("^([A-z.]+)\\s(equals|matches|is empty)\\s([A-z.]+)$", Pattern.CASE_INSENSITIVE);
+      .compile("^([A-z.]+)\\s((equals|matches)\\s([A-z.]+)$|isempty)$", Pattern.CASE_INSENSITIVE);
 
   private final String expression;
   private final String leftSide;
