@@ -5,7 +5,9 @@ import java.util.regex.Pattern;
 
 import lombok.AllArgsConstructor;
 import lombok.Value;
+import lombok.experimental.Builder;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.jive.myco.jazz.api.core.coordinates.Coordinates;
 
 @Value

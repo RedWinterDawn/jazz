@@ -31,4 +31,9 @@ public class SimpleRule
       contextManager.getContext().put(action.getKey(), action.getValue());
     }
   }
+
+  public int key()
+  {
+    return this.hashCode();
+  }
 }
