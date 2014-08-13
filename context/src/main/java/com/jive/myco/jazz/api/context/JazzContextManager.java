@@ -118,8 +118,9 @@ public interface JazzContextManager
   JazzContextManager clear();
 
   /**
-   * Transform this context into a map. The resulting map will not be backed by this instance.
-   * Modifications to the returned map will not affect this context.
+   * Transform the current context into a map which <em>excludes</em> values from the local system
+   * context. The resulting map will not be backed by this instance. Modifications to the returned
+   * map will not affect this context.
    */
   Map<String, String> toMap();
 
