@@ -7,6 +7,8 @@ import lombok.NonNull;
 import lombok.Value;
 import lombok.experimental.Builder;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * Represents the full path to an instance running in the Jazz ecosystem. An instance's coordinates
  * are comprised of the instance's {@link ProviderId provider}, {@link Locality location }, and
@@ -30,7 +32,7 @@ import lombok.experimental.Builder;
 @Builder
 public final class Coordinates
 {
-  private static Pattern COORDINATES_PATTERN = Pattern.compile(
+  private static final Pattern COORDINATES_PATTERN = Pattern.compile(
       "(?<provider>" + ProviderId.PROVIDER_ID_PATTERN.pattern() + "):"
           + "(?<locality>" + Locality.LOCALITY_PATTERN.pattern() + "):"
           + "(?<instanceType>" + InstanceTypeId.INSTANCE_TYPE_ID_PATTERN.pattern() + "):"
@@ -54,6 +56,7 @@ public final class Coordinates
    * @see #valueOf(String)
    */
   @Override
+  @JsonValue
   public String toString()
   {
     return String.format("%s:%s:%s:%s", provider, locality, instanceType, instance);
