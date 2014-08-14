@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 import lombok.experimental.Builder;
+import lombok.extern.slf4j.Slf4j;
 
 import com.jive.myco.jazz.api.context.JazzContextManager;
 
@@ -18,6 +19,7 @@ import com.jive.myco.jazz.api.context.JazzContextManager;
 @Value
 @EqualsAndHashCode(of = { "expression" })
 @AllArgsConstructor
+@Slf4j
 public class SimpleRule
 {
   private final String description;
@@ -26,8 +28,10 @@ public class SimpleRule
 
   public void applyRule(final JazzContextManager contextManager)
   {
+    log.debug("Checking Rule Expression [{}]", expression);
     if (expression.eval(contextManager))
     {
+      log.debug("Put the following in context [{}], [{}]", action.getKey(), action.getValue());
       contextManager.put(action.getKey(), action.getValue());
     }
   }

@@ -11,6 +11,11 @@
   <name>Jazz :: API :: Rules</name>
   <dependencies>
     <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
     </dependency>
@@ -24,6 +29,7 @@
       <artifactId>jazz-api-context</artifactId>
       <version>0.2.5-SNAPSHOT</version>
     </dependency>
+    
   </dependencies>
 
 </project>

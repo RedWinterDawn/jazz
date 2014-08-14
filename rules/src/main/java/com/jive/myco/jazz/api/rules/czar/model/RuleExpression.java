@@ -19,7 +19,8 @@ public class RuleExpression
   public final static String OPERATOR_IS_EMPTY = "isempty";
 
   private final static Pattern EXPRESSION_PATTERN = Pattern
-      .compile("^([A-z.]+)\\s((equals|matches)\\s([A-z.]+)$|isempty)$", Pattern.CASE_INSENSITIVE);
+      .compile("^([A-z0-9.]+)\\s(equals|matches)\\s(.+)$|^([A-z0-9.]+)\\s(isempty)$",
+          Pattern.CASE_INSENSITIVE);
 
   private final String expression;
   private final String leftSide;
@@ -53,7 +54,6 @@ public class RuleExpression
   protected boolean eval(final JazzContextManager contextManager)
   {
     final String valueToCompare = contextManager.get(leftSide, "");
-
     return rightSide.matcher(valueToCompare).matches();
   }
 
@@ -61,9 +61,14 @@ public class RuleExpression
   public static RuleExpression valueOf(@NonNull final String expression) throws RuleException
   {
     final Matcher matcher = EXPRESSION_PATTERN.matcher(expression);
-    if (matcher.matches())
+
+    if (matcher.matches() && null != matcher.group(1))
     {
       return new RuleExpression(expression, matcher.group(1), matcher.group(2), matcher.group(3));
+    }
+    else if (matcher.matches() && null != matcher.group(4))
+    {
+      return new RuleExpression(expression, matcher.group(4), matcher.group(5), "");
     }
     else
     {
