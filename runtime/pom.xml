@@ -19,10 +19,16 @@
       <artifactId>jazz-api-config</artifactId>
       <version>${project.version}</version>
     </dependency>
-    
+
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>jazz-api-context</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>jazz-api-rules</artifactId>
       <version>${project.version}</version>
     </dependency>
 
