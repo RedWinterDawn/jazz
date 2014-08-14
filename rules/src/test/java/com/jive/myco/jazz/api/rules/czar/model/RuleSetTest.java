@@ -1,14 +1,14 @@
 package com.jive.myco.jazz.api.rules.czar.model;
 
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.collect.Lists;
@@ -18,16 +18,24 @@ import com.jive.myco.jazz.api.context.JazzContextManager;
 public class RuleSetTest
 {
 
-  @Mock
-  JazzContextManager mockJazzContextManager;
+  @Before
+  public void setup()
+  {
+    JazzContextManager.clear();
+  }
+
+  @After
+  public void tearDown()
+  {
+    JazzContextManager.clear();
+  }
 
   @Test
   public void testRuleSetSuccess() throws Exception
   {
-
-    when(mockJazzContextManager.get("phonenumber", "")).thenReturn("8015551212");
-    when(mockJazzContextManager.get("areacode", "")).thenReturn("801");
-    when(mockJazzContextManager.get("state", "")).thenReturn("");
+    JazzContextManager.put("phonenumber", "8015551212");
+    JazzContextManager.put("areacode", "801");
+    JazzContextManager.put("state", "");
 
     final List<SimpleRule> rules = Lists.newArrayList();
     rules.add(SimpleRule.builder()
@@ -49,12 +57,8 @@ public class RuleSetTest
 
     final RuleSet ruleSet = new RuleSet(Pattern.compile(".*"), rules, 1);
 
-    ruleSet.getRules().stream().forEach((rule) ->
-    {
-      rule.applyRule(mockJazzContextManager);
-    });
+    ruleSet.getRules().stream().forEach(SimpleRule::apply);
 
-    verify(mockJazzContextManager, times(3)).get(anyString(), eq(""));
-    verify(mockJazzContextManager, times(3)).put(eq("Hello"), anyString());
+    assertEquals("IsEmpty", JazzContextManager.get("Hello"));
   }
 }
