@@ -26,13 +26,13 @@ public class SimpleRule
   private final RuleExpression expression;
   private final Action action;
 
-  public void applyRule(final JazzContextManager contextManager)
+  public void apply()
   {
     log.debug("Checking Rule Expression [{}]", expression);
-    if (expression.eval(contextManager))
+    if (expression.eval())
     {
       log.debug("Put the following in context [{}], [{}]", action.getKey(), action.getValue());
-      contextManager.put(action.getKey(), action.getValue());
+      JazzContextManager.put(action.getKey(), action.getValue());
     }
   }
 

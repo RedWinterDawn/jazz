@@ -14,38 +14,98 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Brandon Pedersen &lt;bpedersen@getjive.com&gt;
  */
-public interface ContextScheduledExecutorService
-    extends ScheduledExecutorService, ContextExecutorService
+public class ContextScheduledExecutorService extends
+    ContextExecutorService implements ScheduledExecutorService
 {
+
+  public ContextScheduledExecutorService(final ScheduledExecutorService delegate)
+  {
+    super(delegate);
+  }
+
   /**
    * Executes the given task, adding the given context to the current context data.
    *
-   * @see #schedule(Runnable, long, TimeUnit, JazzContext)
+   * @see #schedule(Runnable, long, TimeUnit)
    */
-  ScheduledFuture<?> schedule(final Runnable command, final long delay, final TimeUnit unit,
-      final Map<String, String> context);
+  public ScheduledFuture<?> schedule(final Runnable command, final long delay, final TimeUnit unit,
+      final Map<String, String> context)
+  {
+    return getDelegate().schedule(new ContextWrappedRunnable(command, context), delay, unit);
+  }
 
   /**
    * Executes the given task, adding the given context to the current context data.
    *
    * @see #schedule(Callable, long, TimeUnit)
    */
-  <V> ScheduledFuture<V> schedule(final Callable<V> callable, final long delay, final TimeUnit unit,
-      final Map<String, String> context);
+  public <V> ScheduledFuture<V> schedule(final Callable<V> callable, final long delay,
+      final TimeUnit unit,
+      final Map<String, String> context)
+  {
+    return getDelegate().schedule(new ContextWrappedCallable<>(callable, context), delay, unit);
+  }
 
   /**
    * Executes the given task, adding the given context to the current context data.
    *
    * @see #scheduleAtFixedRate(Runnable, long, long, TimeUnit)
    */
-  ScheduledFuture<?> scheduleAtFixedRate(final Runnable command, final long initialDelay,
-      final long period, final TimeUnit unit, final Map<String, String> context);
+  public ScheduledFuture<?> scheduleAtFixedRate(final Runnable command, final long initialDelay,
+      final long period,
+      final TimeUnit unit, final Map<String, String> context)
+  {
+    return getDelegate().scheduleAtFixedRate(
+        new ContextWrappedRunnable(command, context), initialDelay, period, unit);
+  }
 
   /**
    * Executes the given task, adding the given context to the current context data.
    *
    * @see #scheduleWithFixedDelay(Runnable, long, long, TimeUnit)
    */
-  ScheduledFuture<?> scheduleWithFixedDelay(final Runnable command, final long initialDelay,
-      final long delay, final TimeUnit unit, final Map<String, String> context);
+  public ScheduledFuture<?> scheduleWithFixedDelay(final Runnable command, final long initialDelay,
+      final long delay,
+      final TimeUnit unit, final Map<String, String> context)
+  {
+    return getDelegate().scheduleWithFixedDelay(
+        new ContextWrappedRunnable(command, context), initialDelay, delay, unit);
+  }
+
+  @Override
+  public ScheduledFuture<?> schedule(final Runnable command, final long delay, final TimeUnit unit)
+  {
+    return getDelegate().schedule(new ContextWrappedRunnable(command), delay, unit);
+  }
+
+  @Override
+  public <V> ScheduledFuture<V> schedule(final Callable<V> callable, final long delay,
+      final TimeUnit unit)
+  {
+    return getDelegate().schedule(new ContextWrappedCallable<>(callable), delay, unit);
+  }
+
+  @Override
+  public ScheduledFuture<?> scheduleAtFixedRate(final Runnable command, final long initialDelay,
+      final long period,
+      final TimeUnit unit)
+  {
+    return getDelegate().scheduleAtFixedRate(
+        new ContextWrappedRunnable(command), initialDelay, period, unit);
+  }
+
+  @Override
+  public ScheduledFuture<?> scheduleWithFixedDelay(final Runnable command, final long initialDelay,
+      final long delay,
+      final TimeUnit unit)
+  {
+    return getDelegate().scheduleWithFixedDelay(
+        new ContextWrappedRunnable(command), initialDelay, delay, unit);
+  }
+
+  @Override
+  protected ScheduledExecutorService getDelegate()
+  {
+    return (ScheduledExecutorService) super.getDelegate();
+  }
 }

@@ -19,15 +19,22 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>com.jive.myco.jazz.api</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>jazz-api-core</artifactId>
       <version>${project.version}</version>
     </dependency>
+
     <dependency>
-      <groupId>com.jive.myco.jazz.api</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>jazz-api-context</artifactId>
-      <version>0.2.5-SNAPSHOT</version>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.jive.myco.commons</groupId>
+      <artifactId>myco-commons-lifecycle</artifactId>
     </dependency>
     
   </dependencies>

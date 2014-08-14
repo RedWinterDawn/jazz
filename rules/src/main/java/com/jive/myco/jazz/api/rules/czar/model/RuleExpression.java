@@ -51,9 +51,10 @@ public class RuleExpression
     }
   }
 
-  protected boolean eval(final JazzContextManager contextManager)
+  protected boolean eval()
   {
-    final String valueToCompare = contextManager.get(leftSide, "");
+    final String valueToCompare = JazzContextManager.get(leftSide, "");
+
     return rightSide.matcher(valueToCompare).matches();
   }
 

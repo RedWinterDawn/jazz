@@ -1,31 +1,83 @@
 package com.jive.myco.jazz.api.context;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
+import org.apache.commons.lang.RandomStringUtils;
+
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+
 /**
- * Manager for the context in an application. Only 1 of these should be available in an application.
- *
  * @author Brandon Pedersen &lt;bpedersen@getjive.com&gt;
  */
-public interface JazzContextManager
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class JazzContextManager
 {
-  static final String JAZZ_CONTEXT_ID_KEY = "jazz.context.id";
+  /*
+   * Common keys used in the Jazz Context
+   */
 
-  static final String JAZZ_TRACE_ID_KEY = "jazz.trace.id";
+  public static final String JAZZ_CONTEXT_ID_KEY = "jazz.context.id";
 
-  static final String JAZZ_RUNTIME_APPLICATION_VERSION_KEY =
+  public static final String JAZZ_TRACE_ID_KEY = "jazz.trace.id";
+
+  public static final String JAZZ_RUNTIME_APPLICATION_VERSION_KEY =
       "jazz.runtime.application.version";
 
-  static final String JAZZ_RUNTIME_SERVICE_NAME_KEY = "jazz.runtime.service.name";
+  public static final String JAZZ_RUNTIME_SERVICE_NAME_KEY = "jazz.runtime.service.name";
 
-  static final String JAZZ_RUNTIME_COORDINATES_KEY = "jazz.runtime.coordinates";
+  public static final String JAZZ_RUNTIME_COORDINATES_KEY = "jazz.runtime.coordinates";
 
-  static final String JAZZ_RUNTIME_ENVIRONMENT_ID_KEY = "jazz.runtime.environment.id";
+  public static final String JAZZ_RUNTIME_ENVIRONMENT_ID_KEY = "jazz.runtime.environment.id";
 
-  static final String JAZZ_RUNTIME_ENVIRONMENT_BRANCH_KEY =
+  public static final String JAZZ_RUNTIME_ENVIRONMENT_BRANCH_KEY =
       "jazz.runtime.environment.branch";
+
+  /**
+   * Generated context ID length
+   *
+   * @see #JAZZ_CONTEXT_ID_KEY
+   */
+  private static final int JAZZ_CONTEXT_ID_LENGTH = 32;
+
+  /**
+   * Pattern for valid characters for a context key.
+   */
+  public static final Pattern KEY_PATTERN = Pattern.compile("[\\w.-]+");
+
+  /**
+   * Context that is local to the system and global across the application
+   */
+  private static volatile Map<String, String> localContext = Maps.newConcurrentMap();
+
+  /**
+   * Context that is available on a per-thread/context basis
+   */
+  private static final ThreadLocal<Map<String, String>> context = ThreadLocal
+      .withInitial(JazzContextManager::createContext);
+
+  private static final JazzContextManager INSTANCE = new JazzContextManager();
+
+  /**
+   * Initialize the local context with the given properties.
+   *
+   * @param localContext
+   *          the local context values to use
+   */
+  public static void initialize(final Map<String, String> localContext)
+  {
+    JazzContextManager.localContext = ImmutableMap.copyOf(localContext);
+  }
 
   /**
    * Get a context parameter from the local context first, then from the incoming context if not
@@ -35,7 +87,12 @@ public interface JazzContextManager
    *          the non-{@code null} context key
    * @return the context value
    */
-  String get(final String key);
+  public static String get(final String key)
+  {
+    return Optional
+        .ofNullable(localContext.get(key))
+        .orElseGet(() -> context.get().get(key));
+  }
 
   /**
    * Get a context parameter or {@code defaultValue} if not present.
@@ -46,7 +103,12 @@ public interface JazzContextManager
    *          the default value if not present
    * @return the context value or default value if not present
    */
-  String get(final String key, final String defaultValue);
+  public static String get(final String key, final String defaultValue)
+  {
+    return Optional
+        .ofNullable(localContext.get(key))
+        .orElse(context.get().getOrDefault(key, defaultValue));
+  }
 
   /**
    * Get a context parameter, invoking {@code defaultProvider} if not present for the default value.
@@ -57,7 +119,15 @@ public interface JazzContextManager
    *          provider to invoke if the {@code key} is not present
    * @return the context value or default value if not present
    */
-  String get(final String key, final Supplier<String> defaultProvider);
+  public static String get(final String key, final Supplier<String> defaultProvider)
+  {
+    return Optional
+        .ofNullable(localContext.get(key))
+        .orElse(
+            Optional
+                .ofNullable(context.get().get(key))
+                .orElseGet(defaultProvider));
+  }
 
   /**
    * Set a context parameter.
@@ -68,7 +138,13 @@ public interface JazzContextManager
    *          the context value
    * @return this instance for chaining
    */
-  JazzContextManager put(final String key, final String value);
+  public static JazzContextManager put(final String key, final String value)
+  {
+    checkKey(key);
+
+    context.get().put(key, value);
+    return INSTANCE;
+  }
 
   /**
    * Set the value for {@code key} if the value is absent.
@@ -79,7 +155,13 @@ public interface JazzContextManager
    *          the value to set if not already set
    * @return this instance for chaining
    */
-  JazzContextManager putIfAbsent(final String key, final String valueIfAbsent);
+  public static JazzContextManager putIfAbsent(final String key, final String valueIfAbsent)
+  {
+    checkKey(key);
+
+    context.get().putIfAbsent(key, valueIfAbsent);
+    return INSTANCE;
+  }
 
   /**
    * Set the value for {@code key} if the value is absent invoking the provided
@@ -91,7 +173,14 @@ public interface JazzContextManager
    *          a supplier to lazily provide the value if absent
    * @return this instance for chaining
    */
-  JazzContextManager putIfAbsent(final String key, final Supplier<String> valueSupplier);
+  public static JazzContextManager putIfAbsent(final String key,
+      final Supplier<String> valueSupplier)
+  {
+    checkKey(key);
+
+    context.get().computeIfAbsent(key, (k) -> valueSupplier.get());
+    return INSTANCE;
+  }
 
   /**
    * Put all the given values into the context.
@@ -99,7 +188,13 @@ public interface JazzContextManager
    * @param values
    *          the values to add to the context
    */
-  JazzContextManager putAll(final Map<String, String> values);
+  public static JazzContextManager putAll(@NonNull final Map<String, String> values)
+  {
+    values.keySet().forEach(JazzContextManager::checkKey);
+
+    context.get().putAll(values);
+    return INSTANCE;
+  }
 
   /**
    * Put all the given values into the context but only if they do not already exist in the context.
@@ -108,7 +203,14 @@ public interface JazzContextManager
    *          the values to add to the context
    * @return this instance for chaining
    */
-  JazzContextManager putAllIfAbsent(final Map<String, String> values);
+  public static JazzContextManager putAllIfAbsent(@NonNull final Map<String, String> values)
+  {
+    values.keySet().forEach(JazzContextManager::checkKey);
+
+    values.entrySet().forEach(
+        (entry) -> context.get().putIfAbsent(entry.getKey(), entry.getValue()));
+    return INSTANCE;
+  }
 
   /**
    * Set the value for {@code key} if the value is absent.
@@ -118,24 +220,54 @@ public interface JazzContextManager
    *
    * @return this instance for chaining
    */
-  JazzContextManager remove(final Object key);
+  JazzContextManager remove(final Object key)
+  {
+    context.get().remove(key);
+    return INSTANCE;
+  }
 
   /**
    * Clear all the context parameters.
    *
    * @return this instance for chaining
    */
-  JazzContextManager clear();
+  public static JazzContextManager clear()
+  {
+    context.remove();
+    return INSTANCE;
+  }
 
   /**
    * Transform the current context into a map which <em>excludes</em> values from the local system
    * context. The resulting map will not be backed by this instance. Modifications to the returned
    * map will not affect this context.
    */
-  Map<String, String> toMap();
+  public static Map<String, String> toMap()
+  {
+    return new HashMap<>(context.get());
+  }
 
   /**
    * Provides a Stream from all the values in the context.
    */
-  Stream<Map.Entry<String, String>> stream();
+  public static Stream<Map.Entry<String, String>> stream()
+  {
+    return toMap().entrySet().stream();
+  }
+
+  private static HashMap<String, String> createContext()
+  {
+    final HashMap<String, String> newContext = new HashMap<>();
+
+    newContext.put(JAZZ_CONTEXT_ID_KEY,
+        RandomStringUtils.randomAlphanumeric(JAZZ_CONTEXT_ID_LENGTH));
+
+    return newContext;
+  }
+
+  static void checkKey(final String key)
+  {
+    Preconditions.checkArgument(JazzContextManager.KEY_PATTERN.matcher(key).matches(),
+        "Invalid context key [%s], only numbers, letters, and . _ - characters allowed", key);
+  }
 }
