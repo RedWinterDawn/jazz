@@ -3,16 +3,22 @@ package com.jive.myco.jazz.api.rules.czar.model;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import com.jive.myco.jazz.api.core.coordinates.Coordinates;
 
-@Value
+@AllArgsConstructor
 public class RuleSet
 {
+  @Getter
   private final Pattern ruleCoordinatesPattern;
+  @Getter
   private final List<SimpleRule> rules;
-  private final int version;
+  @Getter
+  @Setter
+  private int version;
 
   public boolean checkCoordinates(final Coordinates coordinates)
   {

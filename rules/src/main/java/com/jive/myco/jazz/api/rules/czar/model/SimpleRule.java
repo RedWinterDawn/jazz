@@ -1,7 +1,6 @@
 package com.jive.myco.jazz.api.rules.czar.model;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Value;
 import lombok.experimental.Builder;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +16,6 @@ import com.jive.myco.jazz.api.context.JazzContextManager;
  */
 @Builder
 @Value
-@EqualsAndHashCode(of = { "expression" })
 @AllArgsConstructor
 @Slf4j
 public class SimpleRule
@@ -38,6 +36,6 @@ public class SimpleRule
 
   public int getRuleId()
   {
-    return this.hashCode();
+    return this.description.hashCode();
   }
 }

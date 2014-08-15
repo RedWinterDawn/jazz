@@ -23,7 +23,7 @@ public class Action
 {
   public final static String METHOD_SET_CONTEXT = "setCtxProperty";
   private final static Pattern PATTERN = Pattern
-      .compile("^(setCtxProperty)\\(([A-z.]+),\\s([A-z.]+)\\)$");
+      .compile("^(setCtxProperty)\\((.+),\\s(.+)\\)$");
 
   private String expression;
   private String method;

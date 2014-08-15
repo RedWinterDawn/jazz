@@ -61,20 +61,23 @@ public class RuleExpression
   @JsonCreator
   public static RuleExpression valueOf(@NonNull final String expression) throws RuleException
   {
-    final Matcher matcher = EXPRESSION_PATTERN.matcher(expression);
+    final String trimmedExpression = expression.trim();
+
+    final Matcher matcher = EXPRESSION_PATTERN.matcher(trimmedExpression);
 
     if (matcher.matches() && null != matcher.group(1))
     {
-      return new RuleExpression(expression, matcher.group(1), matcher.group(2), matcher.group(3));
+      return new RuleExpression(trimmedExpression, matcher.group(1), matcher.group(2),
+          matcher.group(3));
     }
     else if (matcher.matches() && null != matcher.group(4))
     {
-      return new RuleExpression(expression, matcher.group(4), matcher.group(5), "");
+      return new RuleExpression(trimmedExpression, matcher.group(4), matcher.group(5), "");
     }
     else
     {
       throw new RuleException(String.format("Expression [%s] does not match pattern [%s]",
-          expression, EXPRESSION_PATTERN.pattern()));
+          trimmedExpression, EXPRESSION_PATTERN.pattern()));
     }
   }
 
