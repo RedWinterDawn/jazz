@@ -13,7 +13,8 @@ import com.jive.myco.jazz.api.core.coordinates.Coordinates;
 public class RuleSet
 {
   @Getter
-  private final Pattern ruleCoordinatesPattern;
+  @Setter
+  private Pattern ruleCoordinatesPattern;
   @Getter
   private final List<SimpleRule> rules;
   @Getter
