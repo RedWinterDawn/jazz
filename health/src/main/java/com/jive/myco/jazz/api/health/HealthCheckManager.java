@@ -41,8 +41,8 @@ public interface HealthCheckManager extends Lifecycled, ListenableLifecycled
   Set<AggregateHealthCheck> getAggregateHealthChecks();
 
   /**
-   * Adds a {@link AggregateHealthCheckListener} to the manager that will be added to all
-   * {@link AggregateHealthCheck}s
+   * Adds a {@link AggregateHealthCheckListener} to the manager that will be added to all currently
+   * registered and future {@link AggregateHealthCheck}s.
    * 
    * @param listener
    *          the listener to add to the manager
