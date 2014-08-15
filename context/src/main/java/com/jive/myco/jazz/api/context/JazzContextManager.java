@@ -32,16 +32,16 @@ public final class JazzContextManager
   public static final String JAZZ_TRACE_ID_KEY = "jazz.trace.id";
 
   public static final String JAZZ_RUNTIME_APPLICATION_VERSION_KEY =
-      "jazz.runtime.application.version";
+      "jazz.app.version";
 
-  public static final String JAZZ_RUNTIME_SERVICE_NAME_KEY = "jazz.runtime.service.name";
+  public static final String JAZZ_RUNTIME_SERVICE_NAME_KEY = "jazz.rt.service.name";
 
-  public static final String JAZZ_RUNTIME_COORDINATES_KEY = "jazz.runtime.coordinates";
+  public static final String JAZZ_RUNTIME_COORDINATES_KEY = "jazz.rt.coordinates";
 
-  public static final String JAZZ_RUNTIME_ENVIRONMENT_ID_KEY = "jazz.runtime.environment.id";
+  public static final String JAZZ_RUNTIME_ENVIRONMENT_ID_KEY = "jazz.rt.env.id";
 
   public static final String JAZZ_RUNTIME_ENVIRONMENT_BRANCH_KEY =
-      "jazz.runtime.environment.branch";
+      "jazz.rt.env.branch";
 
   /**
    * Generated context ID length
