@@ -53,6 +53,13 @@
         <scope>import</scope>
       </dependency>
       <dependency>
+        <groupId>com.jive.v5.nurse</groupId>
+        <artifactId>nurse-bom</artifactId>
+        <version>${deps.nurse.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>javax.servlet-api</artifactId>
         <version>${deps.servlet.version}</version>
