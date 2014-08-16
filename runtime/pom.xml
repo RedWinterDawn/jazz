@@ -68,7 +68,7 @@
     
     <dependency>
       <groupId>com.jive.v5.nurse</groupId>
-      <artifactId>client</artifactId>
+      <artifactId>api</artifactId>
       <version>${deps.nurse.version}</version>
     </dependency>
 
