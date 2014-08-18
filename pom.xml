@@ -8,7 +8,7 @@
   </parent>
   <groupId>com.jive.myco.jazz.api</groupId>
   <artifactId>root</artifactId>
-  <version>0.2.5-SNAPSHOT</version>
+  <version>0.2.7-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Jazz :: API :: Root</name>
   <description>The API of the Jazz Framework.</description>
@@ -33,7 +33,7 @@
   </scm>
   <properties>
     <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
-    <deps.isp.version>0.10-SNAPSHOT</deps.isp.version>
+    <deps.isp.version>0.12-SNAPSHOT</deps.isp.version>
     <deps.servlet.version>3.1.0</deps.servlet.version>
     <deps.myco-commons.version>0.1.1-SNAPSHOT</deps.myco-commons.version>
     <deps.commons-lang.version>2.6</deps.commons-lang.version>
