@@ -68,6 +68,7 @@ public final class JazzContextHeaderUtil
 
   public static boolean isContextHeader(final String headerName)
   {
-    return headerName != null && headerName.startsWith(HEADER_PREFIX);
+    return headerName != null && headerName.startsWith(HEADER_PREFIX)
+        || TRACE_ID_HEADER.equals(headerName) || REQUEST_ID_HEADER.equals(headerName);
   }
 }
