@@ -220,7 +220,7 @@ public final class JazzContextManager
    *
    * @return this instance for chaining
    */
-  JazzContextManager remove(final Object key)
+  public static JazzContextManager remove(final Object key)
   {
     context.get().remove(key);
     return INSTANCE;
