@@ -1,6 +1,7 @@
 package com.jive.myco.jazz.api.core.coordinates;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -11,10 +12,6 @@ import org.junit.Test;
  */
 public class CoordinatesTest
 {
-
-
-
-
   @Test
   public void testCoordinates()
   {

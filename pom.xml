@@ -22,6 +22,8 @@
     <module>runtime</module>
     <module>web</module>
     <module>registry</module>
+    <module>rules</module>
+    <module>context</module>
   </modules>
   <scm>
     <connection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</connection>
@@ -31,9 +33,10 @@
   </scm>
   <properties>
     <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
-    <deps.isp.version>0.11</deps.isp.version>
+    <deps.isp.version>0.12-SNAPSHOT</deps.isp.version>
     <deps.servlet.version>3.1.0</deps.servlet.version>
-    <deps.myco-commons.version>0.1.0</deps.myco-commons.version>
+    <deps.myco-commons.version>0.1.1-SNAPSHOT</deps.myco-commons.version>
+    <deps.commons-lang.version>2.6</deps.commons-lang.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -60,6 +63,11 @@
         <groupId>javax.ws.rs</groupId>
         <artifactId>javax.ws.rs-api</artifactId>
         <version>${deps.jax-rs-api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>${deps.commons-lang.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

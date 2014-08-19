@@ -14,4 +14,11 @@
 
   <description>Provides core interfaces for Jazz Framework based code.</description>
 
+  <dependencies>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+    </dependency>
+  </dependencies>
+
 </project>

@@ -7,3 +7,13 @@ target
 *.ipr
 *.iws
 .idea
+/config/.gitignore
+/context/.gitignore
+/core/.gitignore
+/health/.gitignore
+/metrics/.gitignore
+/registry/.gitignore
+/rest/.gitignore
+/rules/.gitignore
+/runtime/.gitignore
+/web/.gitignore

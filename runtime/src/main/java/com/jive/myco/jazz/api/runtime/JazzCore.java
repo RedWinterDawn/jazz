@@ -9,6 +9,7 @@ import com.jive.myco.jazz.api.health.HealthCheckManager;
 import com.jive.myco.jazz.api.metrics.MetricsManager;
 import com.jive.myco.jazz.api.registry.RegistryManager;
 import com.jive.myco.jazz.api.rest.RestServiceManager;
+import com.jive.myco.jazz.api.rules.czar.model.RulesEngine;
 import com.jive.myco.jazz.api.web.HttpServerManager;
 import com.jive.v5.isp.client.IspClient;
 import com.jive.v5.isp.jumpy.Jumpy;
@@ -40,4 +41,6 @@ public interface JazzCore<T extends JazzConfiguration>
   Optional<Jumpy> getJumpy();
 
   Optional<RegistryManager> getRegistryManager();
+
+  RulesEngine getRulesEngine();
 }
