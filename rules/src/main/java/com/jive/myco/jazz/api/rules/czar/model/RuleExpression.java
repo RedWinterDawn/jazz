@@ -55,7 +55,14 @@ public class RuleExpression
   {
     final String valueToCompare = JazzContextManager.get(leftSide, "");
 
-    return rightSide.matcher(valueToCompare).matches();
+    if (valueToCompare == null)
+    {
+      return OPERATOR_IS_EMPTY.equalsIgnoreCase(operator);
+    }
+    else
+    {
+      return rightSide.matcher(valueToCompare).matches();
+    }
   }
 
   @JsonCreator
