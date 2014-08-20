@@ -19,7 +19,7 @@ public class RuleExpression
   public final static String OPERATOR_IS_EMPTY = "isempty";
 
   private final static Pattern EXPRESSION_PATTERN = Pattern
-      .compile("^([A-z0-9.]+)\\s(equals|matches)\\s(.+)$|^([A-z0-9.]+)\\s(isempty)$",
+      .compile("^([\\w.-]+)\\s(equals|matches)\\s(.+)$|^([\\w.-]+)\\s(isempty)$",
           Pattern.CASE_INSENSITIVE);
 
   private final String expression;
