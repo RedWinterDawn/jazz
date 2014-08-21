@@ -1,5 +1,7 @@
 package com.jive.myco.jazz.api.core;
 
+import java.util.Optional;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
@@ -18,11 +20,9 @@ import lombok.experimental.Builder;
 @ToString
 public class BuildMetadata
 {
-  @NonNull
-  private final String branch;
+  private final Optional<String> branch;
 
-  @NonNull
-  private final String commitId;
+  private final Optional<String> commitId;
 
   @NonNull
   private final String version;
