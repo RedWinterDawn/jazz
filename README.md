@@ -12,6 +12,55 @@ The API for components of the Jazz framework.
 
 ## <a name="changes"></a>Change Log
 
+### 0.2.10
+* Upgrading from 0.2.9
+  * No changes required.
+* Change Log
+  * NS - Made Git related build meta optional in runtime environment
+
+### 0.2.9
+* Upgrading from 0.2.8
+  * No changes required.
+* Change Log
+  * US5129 - Added context and rules engine
+
+### 0.2.8
+* Upgrading from 0.2.7
+  * No changes required.
+* Change Log
+  * US5205 - Relaxed context rule expression Regex
+
+### 0.2.7
+* Upgrading from 0.2.6
+  * No changes required.
+* Change Log
+  * US5129 - Upgraded to ISP 0.12 and Myco Commons 0.1.1
+  * US5129 - Added context and rules engine
+
+### 0.2.6
+* Upgrading from 0.2.5
+  * No changes required.
+* Change Log
+  * NS - Upgraded to ISP 0.11
+
+### 0.2.5
+* Upgrading from 0.2.4
+  * No changes required.
+* Change Log
+  * NS - Upgraded to ISP 0.10
+
+### 0.2.4
+* Upgrading from 0.2.3
+  * No changes required.
+* Change Log
+  * NS - Upgraded to ISP 0.9
+
+### 0.2.3
+* Upgrading from 0.2.2
+  * No changes required.
+* Change Log
+  * NS - Upgraded to ISP 0.8
+
 ### 0.2.2
 * Upgrading from 0.2.1
   * No changes required.
