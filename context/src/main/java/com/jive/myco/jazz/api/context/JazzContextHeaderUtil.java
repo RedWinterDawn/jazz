@@ -20,6 +20,11 @@ public final class JazzContextHeaderUtil
       HEADER_PREFIX + "(" + JazzContextManager.KEY_PATTERN.pattern() + ")");
 
   /**
+   * Context key prefix for HTTP headers
+   */
+  public static final String HTTP_HEADER_PREFIX = "http.header.";
+
+  /**
    * Legacy header for trace ID.
    */
   public static final String TRACE_ID_HEADER = "J-Trace-ID";

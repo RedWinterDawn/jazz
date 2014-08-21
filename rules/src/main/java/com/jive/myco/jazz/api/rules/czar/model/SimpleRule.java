@@ -36,6 +36,6 @@ public class SimpleRule
 
   public int getRuleId()
   {
-    return this.description.hashCode();
+    return this.expression.hashCode();
   }
 }
