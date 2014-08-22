@@ -6,10 +6,12 @@ import java.util.regex.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import com.jive.myco.jazz.api.core.coordinates.Coordinates;
 
 @AllArgsConstructor
+@ToString
 public class RuleSet
 {
   @Getter

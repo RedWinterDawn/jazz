@@ -3,6 +3,7 @@ package com.jive.myco.jazz.api.rules.czar.model;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.Value;
 
@@ -12,6 +13,7 @@ import com.jive.myco.jazz.api.context.JazzContextManager;
 import com.jive.myco.jazz.api.rules.czar.exceptions.RuleException;
 
 @Value
+@EqualsAndHashCode(of = "expression")
 public class RuleExpression
 {
   public final static String OPERATOR_EQUALS = "equals";
