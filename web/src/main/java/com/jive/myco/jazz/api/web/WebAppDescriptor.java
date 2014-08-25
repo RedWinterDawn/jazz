@@ -11,7 +11,7 @@ import lombok.experimental.Builder;
 
 /**
  * Represents a collection of Web resources that may be bound in a {@link HttpServerManager}.
- * 
+ *
  * @author David Valeri
  */
 @Getter
@@ -23,11 +23,20 @@ public final class WebAppDescriptor
 
   private final List<StaticResourceDescriptor> staticResources;
 
+  private final boolean includeJazzContextFilter;
+
+  private final boolean includeJazzMdcFilter;
+
+  private final boolean includeJazzContextEnhancerRulesFilter;
+
   @Builder
   private WebAppDescriptor(
       @NonNull final List<ServletMappingDescriptor> servlets,
       @NonNull final List<FilterMappingDescriptor> filters,
-      @NonNull final List<StaticResourceDescriptor> staticResources)
+      @NonNull final List<StaticResourceDescriptor> staticResources,
+      final boolean includeJazzContextFilter,
+      final boolean includeJazzMdcFilter,
+      final boolean includeJazzContextEnhancerRulesFilter)
   {
     this.servlets =
         Collections.unmodifiableList(new ArrayList<>(servlets));
@@ -35,6 +44,9 @@ public final class WebAppDescriptor
         Collections.unmodifiableList(new ArrayList<>(filters));
     this.staticResources =
         Collections.unmodifiableList(new ArrayList<>(staticResources));
+    this.includeJazzContextFilter = includeJazzContextFilter;
+    this.includeJazzMdcFilter = includeJazzMdcFilter;
+    this.includeJazzContextEnhancerRulesFilter = includeJazzContextEnhancerRulesFilter;
   }
 
   /**
@@ -47,6 +59,9 @@ public final class WebAppDescriptor
     private final List<ServletMappingDescriptor> servlets = new LinkedList<>();
     private final List<FilterMappingDescriptor> filters = new LinkedList<>();
     private final List<StaticResourceDescriptor> staticResources = new LinkedList<>();
+    private boolean includeJazzContextFilter = true;
+    private boolean includeJazzMdcFilter = true;
+    private boolean includeJazzContextEnhancerRulesFilter = true;
 
     /**
      * Adds a servlet to the servlets provided via the descriptor.
