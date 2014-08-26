@@ -39,4 +39,16 @@ public interface HealthCheckManager extends Lifecycled, ListenableLifecycled
    * Returns a snapshot of the currently registered aggregate health checks.
    */
   Set<AggregateHealthCheck> getAggregateHealthChecks();
+
+  /**
+   * Adds a {@link AggregateHealthCheckListener} to the manager that will be added to all currently
+   * registered and future {@link AggregateHealthCheck}s.
+   * 
+   * @param listener
+   *          the listener to add to the manager
+   * 
+   * @return a future that completes when the listener has been added
+   */
+  PnkyPromise<Void> addDefaultAggregateHealthCheckListener(
+      final AggregateHealthCheckListener listener);
 }
