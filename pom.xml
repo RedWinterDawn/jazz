@@ -4,11 +4,11 @@
   <parent>
     <groupId>com.jive.myco</groupId>
     <artifactId>parent</artifactId>
-    <version>28</version>
+    <version>29</version>
   </parent>
   <groupId>com.jive.myco.jazz.api</groupId>
   <artifactId>root</artifactId>
-  <version>0.2.11-SNAPSHOT</version>
+  <version>0.2.13-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Jazz :: API :: Root</name>
   <description>The API of the Jazz Framework.</description>
@@ -33,10 +33,11 @@
   </scm>
   <properties>
     <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
-    <deps.isp.version>0.12</deps.isp.version>
+    <deps.isp.version>0.13</deps.isp.version>
     <deps.servlet.version>3.1.0</deps.servlet.version>
     <deps.commons-lang.version>2.6</deps.commons-lang.version>
-    <deps.myco-commons.version>0.1.1</deps.myco-commons.version>
+    <deps.nurse.version>0.30</deps.nurse.version>
+    <deps.myco-commons.version>0.1.2</deps.myco-commons.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -51,6 +52,13 @@
         <groupId>com.jive.v5.isp</groupId>
         <artifactId>isp-bom</artifactId>
         <version>${deps.isp.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.jive.v5.nurse</groupId>
+        <artifactId>nurse-bom</artifactId>
+        <version>${deps.nurse.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

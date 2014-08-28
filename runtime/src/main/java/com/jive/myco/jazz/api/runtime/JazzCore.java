@@ -13,6 +13,7 @@ import com.jive.myco.jazz.api.rules.czar.model.RulesEngine;
 import com.jive.myco.jazz.api.web.HttpServerManager;
 import com.jive.v5.isp.client.IspClient;
 import com.jive.v5.isp.jumpy.Jumpy;
+import com.jive.v5.nurse.api.Nurse;
 
 /**
  * Provides access to the core components of the Jazz Framework.
@@ -39,6 +40,8 @@ public interface JazzCore<T extends JazzConfiguration>
   Optional<IspClient> getIspClient();
 
   Optional<Jumpy> getJumpy();
+
+  Optional<Nurse> getNurse();
 
   Optional<RegistryManager> getRegistryManager();
 

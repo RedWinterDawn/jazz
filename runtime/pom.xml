@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.jive.myco.jazz.api</groupId>
     <artifactId>root</artifactId>
-    <version>0.2.11-SNAPSHOT</version>
+    <version>0.2.13-SNAPSHOT</version>
   </parent>
 
   <artifactId>jazz-api-runtime</artifactId>
@@ -76,6 +76,11 @@
     <dependency>
       <groupId>com.jive.v5.isp</groupId>
       <artifactId>jumpy-api</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.jive.v5.nurse</groupId>
+      <artifactId>api</artifactId>
     </dependency>
 
     <dependency>
