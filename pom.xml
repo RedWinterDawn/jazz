@@ -33,10 +33,10 @@
   </scm>
   <properties>
     <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
-    <deps.servlet.version>3.1.0</deps.servlet.version>
     <deps.isp.version>0.13</deps.isp.version>
+    <deps.servlet.version>3.1.0</deps.servlet.version>
     <deps.commons-lang.version>2.6</deps.commons-lang.version>
-    <deps.nurse.version>0.30-SNAPSHOT</deps.nurse.version>
+    <deps.nurse.version>0.30</deps.nurse.version>
     <deps.myco-commons.version>0.1.2</deps.myco-commons.version>
   </properties>
   <dependencyManagement>
