@@ -13,7 +13,6 @@ import lombok.experimental.Builder;
  * @author David Valeri
  */
 @Getter
-@Builder
 public final class ServletMappingDescriptor
 {
   /**
@@ -36,6 +35,7 @@ public final class ServletMappingDescriptor
     this(urlPattern, servlet, null);
   }
 
+  @Builder
   public ServletMappingDescriptor(@NonNull final String urlPattern, @NonNull final Servlet servlet,
       final MultipartConfigElement multipartConfigElement)
   {
