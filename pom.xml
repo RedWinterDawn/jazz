@@ -19,6 +19,7 @@
     <module>health</module>
     <module>metrics</module>
     <module>rest</module>
+    <module>rest-client</module>
     <module>runtime</module>
     <module>web</module>
     <module>registry</module>

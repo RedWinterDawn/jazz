@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.MultipartConfigElement;
+
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Builder;
@@ -35,6 +37,11 @@ public final class RestServiceDescriptor
 
   private final boolean includeJazzContextEnhancerRulesFilter;
 
+  /**
+   * An optional multipart config element used to configure multi-part support on the REST service.
+   */
+  private final MultipartConfigElement multipartConfigElement;
+
   @Builder
   private RestServiceDescriptor(
       @NonNull final Set<Object> singletons,
@@ -42,7 +49,8 @@ public final class RestServiceDescriptor
       @NonNull final List<StaticResourceDescriptor> staticResources,
       final boolean includeJazzContextFilter,
       final boolean includeJazzMdcFilter,
-      final boolean includeJazzContextEnhancerRulesFilter)
+      final boolean includeJazzContextEnhancerRulesFilter,
+      final MultipartConfigElement multipartConfigElement)
   {
     this.singletons = Collections.unmodifiableSet(new HashSet<>(singletons));
     this.staticResources =
@@ -52,6 +60,7 @@ public final class RestServiceDescriptor
     this.includeJazzContextFilter = includeJazzContextFilter;
     this.includeJazzMdcFilter = includeJazzMdcFilter;
     this.includeJazzContextEnhancerRulesFilter = includeJazzContextEnhancerRulesFilter;
+    this.multipartConfigElement = multipartConfigElement;
   }
 
   /**
