@@ -8,20 +8,33 @@ package com.jive.myco.jazz.api.health;
 public enum HealthStatus
 {
   /**
-   * Indicates that the resource's health status is unhealthy. The resource may not perform
-   * optimally or correctly.
-   */
-  UNHEALTHY,
-
-  /**
    * Indicates that the resource's health status is unknown. The resource may not perform optimally
    * or correctly.
    */
   UNKNOWN,
 
   /**
-   * Indicates that the resource's health statis is healthy. The resource can be expected to perform
+   * Indicates that the resource's health status is healthy. The resource can be expected to perform
    * optimally and correctly.
    */
-  HEALTHY;
+  OK,
+
+  /**
+   * Indicates that the resource's health status is info. The resource can be expected to perform
+   * well but there is information that needs to be shared.
+   */
+  INFO,
+
+  /**
+   * Indicates that the resource's health status is warn. The resource may not perform optimally or
+   * correctly.
+   */
+  WARN,
+
+  /**
+   * Indicates that the resource's health status is critical. The resource is having major issues
+   * that need to be looked into.
+   */
+  CRITICAL;
+
 }
