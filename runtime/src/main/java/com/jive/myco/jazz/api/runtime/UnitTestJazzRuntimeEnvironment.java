@@ -1,5 +1,6 @@
 package com.jive.myco.jazz.api.runtime;
 
+import java.util.Set;
 
 /**
  * Represents a runtime environment available when executing within a unit or integration test.
@@ -9,4 +10,6 @@ package com.jive.myco.jazz.api.runtime;
 public interface UnitTestJazzRuntimeEnvironment extends JazzRuntimeEnvironment
 {
   // Marker
+
+  Set<String> getAlteredSystemPropertyKeys();
 }
