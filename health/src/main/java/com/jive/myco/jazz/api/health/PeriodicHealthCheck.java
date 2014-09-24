@@ -233,7 +233,7 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
                 else
                 {
                   log.error(
-                      "[{}]: Health check threw exception.  Setting status to unhealthy.",
+                      "[{}]: Health check threw exception.  Setting status to critical.",
                       getId(), cause);
                   setHealthStatus(HealthStatus.CRITICAL);
                 }
