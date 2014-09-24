@@ -155,7 +155,7 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
    * Called from {@link #updateHealthStatus()} on the lifecycle queue to calculate a new value for
    * this check's current status. Implementations MUST NOT perform blocking operations in this
    * method. Delegate to {@link #executor} for blocking background operations or implement this
-   * method directly for an asynchronous, non-blocking check calculcation.
+   * method directly for an asynchronous, non-blocking check calculation.
    *
    * @return the new status for the check
    */
