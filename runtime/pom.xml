@@ -77,11 +77,6 @@
       <groupId>com.jive.v5.isp</groupId>
       <artifactId>jumpy-api</artifactId>
     </dependency>
-    
-    <dependency>
-      <groupId>com.jive.v5.nurse</groupId>
-      <artifactId>api</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>com.google.guava</groupId>

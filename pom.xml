@@ -37,7 +37,6 @@
     <deps.isp.version>0.14</deps.isp.version>
     <deps.servlet.version>3.1.0</deps.servlet.version>
     <deps.commons-lang.version>2.6</deps.commons-lang.version>
-    <deps.nurse.version>0.32-SNAPSHOT</deps.nurse.version>
     <deps.myco-commons.version>0.1.3</deps.myco-commons.version>
   </properties>
   <dependencyManagement>
@@ -53,13 +52,6 @@
         <groupId>com.jive.v5.isp</groupId>
         <artifactId>isp-bom</artifactId>
         <version>${deps.isp.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.jive.v5.nurse</groupId>
-        <artifactId>nurse-bom</artifactId>
-        <version>${deps.nurse.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
