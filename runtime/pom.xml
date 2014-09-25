@@ -74,9 +74,8 @@
     </dependency>
 
     <dependency>
-      <groupId>com.jive.v5.jumpy</groupId>
-      <artifactId>jumpy</artifactId>
-      <version>${deps.jumpy.version}</version>
+      <groupId>com.jive.v5.isp</groupId>
+      <artifactId>jumpy-api</artifactId>
     </dependency>
     
     <dependency>
