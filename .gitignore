@@ -17,3 +17,4 @@ target
 /rules/.gitignore
 /runtime/.gitignore
 /web/.gitignore
+*/bin
