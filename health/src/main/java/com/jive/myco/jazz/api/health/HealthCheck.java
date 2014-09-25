@@ -3,7 +3,7 @@ package com.jive.myco.jazz.api.health;
 import java.util.concurrent.Executor;
 
 /**
- * Provides a view into a resource of that resources health status. Implementations are expected to
+ * Provides a view into a resource of that resource's health status. Implementations are expected to
  * be thread safe.
  *
  * @author David Valeri
