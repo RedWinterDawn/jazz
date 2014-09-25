@@ -12,7 +12,12 @@ import com.jive.myco.jazz.api.rest.RestServiceManager;
 import com.jive.myco.jazz.api.rules.czar.model.RulesEngine;
 import com.jive.myco.jazz.api.web.HttpServerManager;
 import com.jive.v5.isp.client.IspClient;
+<<<<<<< HEAD
 import com.jive.v5.isp.jumpy.Jumpy;
+=======
+import com.jive.v5.jumpy.Jumpy;
+import com.jive.v5.nurse.api.Nurse;
+>>>>>>> master
 
 /**
  * Provides access to the core components of the Jazz Framework.
