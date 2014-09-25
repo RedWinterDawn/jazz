@@ -74,14 +74,8 @@
     </dependency>
 
     <dependency>
-<<<<<<< HEAD
       <groupId>com.jive.v5.isp</groupId>
       <artifactId>jumpy</artifactId>
-=======
-      <groupId>com.jive.v5.jumpy</groupId>
-      <artifactId>jumpy</artifactId>
-      <version>${deps.jumpy.version}</version>
->>>>>>> master
     </dependency>
     
     <dependency>
