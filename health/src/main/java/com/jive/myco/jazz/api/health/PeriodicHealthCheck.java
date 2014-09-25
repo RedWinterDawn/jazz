@@ -18,8 +18,10 @@ import com.jive.myco.commons.concurrent.PnkyPromise;
 import com.jive.myco.commons.hawtdispatch.DefaultDispatchQueueBuilder;
 import com.jive.myco.commons.hawtdispatch.DispatchQueueBuilder;
 import com.jive.myco.commons.lifecycle.AbstractLifecycled;
+import com.jive.myco.commons.lifecycle.LifecycleListener;
 import com.jive.myco.commons.lifecycle.LifecycleStage;
-import com.jive.myco.commons.lifecycle.Lifecycled;
+import com.jive.myco.commons.lifecycle.ListenableLifecycled;
+import com.jive.myco.commons.listenable.Listenable;
 
 /**
  * A basic health check base class that provides on-demand status calculations. Subclasses should
@@ -28,7 +30,8 @@ import com.jive.myco.commons.lifecycle.Lifecycled;
  * @author David Valeri
  */
 @Slf4j
-public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements Lifecycled
+public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
+    ListenableLifecycled
 {
   /**
    * The helper used to skirt single inheritance.
@@ -96,6 +99,12 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
   public final PnkyPromise<Void> destroy()
   {
     return lifecycledHelper.destroy();
+  }
+
+  @Override
+  public final Listenable<LifecycleListener> getLifecycleListenable()
+  {
+    return lifecycledHelper.getLifecycleListenable();
   }
 
   @Override

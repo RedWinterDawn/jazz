@@ -75,7 +75,13 @@
 
     <dependency>
       <groupId>com.jive.v5.isp</groupId>
-      <artifactId>jumpy-api</artifactId>
+      <artifactId>jumpy</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.jive.v5.nurse</groupId>
+      <artifactId>nurse-api</artifactId>
+      <version>${deps.nurse.version}</version>
     </dependency>
 
     <dependency>
