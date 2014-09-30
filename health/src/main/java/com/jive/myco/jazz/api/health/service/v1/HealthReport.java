@@ -15,4 +15,7 @@ public final class HealthReport
 {
   @NonNull
   private final HealthReportStatus healthReportStatus;
+
+  @NonNull
+  final String healthCheckId;
 }
