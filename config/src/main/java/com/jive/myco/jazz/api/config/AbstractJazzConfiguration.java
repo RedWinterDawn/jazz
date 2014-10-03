@@ -3,7 +3,6 @@ package com.jive.myco.jazz.api.config;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -19,9 +18,6 @@ public abstract class AbstractJazzConfiguration implements JazzConfiguration
   @Getter
   private final Map<String, String> logLevels;
 
-  @Getter
-  private final Optional<Integer> jazzHealthServicePort;
-
   /**
    * Creates a new instance.
    *
@@ -30,10 +26,8 @@ public abstract class AbstractJazzConfiguration implements JazzConfiguration
    * @param jazzHealthServicePort
    *          see {@link JazzConfiguration#getJazzHealthServicePort()}
    */
-  public AbstractJazzConfiguration(@NonNull final Map<String, String> logLevels,
-      final Integer jazzHealthServicePort)
+  public AbstractJazzConfiguration(@NonNull final Map<String, String> logLevels)
   {
     this.logLevels = Collections.unmodifiableMap(new HashMap<>(logLevels));
-    this.jazzHealthServicePort = Optional.ofNullable(jazzHealthServicePort);
   }
 }

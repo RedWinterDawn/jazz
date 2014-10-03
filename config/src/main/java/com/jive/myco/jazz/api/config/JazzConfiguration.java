@@ -1,7 +1,6 @@
 package com.jive.myco.jazz.api.config;
 
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * The core configuration for Jazz. Applications, services, etc. may subclass this interface to
@@ -17,10 +16,4 @@ public interface JazzConfiguration
    * configure the logging system.
    */
   Map<String, String> getLogLevels();
-
-  /**
-   * Returns the optional static port number on which to publish the Jazz Health Service REST
-   * endpoint.
-   */
-  Optional<Integer> getJazzHealthServicePort();
 }

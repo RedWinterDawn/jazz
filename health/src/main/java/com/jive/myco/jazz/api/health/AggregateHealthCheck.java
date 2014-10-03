@@ -9,7 +9,8 @@ import com.jive.myco.commons.concurrent.PnkyPromise;
  * Represents an aggregation of {@link HealthCheck}s. The {@link #getHealthStatus() aggregate health
  * status} is the least healthy status of this aggregate check's constituent
  * {@link #getHealthChecks()}. Health statuses, ordered from least healthy to most healthy are
- * {@link HealthStatus#UNHEALTHY}, {@link HealthStatus#UNKNOWN}, {@link HealthStatus#HEALTHY}.
+ * {@link HealthStatus#CRITICAL}, {@link HealthStatus#UNKNOWN}, {@link HealthStatus#WARN},
+ * {@link HealthStatus#INFO}, {@link HealthStatus#OK}.
  * <p>
  * An aggregate health check may be obtained via the {@link HealthCheckManager}.
  *
