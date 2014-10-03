@@ -102,6 +102,12 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
   }
 
   @Override
+  public boolean isRestartable()
+  {
+    return false;
+  }
+
+  @Override
   public final Listenable<LifecycleListener> getLifecycleListenable()
   {
     return lifecycledHelper.getLifecycleListenable();
