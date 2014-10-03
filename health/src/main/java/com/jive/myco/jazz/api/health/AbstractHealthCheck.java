@@ -28,10 +28,19 @@ public abstract class AbstractHealthCheck implements HealthCheck
   private final AtomicReference<HealthStatus> healthStatus = new AtomicReference<>(
       HealthStatus.UNKNOWN);
 
+  private volatile HealthStatusAndMessage healthStatusAndMessage = new HealthStatusAndMessage(
+      healthStatus.get());
+
   @Override
   public final String getId()
   {
     return id;
+  }
+
+  @Override
+  public HealthStatusAndMessage getHealthStatusAndMessage()
+  {
+    return healthStatusAndMessage;
   }
 
   @Override
@@ -40,7 +49,7 @@ public abstract class AbstractHealthCheck implements HealthCheck
     listenableContainer.addListenerWithInitialAction(
         listener,
         (Consumer<HealthCheckListener>) (daListener) -> onHealthStatusChanged(daListener,
-            getHealthStatus()));
+            healthStatusAndMessage));
   }
 
   @Override
@@ -49,7 +58,7 @@ public abstract class AbstractHealthCheck implements HealthCheck
     listenableContainer.addListenerWithInitialAction(
         listener,
         executor,
-        (daListener) -> onHealthStatusChanged(daListener, getHealthStatus()));
+        (daListener) -> onHealthStatusChanged(daListener, healthStatusAndMessage));
   }
 
   @Override
@@ -65,15 +74,20 @@ public abstract class AbstractHealthCheck implements HealthCheck
   }
 
   /**
-   * Sets the current health status value for this check, triggering registered listeners if the new
-   * health status differs from the current value.
+   * Sets the current health status value, message value, and triggers listeners for this check, if
+   * the new health status differs from the current value.
    *
-   * @param newHealthStatus
-   *          the new value for the health status of this check
+   * @param newHealthStatusAndMessage
+   *          the new values for the health status and message of this check
+   *
+   *
    */
-  protected final void setHealthStatus(@NonNull final HealthStatus newHealthStatus)
+  protected final void setHealthStatus(
+      @NonNull final HealthStatusAndMessage newHealthStatusAndMessage)
   {
     boolean success = false;
+
+    final HealthStatus newHealthStatus = newHealthStatusAndMessage.getHealthStatus();
 
     while (!success)
     {
@@ -83,8 +97,10 @@ public abstract class AbstractHealthCheck implements HealthCheck
       {
         if (healthStatus.compareAndSet(oldHealthStatus, newHealthStatus))
         {
+          healthStatusAndMessage = newHealthStatusAndMessage;
+
           listenableContainer
-              .forEach(((listener) -> onHealthStatusChanged(listener, newHealthStatus)));
+              .forEach(((listener) -> onHealthStatusChanged(listener, newHealthStatusAndMessage)));
 
           success = true;
         }
@@ -94,12 +110,26 @@ public abstract class AbstractHealthCheck implements HealthCheck
         success = true;
       }
     }
+  }
 
+  /**
+   * Sets the current health status value, an empty message, and triggers listeners for this check,
+   * if the new health status differs from the current value.
+   *
+   * @param newHealthStatus
+   *          the new value for the health status of this check
+   *
+   * @deprecated use {@link #setHealthStatus(HealthStatusAndMessage)} instead
+   */
+  @Deprecated
+  protected final void setHealthStatus(@NonNull final HealthStatus newHealthStatus)
+  {
+    setHealthStatus(new HealthStatusAndMessage(newHealthStatus, null));
   }
 
   private void onHealthStatusChanged(final HealthCheckListener listener,
-      final HealthStatus newHealthStatus)
+      final HealthStatusAndMessage newHealthStatusAndMessage)
   {
-    listener.onHealthCheckStatusChanged(this, newHealthStatus);
+    listener.onHealthCheckStatusChanged(this, newHealthStatusAndMessage);
   }
 }

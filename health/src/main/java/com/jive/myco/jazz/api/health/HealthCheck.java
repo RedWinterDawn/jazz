@@ -16,6 +16,11 @@ public interface HealthCheck extends HealthStatusable
   String getId();
 
   /**
+   * Returns the health status and optional status message accompanying the health check's status.
+   */
+  HealthStatusAndMessage getHealthStatusAndMessage();
+
+  /**
    * Adds a new listener to the check. The listener is invoked on a thread managed by this health
    * check instance. Upon being added, the listener is immediately notified of the check's current
    * status. Adding a listener that has already been added reconfigures the listener's assigned

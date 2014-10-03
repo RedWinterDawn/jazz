@@ -1,8 +1,11 @@
 package com.jive.myco.jazz.api.health;
 
 /**
- * An enumeration of possible health status indicators for a health monitored resource. Ordering of
- * these enums is very important!
+ * An enumeration of possible health status indicators for a health monitored resource.
+ * <p>
+ * NOTE: The ordering of the values defined in this enumeration is significant. The enumeration
+ * values must be defined with values representing more sever statuses appearing before values
+ * representing less severe statuses.
  *
  * @author David Valeri
  */

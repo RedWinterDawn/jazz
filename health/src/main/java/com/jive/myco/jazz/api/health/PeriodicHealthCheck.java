@@ -39,8 +39,8 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
   private final LifecycledHelper lifecycledHelper;
 
   /**
-   * The interval between executions of the health check. If the execution takes longer than this
-   * interval, the next execution of the check occurs immediately.
+   * The interval, in milliseconds, between executions of the health check. If the execution takes
+   * longer than this interval, the next execution of the check occurs immediately.
    */
   private final long checkInterval;
 
@@ -173,6 +173,36 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
     return Pnky.supplyAsync(this::calculateHealthStatusSync, executor);
   }
 
+  /**
+   * Called from {@link #calculateHealthStatusAndMessage()} to calculate a new value for this
+   * check's current status. This method is invoked on {@link #executor} and may therefore perform
+   * blocking operations should {@link #executor} allow such operations. To calculate the new status
+   * asynchronously, override {@link #calculateHealthStatusAndMessage()} instead of this method. The
+   * default implementation of this method delegates to {@link #calculateHealthStatusSync}.
+   *
+   * @return the new status and message for the check
+   */
+  protected HealthStatusAndMessage calculateHealthStatusAndMessageSync()
+  {
+    return new HealthStatusAndMessage(calculateHealthStatusSync(), null);
+  }
+
+  /**
+   * Called from {@link #updateHealthStatus()} on the lifecycle queue to calculate a new value for
+   * this check's current status. Implementations MUST NOT perform blocking operations in this
+   * method. Delegate to {@link #executor} for blocking background operations or implement this
+   * method directly for an asynchronous, non-blocking check calculation. The default implementation
+   * delegates to {@link #calculateHealthStatusAndMessageSync()} on the {@link #executor}.
+   *
+   * @return the new status and message for the check
+   *
+   * @see #calculateHealthStatusAndMessageSync()
+   */
+  protected PnkyPromise<HealthStatusAndMessage> calculateHealthStatusAndMessage()
+  {
+    return Pnky.supplyAsync(this::calculateHealthStatusAndMessageSync, executor);
+  }
+
   private PnkyPromise<Void> initInternal()
   {
     if (executor == null)
@@ -214,7 +244,7 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
 
           nextCheckTime = 0;
 
-          setHealthStatus(HealthStatus.UNKNOWN);
+          setHealthStatus(new HealthStatusAndMessage(HealthStatus.UNKNOWN));
         });
   }
 
@@ -229,7 +259,7 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
     {
       try
       {
-        calculateHealthStatus()
+        calculateHealthStatusAndMessage()
             // Process the check results on the lifecycle queue
             .alwaysAccept((result, cause) ->
             {
@@ -244,7 +274,7 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
                   log.error(
                       "[{}]: Health check threw exception.  Setting status to critical.",
                       getId(), cause);
-                  setHealthStatus(HealthStatus.CRITICAL);
+                  setHealthStatus(new HealthStatusAndMessage(HealthStatus.CRITICAL));
                 }
               }
               else
