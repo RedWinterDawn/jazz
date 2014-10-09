@@ -51,4 +51,17 @@ public interface HealthCheckManager extends Lifecycled, ListenableLifecycled
    */
   PnkyPromise<Void> addDefaultAggregateHealthCheckListener(
       final AggregateHealthCheckListener listener);
+
+  /**
+   * Adds a {@link HealthCheckListener} to the manager that will be added to all currently
+   * registered and future children {@link HealthCheck}s of all currently registered and future
+   * parent {@link AggregateHealthCheck}s.
+   * 
+   * @param listener
+   *          the listener to add to the manager
+   * 
+   * @return a future that completes when the listener has been added
+   */
+  PnkyPromise<Void> addDefaultHealthCheckListener(
+      final HealthCheckListener listener);
 }
