@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.jive.myco</groupId>
@@ -9,7 +8,7 @@
   </parent>
   <groupId>com.jive.myco.jazz.api</groupId>
   <artifactId>root</artifactId>
-  <version>0.2.21-SNAPSHOT</version>
+  <version>0.2.21</version>
   <packaging>pom</packaging>
   <name>Jazz :: API :: Root</name>
   <description>The API of the Jazz Framework.</description>
@@ -31,6 +30,7 @@
     <connection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</connection>
     <developerConnection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</developerConnection>
     <url>https://github.com/jive/com.jive.myco.jazz.api</url>
+    <tag>0.2.21</tag>
   </scm>
   <properties>
     <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
