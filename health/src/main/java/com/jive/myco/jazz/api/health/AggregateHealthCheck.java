@@ -81,4 +81,15 @@ public interface AggregateHealthCheck extends HealthStatusable
    *          the listener to remove
    */
   PnkyPromise<Void> removeListener(final AggregateHealthCheckListener listener);
+
+  /**
+   * Adds a {@link HealthCheckListener} to the aggregated healthcheck that will be added to all
+   * currently registered and future {@link HealthCheck}s.
+   * 
+   * @param listener
+   *          the listener to add to the aggregated healthcheck
+   * 
+   * @return a future that completes when the listener has been added
+   */
+  PnkyPromise<Void> addDefaultHealthCheckListener(final HealthCheckListener listener);
 }
