@@ -1,5 +1,6 @@
 package com.jive.myco.jazz.api.rules.czar.model;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,6 +66,12 @@ public class RuleExpression
     }
     else
     {
+      Map<String, String> jazzContextManagerMap = JazzContextManager.toMap();
+      for (String key : jazzContextManagerMap.keySet())
+      {
+        log.trace("JazzContextManagerMap key: {}", key);
+        log.trace("JazzContectManagerMap value: {}", jazzContextManagerMap.get(key));
+      }
       log.trace("Value to compare: {}", valueToCompare);
       log.trace("Right side: {}", rightSide);
       return rightSide.matcher(valueToCompare).matches();
