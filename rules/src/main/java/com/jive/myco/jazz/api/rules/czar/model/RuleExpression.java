@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -14,6 +15,7 @@ import com.jive.myco.jazz.api.rules.czar.exceptions.RuleException;
 
 @Value
 @EqualsAndHashCode(of = "expression")
+@Slf4j
 public class RuleExpression
 {
   public final static String OPERATOR_EQUALS = "equals";
@@ -63,6 +65,8 @@ public class RuleExpression
     }
     else
     {
+      log.trace("Value to compare: {}", valueToCompare);
+      log.trace("Right side: {}", rightSide);
       return rightSide.matcher(valueToCompare).matches();
     }
   }
