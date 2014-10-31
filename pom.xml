@@ -34,9 +34,9 @@
   </scm>
   <properties>
     <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
-    <deps.servlet.version>3.1.0</deps.servlet.version>
+    <deps.jumpy.version>0.22</deps.jumpy.version>
     <deps.isp.version>0.21</deps.isp.version>
-    <deps.jumpy.version>0.21</deps.jumpy.version>
+    <deps.servlet.version>3.1.0</deps.servlet.version>
     <deps.commons-lang.version>2.6</deps.commons-lang.version>
     <deps.myco-commons.version>0.2.0</deps.myco-commons.version>
   </properties>
