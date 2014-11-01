@@ -8,7 +8,7 @@
   </parent>
   <groupId>com.jive.myco.jazz.api</groupId>
   <artifactId>root</artifactId>
-  <version>0.2.25</version>
+  <version>0.2.26-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Jazz :: API :: Root</name>
   <description>The API of the Jazz Framework.</description>
@@ -30,7 +30,7 @@
     <connection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</connection>
     <developerConnection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</developerConnection>
     <url>https://github.com/jive/com.jive.myco.jazz.api</url>
-    <tag>0.2.25</tag>
+    <tag>HEAD</tag>
   </scm>
   <properties>
     <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
