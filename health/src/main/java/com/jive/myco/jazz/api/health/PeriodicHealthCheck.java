@@ -343,7 +343,7 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
       {
         final long delay = Math.max(0, nextCheckTime - currentTime);
 
-        log.debug(
+        log.trace(
             "[{}]: Next check expected to run at [{}].  Current time is [{}].  "
                 + "Scheduling check with delay [{}].",
             getId(), nextCheckTime, currentTime, delay);
