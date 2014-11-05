@@ -3,6 +3,8 @@ package com.jive.myco.jazz.api.rest.client;
 import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
+import javax.ws.rs.ext.ParamConverterProvider;
+
 import com.jive.myco.jazz.api.web.HttpClientHeaderDecorator;
 
 /**
@@ -20,6 +22,8 @@ public interface RestClientBuilder<T>
   RestClientBuilder<T> addListener(final RestClientListener listener);
 
   RestClientBuilder<T> addListener(final RestClientListener listener, final Executor executor);
+
+  RestClientBuilder<T> addProvider(final ParamConverterProvider provider);
 
   RestClientBuilder<T> url(final String url);
 
