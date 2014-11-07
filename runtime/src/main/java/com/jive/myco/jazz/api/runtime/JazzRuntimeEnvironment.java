@@ -1,6 +1,7 @@
 package com.jive.myco.jazz.api.runtime;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -79,4 +80,9 @@ public interface JazzRuntimeEnvironment
    * depending on the environment of execution.
    */
   Optional<String> getEnvironmentBranch();
+
+  /**
+   * Returns a map of metadata for data set through jim.
+   */
+  Optional<Map<String, String>> getJimMetadata();
 }
