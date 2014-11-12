@@ -96,7 +96,8 @@ public final class RestServiceDescriptor
    *
    * @author David Valeri
    */
-  public static final class RestServiceDescriptorBuilder
+  public static final class RestServiceDescriptorBuilder implements
+      FluentRestServiceDescriptorBuilder<RestServiceDescriptorBuilder>
   {
     private final Set<Object> singletons = new HashSet<>();
 
@@ -112,36 +113,14 @@ public final class RestServiceDescriptor
 
     private boolean enableMetrics = true;
 
-    /**
-     * Adds a singleton to the singletons provided via the descriptor.
-     * <p>
-     * If a singleton that {@link Object#equals(Object) equals} {@code singleton} has already been
-     * configured, this call overwrites the previous value.
-     * <p>
-     * Singletons may be any JAX-RS related object including a REST resource or a {@code Provider}
-     *
-     * @param singleton
-     *          the singleton JAX-RS resource to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public RestServiceDescriptorBuilder addSingleton(final Object singleton)
     {
       singletons.add(singleton);
       return this;
     }
 
-    /**
-     * Adds singletons to the singletons provided via the descriptor.
-     * <p>
-     * If a singleton that {@link Object#equals(Object) equals} a value provided by
-     * {@code singletons} has already been configured, this call overwrites the previous value.
-     *
-     * @param additionalSingletons
-     *          the singletons to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public RestServiceDescriptorBuilder addSingletons(
         @NonNull final Iterable<? extends Object> additionalSingletons)
     {
@@ -149,47 +128,21 @@ public final class RestServiceDescriptor
       return this;
     }
 
-    /**
-     * Adds singletons to the singletons provided via the descriptor.
-     * <p>
-     * If a singleton that {@link Object#equals(Object) equals} a value provided by
-     * {@code singletons} has already been configured, this call overwrites the previous value.
-     *
-     * @param additionalSingletons
-     *          the singletons to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public RestServiceDescriptorBuilder addSingletons(@NonNull final Object... additionalSingletons)
     {
       Collections.addAll(singletons, additionalSingletons);
       return this;
     }
 
-    /**
-     * Adds a filter to the filters provided via the descriptor.
-     * <p>
-     * Filters are provided in the order in which they are added to this builder.
-     *
-     * @param filterDescriptor
-     *          the filter to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public RestServiceDescriptorBuilder addFilter(final FilterMappingDescriptor filterDescriptor)
     {
       filters.add(filterDescriptor);
       return this;
     }
 
-    /**
-     * Adds a filter to the filters provided via the descriptor.
-     *
-     * @param filterDescriptors
-     *          the filters to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public RestServiceDescriptorBuilder addFilters(
         @NonNull final Iterable<? extends FilterMappingDescriptor> filterDescriptors)
     {
@@ -197,14 +150,7 @@ public final class RestServiceDescriptor
       return this;
     }
 
-    /**
-     * Adds filters to the filters provided via the descriptor.
-     *
-     * @param filterDescriptors
-     *          the filters to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public RestServiceDescriptorBuilder addFilters(
         @NonNull final FilterMappingDescriptor... filterDescriptors)
     {
@@ -212,14 +158,7 @@ public final class RestServiceDescriptor
       return this;
     }
 
-    /**
-     * Adds a static resource to the static resources provided via the descriptor.
-     *
-     * @param staticResourceDescriptor
-     *          the resource to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public RestServiceDescriptorBuilder addStaticResource(
         @NonNull final StaticResourceDescriptor staticResourceDescriptor)
     {
@@ -227,14 +166,7 @@ public final class RestServiceDescriptor
       return this;
     }
 
-    /**
-     * Adds static resources to the static resources provided via the descriptor.
-     *
-     * @param staticResourceDescriptors
-     *          the resources to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public RestServiceDescriptorBuilder addStaticResources(
         @NonNull final Iterable<? extends StaticResourceDescriptor> staticResourceDescriptors)
     {
@@ -242,14 +174,7 @@ public final class RestServiceDescriptor
       return this;
     }
 
-    /**
-     * Adds static resources to the static resources provided via the descriptor.
-     *
-     * @param staticResourceDescriptors
-     *          the resources to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public RestServiceDescriptorBuilder addStaticResources(
         @NonNull final StaticResourceDescriptor... staticResourceDescriptors)
     {

@@ -1,5 +1,7 @@
 package com.jive.myco.jazz.api.registry;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import lombok.EqualsAndHashCode;
@@ -20,7 +22,6 @@ import com.jive.myco.commons.versions.Version;
  *
  * @author John Norton
  */
-@Builder
 @Getter
 @EqualsAndHashCode
 public final class ServiceInstanceDescriptor
@@ -34,4 +35,44 @@ public final class ServiceInstanceDescriptor
   private final Version serviceInterfaceVersion;
 
   private final Map<String, String> properties;
+
+  @Builder
+  private ServiceInstanceDescriptor(final ServiceInterfaceName serviceInterfaceName,
+      final ServiceAddress serviceAddress, final Version serviceInterfaceVersion,
+      final Map<String, String> properties)
+  {
+    this.serviceInterfaceName = serviceInterfaceName;
+    this.serviceAddress = serviceAddress;
+    this.serviceInterfaceVersion = serviceInterfaceVersion;
+    // Note, we can only get away with not making a copy because this is a private constructor
+    this.properties = Collections.unmodifiableMap(properties);
+  }
+
+  public static final class ServiceInstanceDescriptorBuilder implements
+      FluentRegisteredServiceInstanceDescriptorBuilder<ServiceInstanceDescriptorBuilder>
+  {
+    private final Map<String, String> properties = new HashMap<>();
+
+    @Override
+    public ServiceInstanceDescriptorBuilder addProperty(final String key, final String value)
+    {
+      properties.put(key, value);
+      return this;
+    }
+
+    @Override
+    public ServiceInstanceDescriptorBuilder addProperties(final Map<String, String> properties)
+    {
+      this.properties.putAll(properties);
+      return this;
+    }
+
+    @Override
+    public ServiceInstanceDescriptorBuilder properties(final Map<String, String> properties)
+    {
+      properties.clear();
+      addProperties(properties);
+      return this;
+    }
+  }
 }

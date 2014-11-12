@@ -28,4 +28,10 @@ public final class FilterMappingDescriptor
    */
   @NonNull
   private final Filter filter;
+
+  public static final class FilterMappingDescriptorBuilder implements
+      FluentFilterMappingDescriptorBuilder<FilterMappingDescriptorBuilder>
+  {
+    // No-op, just ensuring that we implement the correct interface.
+  }
 }

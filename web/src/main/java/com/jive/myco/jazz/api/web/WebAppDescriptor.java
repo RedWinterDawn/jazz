@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Builder;
 
+import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
+
 /**
  * Represents a collection of Web resources that may be bound in a {@link HttpServerManager}.
  *
@@ -20,19 +22,29 @@ public final class WebAppDescriptor
 {
   private final AtomicInteger INSTANCE_COUNTER = new AtomicInteger();
 
+  @Getter
   private final String id;
 
+  @Getter
   private final List<ServletMappingDescriptor> servlets;
 
+  @Getter
   private final List<FilterMappingDescriptor> filters;
 
+  @Getter
   private final List<StaticResourceDescriptor> staticResources;
 
+  @Getter
   private final boolean includeJazzContextFilter;
 
+  @Getter
   private final boolean includeJazzMdcFilter;
 
+  @Getter
   private final boolean includeJazzContextEnhancerRulesFilter;
+
+  @Getter
+  private final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor;
 
   @Builder
   private WebAppDescriptor(
@@ -42,7 +54,8 @@ public final class WebAppDescriptor
       @NonNull final List<StaticResourceDescriptor> staticResources,
       final boolean includeJazzContextFilter,
       final boolean includeJazzMdcFilter,
-      final boolean includeJazzContextEnhancerRulesFilter)
+      final boolean includeJazzContextEnhancerRulesFilter,
+      final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor)
   {
     this.id = id == null ? "web-app-" + INSTANCE_COUNTER.getAndIncrement() : id;
     this.servlets =
@@ -54,6 +67,7 @@ public final class WebAppDescriptor
     this.includeJazzContextFilter = includeJazzContextFilter;
     this.includeJazzMdcFilter = includeJazzMdcFilter;
     this.includeJazzContextEnhancerRulesFilter = includeJazzContextEnhancerRulesFilter;
+    this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
   }
 
   /**
@@ -61,7 +75,8 @@ public final class WebAppDescriptor
    *
    * @author David Valeri
    */
-  public static final class WebAppDescriptorBuilder
+  public static final class WebAppDescriptorBuilder implements
+      FluentWebAppDescriptorBuilder<WebAppDescriptorBuilder>
   {
     private final List<ServletMappingDescriptor> servlets = new LinkedList<>();
     private final List<FilterMappingDescriptor> filters = new LinkedList<>();
@@ -70,14 +85,7 @@ public final class WebAppDescriptor
     private boolean includeJazzMdcFilter = true;
     private boolean includeJazzContextEnhancerRulesFilter = true;
 
-    /**
-     * Adds a servlet to the servlets provided via the descriptor.
-     *
-     * @param servletMappingDescriptor
-     *          the descriptor for the servlet to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public WebAppDescriptorBuilder addServlet(
         final ServletMappingDescriptor servletMappingDescriptor)
     {
@@ -85,14 +93,7 @@ public final class WebAppDescriptor
       return this;
     }
 
-    /**
-     * Adds a filter to the filters provided via the descriptor.
-     *
-     * @param filter
-     *          the filter to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public WebAppDescriptorBuilder addFilter(
         final FilterMappingDescriptor filterMappingDescriptor)
     {
@@ -100,14 +101,7 @@ public final class WebAppDescriptor
       return this;
     }
 
-    /**
-     * Adds a filter to the filters provided via the descriptor.
-     *
-     * @param filterMappingDescriptors
-     *          the filters to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public WebAppDescriptorBuilder addFilters(
         @NonNull final Iterable<? extends FilterMappingDescriptor> filterMappingDescriptors)
     {
@@ -115,14 +109,7 @@ public final class WebAppDescriptor
       return this;
     }
 
-    /**
-     * Adds filters to the filters provided via the descriptor.
-     *
-     * @param filterMappingDescriptors
-     *          the filters to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public WebAppDescriptorBuilder addFilters(
         @NonNull final FilterMappingDescriptor... filterMappingDescriptors)
     {
@@ -130,14 +117,7 @@ public final class WebAppDescriptor
       return this;
     }
 
-    /**
-     * Adds a static resource to the static resources provided via the descriptor.
-     *
-     * @param staticResourceDescriptor
-     *          the resource to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public WebAppDescriptorBuilder addStaticResource(
         @NonNull final StaticResourceDescriptor staticResourceDescriptor)
     {
@@ -145,14 +125,7 @@ public final class WebAppDescriptor
       return this;
     }
 
-    /**
-     * Adds static resources to the static resources provided via the descriptor.
-     *
-     * @param staticResourceDescriptors
-     *          the resources to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public WebAppDescriptorBuilder addStaticResources(
         @NonNull final Iterable<? extends StaticResourceDescriptor> staticResourceDescriptors)
     {
@@ -160,18 +133,19 @@ public final class WebAppDescriptor
       return this;
     }
 
-    /**
-     * Adds static resources to the static resources provided via the descriptor.
-     *
-     * @param staticResourceDescriptors
-     *          the resources to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public WebAppDescriptorBuilder addStaticResources(
         @NonNull final StaticResourceDescriptor... staticResourceDescriptors)
     {
       Collections.addAll(this.staticResources, staticResourceDescriptors);
+      return this;
+    }
+
+    @Override
+    public WebAppDescriptorBuilder register(
+        final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor)
+    {
+      this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
       return this;
     }
 
@@ -195,6 +169,14 @@ public final class WebAppDescriptor
     @SuppressWarnings("unused")
     private WebAppDescriptorBuilder filters(
         final List<FilterMappingDescriptor> filterMappingDescriptors)
+    {
+      return this;
+    }
+
+    // Hidden due to Lombok
+    @SuppressWarnings("unused")
+    private WebAppDescriptorBuilder autoRegisteredServiceInstanceDescriptor(
+        final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor)
     {
       return this;
     }

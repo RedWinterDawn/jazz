@@ -22,21 +22,25 @@ public final class ServletMappingDescriptor
   /**
    * A descriptive ID for this servlet mapping.
    */
+  @Getter
   private final String id;
 
   /**
    * The URL pattern used to map requests to the filter in this descriptor.
    */
+  @Getter
   private final String urlPattern;
 
   /**
    * The servlet to use.
    */
+  @Getter
   private final Servlet servlet;
 
   /**
    * An optional multipart config element used to configure multi-part support on the servlet.
    */
+  @Getter
   private final MultipartConfigElement multipartConfigElement;
 
   public ServletMappingDescriptor(final String urlPattern, final Servlet servlet)
@@ -59,5 +63,11 @@ public final class ServletMappingDescriptor
     this.urlPattern = urlPattern;
     this.servlet = servlet;
     this.multipartConfigElement = multipartConfigElement;
+  }
+
+  public static final class ServletMappingDescriptorBuilder implements
+      FluentServletMappingDescriptorBuilder<ServletMappingDescriptorBuilder>
+  {
+    // No-op, just ensuring that we implement the correct interface.
   }
 }
