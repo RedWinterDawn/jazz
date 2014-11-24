@@ -43,7 +43,7 @@
     <deps.isp.version>0.26</deps.isp.version>
     <deps.jax-rs-api.version>2.0.1</deps.jax-rs-api.version>
     <deps.jumpy.version>0.25</deps.jumpy.version>
-    <deps.myco-commons.version>0.2.1-SNAPSHOT</deps.myco-commons.version>
+    <deps.myco-commons.version>0.2.1</deps.myco-commons.version>
     <deps.servlet.version>3.1.0</deps.servlet.version>
   </properties>
 
