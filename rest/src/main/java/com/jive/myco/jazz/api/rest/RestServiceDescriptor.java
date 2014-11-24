@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.MultipartConfigElement;
 
@@ -22,36 +23,61 @@ import com.jive.myco.jazz.api.web.StaticResourceDescriptor;
  *
  * @author David Valeri
  */
-@Getter
 public final class RestServiceDescriptor
 {
+  private final AtomicInteger INSTANCE_COUNTER = new AtomicInteger();
+
+  @Getter
+  private final String id;
+
+  @Getter
   private final Set<Object> singletons;
 
+  @Getter
   private final List<FilterMappingDescriptor> filters;
 
+  @Getter
   private final Set<StaticResourceDescriptor> staticResources;
 
+  @Getter
   private final boolean includeJazzContextFilter;
 
+  @Getter
   private final boolean includeJazzMdcFilter;
 
+  @Getter
   private final boolean includeJazzContextEnhancerRulesFilter;
 
   /**
    * An optional multipart config element used to configure multi-part support on the REST service.
    */
+  @Getter
   private final MultipartConfigElement multipartConfigElement;
+
+  @Getter
+  private final boolean enableMetrics;
+
+  /**
+   * Indicates if all JAX-RS resource methods exposed via this descriptor should be metered, timed,
+   * and exception metered regardless of if they are annotated with the respective annotation.
+   */
+  @Getter
+  private final boolean forceMetrics;
 
   @Builder
   private RestServiceDescriptor(
+      final String id,
       @NonNull final Set<Object> singletons,
       @NonNull final List<FilterMappingDescriptor> filters,
       @NonNull final List<StaticResourceDescriptor> staticResources,
       final boolean includeJazzContextFilter,
       final boolean includeJazzMdcFilter,
       final boolean includeJazzContextEnhancerRulesFilter,
-      final MultipartConfigElement multipartConfigElement)
+      final MultipartConfigElement multipartConfigElement,
+      final boolean enableMetrics,
+      final boolean forceMetrics)
   {
+    this.id = id == null ? "rest-service-" + INSTANCE_COUNTER.getAndIncrement() : id;
     this.singletons = Collections.unmodifiableSet(new HashSet<>(singletons));
     this.staticResources =
         Collections.unmodifiableSet(new HashSet<>(staticResources));
@@ -61,6 +87,8 @@ public final class RestServiceDescriptor
     this.includeJazzMdcFilter = includeJazzMdcFilter;
     this.includeJazzContextEnhancerRulesFilter = includeJazzContextEnhancerRulesFilter;
     this.multipartConfigElement = multipartConfigElement;
+    this.enableMetrics = enableMetrics;
+    this.forceMetrics = forceMetrics;
   }
 
   /**
@@ -81,6 +109,8 @@ public final class RestServiceDescriptor
     private boolean includeJazzMdcFilter = true;
 
     private boolean includeJazzContextEnhancerRulesFilter = true;
+
+    private boolean enableMetrics = true;
 
     /**
      * Adds a singleton to the singletons provided via the descriptor.

@@ -1,5 +1,7 @@
 package com.jive.myco.jazz.api.web;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.Servlet;
 
@@ -15,6 +17,13 @@ import lombok.experimental.Builder;
 @Getter
 public final class ServletMappingDescriptor
 {
+  private final AtomicInteger INSTANCE_COUNTER = new AtomicInteger();
+
+  /**
+   * A descriptive ID for this servlet mapping.
+   */
+  private final String id;
+
   /**
    * The URL pattern used to map requests to the filter in this descriptor.
    */
@@ -32,13 +41,21 @@ public final class ServletMappingDescriptor
 
   public ServletMappingDescriptor(final String urlPattern, final Servlet servlet)
   {
-    this(urlPattern, servlet, null);
+    this(null, urlPattern, servlet, null);
+  }
+
+  public ServletMappingDescriptor(final String urlPattern, final Servlet servlet,
+      final MultipartConfigElement multipartConfigElement)
+  {
+    this(null, urlPattern, servlet, multipartConfigElement);
   }
 
   @Builder
-  public ServletMappingDescriptor(@NonNull final String urlPattern, @NonNull final Servlet servlet,
+  public ServletMappingDescriptor(
+      final String id, @NonNull final String urlPattern, @NonNull final Servlet servlet,
       final MultipartConfigElement multipartConfigElement)
   {
+    this.id = id == null ? "servlet-" + INSTANCE_COUNTER.getAndIncrement() : id;
     this.urlPattern = urlPattern;
     this.servlet = servlet;
     this.multipartConfigElement = multipartConfigElement;
