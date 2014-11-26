@@ -1,20 +1,18 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>com.jive.myco</groupId>
     <artifactId>parent</artifactId>
-    <version>31</version>
+    <version>32</version>
   </parent>
-
   <groupId>com.jive.myco.jazz.api</groupId>
   <artifactId>root</artifactId>
   <version>0.2.35-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Jazz :: API :: Root</name>
   <description>The API of the Jazz Framework.</description>
-
   <modules>
     <module>bom</module>
     <module>config</module>
@@ -29,23 +27,19 @@
     <module>rules</module>
     <module>context</module>
   </modules>
-
   <scm>
     <connection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</connection>
     <developerConnection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</developerConnection>
     <url>https://github.com/jive/com.jive.myco.jazz.api</url>
-    <tag>HEAD</tag>
   </scm>
-
   <properties>
-    <deps.commons-lang.version>2.6</deps.commons-lang.version>
-    <deps.isp.version>0.30</deps.isp.version>
     <deps.jax-rs-api.version>2.0.1</deps.jax-rs-api.version>
-    <deps.jumpy.version>0.29</deps.jumpy.version>
-    <deps.myco-commons.version>0.2.1</deps.myco-commons.version>
     <deps.servlet.version>3.1.0</deps.servlet.version>
+    <deps.jumpy.version>0.29</deps.jumpy.version>
+    <deps.isp.version>0.30</deps.isp.version>
+    <deps.commons-lang.version>2.6</deps.commons-lang.version>
+    <deps.myco-commons.version>0.2.1</deps.myco-commons.version>
   </properties>
-
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -69,13 +63,11 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-
       <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
         <version>${deps.commons-lang.version}</version>
       </dependency>
-
       <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>javax.servlet-api</artifactId>
