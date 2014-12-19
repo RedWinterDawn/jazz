@@ -13,14 +13,14 @@ import com.jive.myco.jazz.api.config.JazzConfiguration;
 public interface JazzRuntimeLauncherBoostrapPlugin<T extends JazzConfiguration>
 {
   void init(final JazzRuntimeEnvironment jazzRuntimeEnvironment,
-      final JazzCore<T> jazzCore, final JazzRuntimeLauncherBootstrap<T> bootstrap);
+      final JazzCore<T> jazzCore, final JazzRuntimeLauncherBootstrap<T> bootstrap) throws Exception;
 
   void start(final JazzRuntimeEnvironment jazzRuntimeEnvironment,
-      final JazzCore<T> jazzCore);
+      final JazzCore<T> jazzCore) throws Exception;
 
   void stop(final JazzRuntimeEnvironment jazzRuntimeEnvironment,
-      final JazzCore<T> jazzCore);
+      final JazzCore<T> jazzCore) throws Exception;
 
   void destroy(final JazzRuntimeEnvironment jazzRuntimeEnvironment,
-      final JazzCore<T> jazzCore);
+      final JazzCore<T> jazzCore) throws Exception;
 }
