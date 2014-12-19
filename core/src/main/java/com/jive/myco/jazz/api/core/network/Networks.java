@@ -21,7 +21,7 @@ public class Networks
   private final Map<NetworkId, Network> networkIdMap;
 
   @Builder
-  private Networks(@NonNull final Set<? extends Network> networks)
+  private Networks(@NonNull final Set<Network> networks)
   {
     networkIdMap = Collections.unmodifiableMap(
         networks
