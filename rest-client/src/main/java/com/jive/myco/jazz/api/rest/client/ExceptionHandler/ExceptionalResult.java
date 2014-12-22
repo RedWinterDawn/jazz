@@ -3,7 +3,8 @@ package com.jive.myco.jazz.api.rest.client.ExceptionHandler;
 import lombok.Getter;
 
 /**
- * Created by btran on 12/19/14.
+ * @author Binh Tran
+ * @author Rich Adams
  */
 public class ExceptionalResult implements RestExceptionHandlingResult
 {
@@ -13,5 +14,11 @@ public class ExceptionalResult implements RestExceptionHandlingResult
   public ExceptionalResult(Exception e)
   {
     this.exception = e;
+  }
+
+  @Override
+  public String getBaseUrl()
+  {
+    return "";
   }
 }

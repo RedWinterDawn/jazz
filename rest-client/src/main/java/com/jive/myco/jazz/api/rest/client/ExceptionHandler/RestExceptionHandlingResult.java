@@ -1,8 +1,10 @@
 package com.jive.myco.jazz.api.rest.client.ExceptionHandler;
 
 /**
- * Created by btran on 12/19/14.
+ * @author Binh Tran
+ * @author Rich Adams
  */
 public interface RestExceptionHandlingResult
 {
+  String getBaseUrl();
 }
