@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE, ElementType.METHOD})
-public @interface ErrorHandler
+public @interface RestErrorHandler
 {
   static final String DEFAULT_HANDLER = "default";
   static final String NO_RETRY = "no-retry";
