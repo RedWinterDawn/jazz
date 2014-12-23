@@ -4,29 +4,23 @@ import java.util.Optional;
 
 import javax.ws.rs.core.Response;
 
+import lombok.Getter;
+
 import com.google.common.collect.ImmutableList;
 
 /**
  * @author Binh Tran
  * @author Rich Adams
  */
+@Getter
 public class RetryResult implements RestExceptionHandlingResult
 {
-  private final Optional<Exception> causes;
-  private final Optional<Response> responses;
   private final String baseUrl;
+  private final int retryCount;
 
-  public RetryResult(final Optional<Exception> causes, final Optional<Response> responses,
-      final String baseUrl)
+  public RetryResult(final String baseUrl, final int retryCount)
   {
-    this.causes = causes;
-    this.responses = responses;
     this.baseUrl = baseUrl;
-  }
-
-  @Override
-  public String getBaseUrl()
-  {
-    return baseUrl;
+    this.retryCount = retryCount;
   }
 }

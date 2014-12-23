@@ -23,7 +23,6 @@ public interface RestExceptionHandler
    * @return
    */
   RestExceptionHandlingResult handle(
-      int retryCount,
       Optional<Response> response,
       Optional<Exception> exception,
       Function<List<String>, Optional<String>> urlSupplier,

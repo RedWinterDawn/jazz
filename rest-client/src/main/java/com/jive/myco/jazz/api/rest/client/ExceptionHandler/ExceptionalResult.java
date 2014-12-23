@@ -6,19 +6,17 @@ import lombok.Getter;
  * @author Binh Tran
  * @author Rich Adams
  */
+@Getter
 public class ExceptionalResult implements RestExceptionHandlingResult
 {
-  @Getter
   private final Exception exception;
+  private final String baseUrl;
+  private final int retryCount;
 
-  public ExceptionalResult(Exception e)
+  public ExceptionalResult(Exception e, final String baseUrl, final int retryCount)
   {
     this.exception = e;
-  }
-
-  @Override
-  public String getBaseUrl()
-  {
-    return "";
+    this.baseUrl = baseUrl;
+    this.retryCount = retryCount;
   }
 }

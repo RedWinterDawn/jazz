@@ -1,21 +1,24 @@
 package com.jive.myco.jazz.api.rest.client.ExceptionHandler;
 
+import lombok.Getter;
+
 /**
  * @author Binh Tran
  * @author Rich Adams
  */
+@Getter
 public class DeserializingResult implements RestExceptionHandlingResult
 {
-  private DeserializingResult()
+
+  private final String baseUrl;
+  private final int retryCount;
+
+  private DeserializingResult(final String baseUrl, final int retryCount)
   {
-    // no op
+    this.baseUrl = baseUrl;
+    this.retryCount = retryCount;
   }
 
-  public static final DeserializingResult INSTANCE = new DeserializingResult();
+  public static final DeserializingResult INSTANCE = new DeserializingResult("", -1);
 
-  @Override
-  public String getBaseUrl()
-  {
-    return "";
-  }
 }
