@@ -15,7 +15,6 @@ public interface RestExceptionHandler
 {
   /**
    * Handle a failure while requesting from a remote resource
-   * @param retryCount the number of retires attempted
    * @param response the response received during the latest attempt, if exists
    * @param exception the exception thrown during the latest attempt, if exists
    * @param urlSupplier the function used to get the next url, if applicable

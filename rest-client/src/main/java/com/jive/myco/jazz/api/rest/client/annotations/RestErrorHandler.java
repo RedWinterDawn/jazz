@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  *
  * Can appear on both interface and function.
  *
- * Created by btran on 12/19/14.
+ * @author Binh Tran
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE, ElementType.METHOD})
