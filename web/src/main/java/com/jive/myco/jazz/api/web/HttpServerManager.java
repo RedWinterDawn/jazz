@@ -52,7 +52,12 @@ public interface HttpServerManager extends ListenableLifecycled
    *
    * @return a future that completes with the binding information after the servlet has been bound
    *         in the manager
+   *
+   * @deprecated user
+   *             {@link HttpServerManager#addWebApp(WebAppDescriptor, String, NetworkId, InetAddress, Integer)
+   *             ) instead
    */
+  @Deprecated
   public PnkyPromise<ServletBinding> addServlet(
       final Servlet servlet, final String contextPath,
       final NetworkId networkId, final InetAddress inetAddress, final Integer port);

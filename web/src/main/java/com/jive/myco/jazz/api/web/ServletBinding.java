@@ -10,7 +10,10 @@ import com.jive.myco.commons.concurrent.PnkyPromise;
  * Represents the binding of a servlet into the {@link HttpServerManager}.
  *
  * @author David Valeri
+ *
+ * @deprecated slated for removal as part of deprecated API
  */
+@Deprecated
 public interface ServletBinding
 {
   /**

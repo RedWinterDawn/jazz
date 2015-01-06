@@ -4,14 +4,17 @@
   <parent>
     <groupId>com.jive.myco</groupId>
     <artifactId>parent</artifactId>
-    <version>30</version>
+    <version>33</version>
   </parent>
+
   <groupId>com.jive.myco.jazz.api</groupId>
   <artifactId>root</artifactId>
-  <version>0.2.24-SNAPSHOT</version>
+  <version>0.2.42-SNAPSHOT</version>
   <packaging>pom</packaging>
+
   <name>Jazz :: API :: Root</name>
   <description>The API of the Jazz Framework.</description>
+
   <modules>
     <module>bom</module>
     <module>config</module>
@@ -26,22 +29,25 @@
     <module>rules</module>
     <module>context</module>
   </modules>
+
   <scm>
     <connection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</connection>
     <developerConnection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</developerConnection>
     <url>https://github.com/jive/com.jive.myco.jazz.api</url>
     <tag>HEAD</tag>
   </scm>
+
   <properties>
-    <deps.jax-rs-api.version>2.0</deps.jax-rs-api.version>
-    <deps.jumpy.version>0.21</deps.jumpy.version>
-    <deps.isp.version>0.20</deps.isp.version>
-    <deps.servlet.version>3.1.0</deps.servlet.version>
     <deps.commons-lang.version>2.6</deps.commons-lang.version>
-    <deps.myco-commons.version>0.2.0</deps.myco-commons.version>
+    <deps.jax-rs-api.version>2.0.1</deps.jax-rs-api.version>
+    <deps.jumpy.version>0.34</deps.jumpy.version>
+    <deps.myco-commons.version>0.2.4</deps.myco-commons.version>
+    <deps.servlet.version>3.1.0</deps.servlet.version>
   </properties>
+
   <dependencyManagement>
     <dependencies>
+
       <dependency>
         <groupId>com.jive.myco.commons</groupId>
         <artifactId>myco-commons-bom</artifactId>
@@ -49,13 +55,7 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <dependency>
-        <groupId>com.jive.v5.isp</groupId>
-        <artifactId>isp-bom</artifactId>
-        <version>${deps.isp.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
+
       <dependency>
         <groupId>com.jive.v5.jumpy</groupId>
         <artifactId>jumpy-bom</artifactId>
@@ -63,21 +63,25 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>${deps.servlet.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>javax.ws.rs</groupId>
-        <artifactId>javax.ws.rs-api</artifactId>
-        <version>${deps.jax-rs-api.version}</version>
-      </dependency>
+
       <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
         <version>${deps.commons-lang.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>${deps.servlet.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.ws.rs</groupId>
+        <artifactId>javax.ws.rs-api</artifactId>
+        <version>${deps.jax-rs-api.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 </project>

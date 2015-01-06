@@ -1,8 +1,9 @@
 package com.jive.myco.jazz.api.web;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.Builder;
 
 /**
@@ -12,11 +13,16 @@ import lombok.experimental.Builder;
  *
  * @author David Valeri
  */
-@RequiredArgsConstructor
 @Getter
-@Builder
 public final class StaticResourceDescriptor
 {
+  private final AtomicInteger INSTANCE_COUNTER = new AtomicInteger();
+
+  /**
+   * A descriptive ID for this static resource.
+   */
+  private final String id;
+
   /**
    * The path, relative to the apps's context path, where the files in {@link #path} are exposed.
    */
@@ -28,4 +34,20 @@ public final class StaticResourceDescriptor
    */
   @NonNull
   private final String path;
+
+
+  public StaticResourceDescriptor(final String relativeUrlPath, final String path)
+  {
+    this(null, relativeUrlPath, path);
+  }
+
+  @Builder
+  public StaticResourceDescriptor(final String id, final String relativeUrlPath, final String path)
+  {
+    this.id = id == null ? "static-" + INSTANCE_COUNTER.getAndIncrement() : id;
+
+    this.relativeUrlPath = relativeUrlPath;
+    this.path = path;
+  }
+
 }
