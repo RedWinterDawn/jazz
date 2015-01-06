@@ -60,22 +60,20 @@ public class RuleExpression
   {
     final String valueToCompare = JazzContextManager.get(leftSide, "");
 
-    if (valueToCompare == null)
+    if (log.isTraceEnabled())
     {
-      return OPERATOR_IS_EMPTY.equalsIgnoreCase(operator);
-    }
-    else
-    {
-      Map<String, String> jazzContextManagerMap = JazzContextManager.toMap();
-      for (String key : jazzContextManagerMap.keySet())
+      final Map<String, String> jazzContextManagerMap = JazzContextManager.toMap();
+      log.trace("JazzContextManagerMap -->");
+      for (final String key : jazzContextManagerMap.keySet())
       {
-        log.trace("JazzContextManagerMap key: {}", key);
-        log.trace("JazzContectManagerMap value: {}", jazzContextManagerMap.get(key));
+        log.trace("  key: {}", key);
+        log.trace("  value: {}", jazzContextManagerMap.get(key));
       }
-      log.trace("Value to compare: {}", valueToCompare);
-      log.trace("Right side: {}", rightSide);
-      return rightSide.matcher(valueToCompare).matches();
+
+      log.trace("Evaluating pattern [{}] matches [{}]", rightSide.pattern(), valueToCompare);
     }
+
+    return rightSide.matcher(valueToCompare).matches();
   }
 
   @JsonCreator
