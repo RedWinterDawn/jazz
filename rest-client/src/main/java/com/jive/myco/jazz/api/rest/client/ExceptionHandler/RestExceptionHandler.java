@@ -10,7 +10,6 @@ import javax.ws.rs.core.Response;
  * @author Binh Tran
  * @author Rich Adams
  */
-@FunctionalInterface
 public interface RestExceptionHandler
 {
   /**
@@ -27,4 +26,8 @@ public interface RestExceptionHandler
       Function<List<String>, Optional<String>> urlSupplier,
       RestExceptionHandlingResult lastResult
                                     );
+
+  RestExceptionHandler expectedStatuses(int[] statuses);
+
+  RestExceptionHandler maxRetries(int maxRetries);
 }

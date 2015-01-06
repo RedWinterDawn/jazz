@@ -24,5 +24,9 @@ public @interface RestErrorHandler
    *   that will be used to handle error if occur from this endpoint
    * @return the name of a bound instance of RestExceptionHandler
    */
-  String value() default DEFAULT_HANDLER;
+  String handlerName() default DEFAULT_HANDLER;
+
+  int[] expectedStatus() default {200, 204};
+
+  int maxRetries() default 5;
 }
