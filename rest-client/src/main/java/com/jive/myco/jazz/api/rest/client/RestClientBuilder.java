@@ -1,15 +1,13 @@
 package com.jive.myco.jazz.api.rest.client;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
 import javax.ws.rs.ext.ParamConverterProvider;
 
-import com.google.common.base.Function;
 import com.jive.myco.jazz.api.rest.client.ExceptionHandler.RestExceptionHandlerProvider;
 import com.jive.myco.jazz.api.web.HttpClientHeaderDecorator;
+import com.jive.v5.jumpy.model.RestrictedSupplier;
 
 /**
  * Builder for a REST client.
@@ -36,7 +34,7 @@ public interface RestClientBuilder<T>
 
   RestClientBuilder<T> url(final Supplier<String> urlSupplier);
 
-  RestClientBuilder<T> url(final Function<List<String>, Optional<String>> filterFunction);
+  RestClientBuilder<T> url(final RestrictedSupplier<String> urlRestrictedSupplier);
 
   RestClientBuilder<T> headerDecorator(final HttpClientHeaderDecorator headerDecorator);
 
