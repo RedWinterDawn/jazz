@@ -62,15 +62,23 @@ public class RuleExpression
 
     if (log.isTraceEnabled())
     {
-      final Map<String, String> jazzContextManagerMap = JazzContextManager.toMap();
-      log.trace("JazzContextManagerMap -->");
-      for (final String key : jazzContextManagerMap.keySet())
+      final StringBuilder sb = new StringBuilder();
+
+      sb.append("Evaluating pattern [")
+          .append(rightSide.pattern())
+          .append("] matches [")
+          .append(valueToCompare)
+          .append("]\n");
+
+      sb.append("JazzContextManager -->\n");
+
+      for (final Map.Entry<String, String> entry : JazzContextManager.toMap().entrySet())
       {
-        log.trace("  key: {}", key);
-        log.trace("  value: {}", jazzContextManagerMap.get(key));
+        sb.append("  [").append(entry.getKey()).append("]:");
+        sb.append("[").append(entry.getValue()).append("]\n");
       }
 
-      log.trace("Evaluating pattern [{}] matches [{}]", rightSide.pattern(), valueToCompare);
+      log.trace(sb.toString());
     }
 
     return rightSide.matcher(valueToCompare).matches();
