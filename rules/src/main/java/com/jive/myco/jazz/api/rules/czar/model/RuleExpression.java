@@ -1,11 +1,13 @@
 package com.jive.myco.jazz.api.rules.czar.model;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -14,6 +16,7 @@ import com.jive.myco.jazz.api.rules.czar.exceptions.RuleException;
 
 @Value
 @EqualsAndHashCode(of = "expression")
+@Slf4j
 public class RuleExpression
 {
   public final static String OPERATOR_EQUALS = "equals";
@@ -57,14 +60,28 @@ public class RuleExpression
   {
     final String valueToCompare = JazzContextManager.get(leftSide, "");
 
-    if (valueToCompare == null)
+    if (log.isTraceEnabled())
     {
-      return OPERATOR_IS_EMPTY.equalsIgnoreCase(operator);
+      final StringBuilder sb = new StringBuilder();
+
+      sb.append("Evaluating pattern [")
+          .append(rightSide.pattern())
+          .append("] matches [")
+          .append(valueToCompare)
+          .append("]\n");
+
+      sb.append("JazzContextManager -->\n");
+
+      for (final Map.Entry<String, String> entry : JazzContextManager.toMap().entrySet())
+      {
+        sb.append("  [").append(entry.getKey()).append("]:");
+        sb.append("[").append(entry.getValue()).append("]\n");
+      }
+
+      log.trace(sb.toString());
     }
-    else
-    {
-      return rightSide.matcher(valueToCompare).matches();
-    }
+
+    return rightSide.matcher(valueToCompare).matches();
   }
 
   @JsonCreator
