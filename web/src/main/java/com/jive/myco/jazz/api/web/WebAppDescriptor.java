@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Builder;
 
+import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
 import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
 
 /**
@@ -46,6 +47,12 @@ public final class WebAppDescriptor
   @Getter
   private final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor;
 
+  @Getter
+  private final String contextPath;
+
+  @Getter
+  private final List<ConnectorDescriptor> connectorDescriptors;
+
   @Builder
   private WebAppDescriptor(
       final String id,
@@ -55,7 +62,9 @@ public final class WebAppDescriptor
       final boolean includeJazzContextFilter,
       final boolean includeJazzMdcFilter,
       final boolean includeJazzContextEnhancerRulesFilter,
-      final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor)
+      final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor,
+      final String contextPath,
+      @NonNull final List<ConnectorDescriptor> connectorDescriptors)
   {
     this.id = id == null ? "web-app-" + INSTANCE_COUNTER.getAndIncrement() : id;
     this.servlets =
@@ -68,6 +77,8 @@ public final class WebAppDescriptor
     this.includeJazzMdcFilter = includeJazzMdcFilter;
     this.includeJazzContextEnhancerRulesFilter = includeJazzContextEnhancerRulesFilter;
     this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
+    this.contextPath = contextPath;
+    this.connectorDescriptors = Collections.unmodifiableList(new ArrayList<>(connectorDescriptors));
   }
 
   /**
@@ -84,6 +95,7 @@ public final class WebAppDescriptor
     private boolean includeJazzContextFilter = true;
     private boolean includeJazzMdcFilter = true;
     private boolean includeJazzContextEnhancerRulesFilter = true;
+    private final List<ConnectorDescriptor> connectorDescriptors = new LinkedList<>();
 
     @Override
     public WebAppDescriptorBuilder addServlet(
@@ -149,6 +161,29 @@ public final class WebAppDescriptor
       return this;
     }
 
+    @Override
+    public WebAppDescriptorBuilder contextPath(final String contextPath)
+    {
+      this.contextPath = contextPath;
+      return this;
+    }
+
+    @Override
+    public WebAppDescriptorBuilder addConnector(
+        @NonNull final ConnectorDescriptor connectorDescriptor)
+    {
+      connectorDescriptors.add(connectorDescriptor);
+      return this;
+    }
+
+    @Override
+    public WebAppDescriptorBuilder addConnectors(
+        final Iterable<? extends ConnectorDescriptor> connectorDescriptors)
+    {
+      connectorDescriptors.forEach(this.connectorDescriptors::add);
+      return this;
+    }
+
     // Hidden due to Lombok
     @SuppressWarnings("unused")
     private WebAppDescriptorBuilder servlets(
@@ -177,6 +212,14 @@ public final class WebAppDescriptor
     @SuppressWarnings("unused")
     private WebAppDescriptorBuilder autoRegisteredServiceInstanceDescriptor(
         final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor)
+    {
+      return this;
+    }
+
+    // Hidden due to Lombok
+    @SuppressWarnings("unused")
+    private WebAppDescriptorBuilder connectorDescriptors(
+        final List<ConnectorDescriptor> connectorDescriptors)
     {
       return this;
     }

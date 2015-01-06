@@ -6,9 +6,10 @@ import com.jive.myco.commons.concurrent.PnkyPromise;
 
 /**
  * Represents the binding of a collection of web resources into the {@link HttpServerManager}.
- * 
+ *
  * @author David Valeri
  */
+@SuppressWarnings("deprecation")
 public interface WebAppBinding
 {
   /**

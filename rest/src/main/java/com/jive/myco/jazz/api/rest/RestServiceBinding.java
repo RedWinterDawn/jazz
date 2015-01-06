@@ -9,6 +9,7 @@ import com.jive.myco.jazz.api.web.ConnectorBinding;
  *
  * @author David Valeri
  */
+@SuppressWarnings("deprecation")
 public interface RestServiceBinding
 {
   String getContextPath();

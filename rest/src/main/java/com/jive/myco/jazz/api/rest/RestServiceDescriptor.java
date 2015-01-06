@@ -14,6 +14,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Builder;
 
+import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
+import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
 import com.jive.myco.jazz.api.web.FilterMappingDescriptor;
 import com.jive.myco.jazz.api.web.StaticResourceDescriptor;
 
@@ -64,6 +66,15 @@ public final class RestServiceDescriptor
   @Getter
   private final boolean forceMetrics;
 
+  @Getter
+  private final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor;
+
+  @Getter
+  private final String contextPath;
+
+  @Getter
+  private final List<ConnectorDescriptor> connectorDescriptors;
+
   @Builder
   private RestServiceDescriptor(
       final String id,
@@ -75,7 +86,10 @@ public final class RestServiceDescriptor
       final boolean includeJazzContextEnhancerRulesFilter,
       final MultipartConfigElement multipartConfigElement,
       final boolean enableMetrics,
-      final boolean forceMetrics)
+      final boolean forceMetrics,
+      final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor,
+      final String contextPath,
+      @NonNull final List<ConnectorDescriptor> connectorDescriptors)
   {
     this.id = id == null ? "rest-service-" + INSTANCE_COUNTER.getAndIncrement() : id;
     this.singletons = Collections.unmodifiableSet(new HashSet<>(singletons));
@@ -89,6 +103,9 @@ public final class RestServiceDescriptor
     this.multipartConfigElement = multipartConfigElement;
     this.enableMetrics = enableMetrics;
     this.forceMetrics = forceMetrics;
+    this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
+    this.contextPath = contextPath;
+    this.connectorDescriptors = Collections.unmodifiableList(new ArrayList<>(connectorDescriptors));
   }
 
   /**
@@ -112,6 +129,8 @@ public final class RestServiceDescriptor
     private boolean includeJazzContextEnhancerRulesFilter = true;
 
     private boolean enableMetrics = true;
+
+    private final List<ConnectorDescriptor> connectorDescriptors = new LinkedList<>();
 
     @Override
     public RestServiceDescriptorBuilder addSingleton(final Object singleton)
@@ -182,6 +201,29 @@ public final class RestServiceDescriptor
       return this;
     }
 
+    @Override
+    public RestServiceDescriptorBuilder register(
+        final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor)
+    {
+      this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
+      return this;
+    }
+
+    @Override
+    public RestServiceDescriptorBuilder contextPath(final String contextPath)
+    {
+      this.contextPath = contextPath;
+      return this;
+    }
+
+    @Override
+    public RestServiceDescriptorBuilder addConnector(
+        @NonNull final ConnectorDescriptor connectorDescriptor)
+    {
+      connectorDescriptors.add(connectorDescriptor);
+      return this;
+    }
+
     // Hidden because of Lombok
     @SuppressWarnings("unused")
     private RestServiceDescriptorBuilder singletons(final Set<Object> additionalSingletons)
@@ -201,6 +243,22 @@ public final class RestServiceDescriptor
     @SuppressWarnings("unused")
     private RestServiceDescriptorBuilder filters(
         final List<StaticResourceDescriptor> additionalFilters)
+    {
+      return this;
+    }
+
+    // Hidden due to Lombok
+    @SuppressWarnings("unused")
+    private RestServiceDescriptorBuilder autoRegisteredServiceInstanceDescriptor(
+        final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor)
+    {
+      return this;
+    }
+
+    // Hidden due to Lombok
+    @SuppressWarnings("unused")
+    private RestServiceDescriptorBuilder connectorDescriptors(
+        final List<ConnectorDescriptor> connectorDescriptors)
     {
       return this;
     }

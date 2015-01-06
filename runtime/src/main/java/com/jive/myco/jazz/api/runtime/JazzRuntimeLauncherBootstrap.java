@@ -1,5 +1,7 @@
 package com.jive.myco.jazz.api.runtime;
 
+import com.google.common.util.concurrent.Service;
+import com.jive.myco.commons.lifecycle.ListenableLifecycled;
 import com.jive.myco.jazz.api.config.JazzConfiguration;
 import com.jive.myco.jazz.api.health.HealthCheck;
 import com.jive.myco.jazz.api.registry.ServiceInstanceDescriptor;
@@ -30,4 +32,11 @@ public interface JazzRuntimeLauncherBootstrap<T extends JazzConfiguration>
 
   JazzRuntimeLauncherBootstrap<T> addHealthCheck(
       final HealthCheck healthCheck);
+
+  JazzRuntimeLauncherBootstrap<T> addHealthCheck(
+      final HealthCheck healthCheck, final boolean manageLifecycle);
+
+  JazzRuntimeLauncherBootstrap<T> addService(final Service service);
+
+  JazzRuntimeLauncherBootstrap<T> addLifecycled(final ListenableLifecycled listenableLifecycled);
 }

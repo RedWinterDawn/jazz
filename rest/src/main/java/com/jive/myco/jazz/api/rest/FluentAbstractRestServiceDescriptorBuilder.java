@@ -1,5 +1,7 @@
 package com.jive.myco.jazz.api.rest;
 
+import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
+import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
 import com.jive.myco.jazz.api.web.StaticResourceDescriptor;
 
 /**
@@ -116,4 +118,35 @@ public interface FluentAbstractRestServiceDescriptorBuilder<T extends FluentAbst
    * @return this builder for chaining
    */
   T forceMetrics(final boolean forceMetrics);
+
+  /**
+   * Indicates the details of the service to automatically register in the service registry after
+   * starting the service.
+   *
+   * @param autoRegisteredServiceInstanceDescriptor
+   *          the descriptor containing the information to publish in the registry
+   *
+   * @return this builder for chaining
+   */
+  T register(final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor);
+
+  /**
+   * The context path to publish the service under.
+   *
+   * @param contextPath
+   *          the context path
+   *
+   * @return this builder for chaining
+   */
+  T contextPath(final String contextPath);
+
+  /**
+   * Adds a connector descriptor for a connector on which to bind the service.
+   *
+   * @param connectorDescriptor
+   *          the descriptor
+   *
+   * @return this builder for chaining
+   */
+  T addConnector(final ConnectorDescriptor connectorDescriptor);
 }
