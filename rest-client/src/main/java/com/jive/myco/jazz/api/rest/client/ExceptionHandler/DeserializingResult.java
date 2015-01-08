@@ -1,4 +1,4 @@
-package com.jive.myco.jazz.api.rest.client.ExceptionHandler;
+package com.jive.myco.jazz.api.rest.client.exceptionhandler;
 
 import lombok.Getter;
 

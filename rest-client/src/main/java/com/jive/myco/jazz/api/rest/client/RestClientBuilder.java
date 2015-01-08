@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 
 import javax.ws.rs.ext.ParamConverterProvider;
 
-import com.jive.myco.jazz.api.rest.client.ExceptionHandler.RestExceptionHandlerProvider;
+import com.jive.myco.jazz.api.rest.client.exceptionhandler.RestExceptionHandlerProvider;
 import com.jive.myco.jazz.api.web.HttpClientHeaderDecorator;
 import com.jive.v5.jumpy.model.RestrictedSupplier;
 

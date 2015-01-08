@@ -1,12 +1,6 @@
-package com.jive.myco.jazz.api.rest.client.ExceptionHandler;
-
-import java.util.Optional;
-
-import javax.ws.rs.core.Response;
+package com.jive.myco.jazz.api.rest.client.exceptionhandler;
 
 import lombok.Getter;
-
-import com.google.common.collect.ImmutableList;
 
 /**
  * @author Binh Tran
