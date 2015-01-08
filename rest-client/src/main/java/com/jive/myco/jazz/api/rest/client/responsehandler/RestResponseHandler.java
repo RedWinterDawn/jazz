@@ -1,4 +1,4 @@
-package com.jive.myco.jazz.api.rest.client.exceptionhandler;
+package com.jive.myco.jazz.api.rest.client.responsehandler;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
  * @author Binh Tran
  * @author Rich Adams
  */
-public interface RestExceptionHandler
+public interface RestResponseHandler
 {
   /**
    * Handle a failure while requesting from a remote resource
@@ -20,14 +20,13 @@ public interface RestExceptionHandler
    * @param lastResult the result from the last handled error
    * @return
    */
-  RestExceptionHandlingResult handle(
+  RestResponseHandlingResult handle(
       Optional<Response> response,
       Optional<Exception> exception,
       Function<List<String>, Optional<String>> urlSupplier,
-      RestExceptionHandlingResult lastResult
-                                    );
+      RestResponseHandlingResult lastResult);
 
-  RestExceptionHandler expectedStatuses(int[] statuses);
+  RestResponseHandler expectedStatuses(int[] statuses);
 
-  RestExceptionHandler maxRetries(int maxRetries);
+  RestResponseHandler maxRetries(int maxRetries);
 }

@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 
 import javax.ws.rs.ext.ParamConverterProvider;
 
-import com.jive.myco.jazz.api.rest.client.exceptionhandler.RestExceptionHandlerProvider;
+import com.jive.myco.jazz.api.rest.client.responsehandler.RestResponseHandlerProvider;
 import com.jive.myco.jazz.api.web.HttpClientHeaderDecorator;
 import com.jive.v5.jumpy.model.RestrictedSupplier;
 
@@ -28,7 +28,7 @@ public interface RestClientBuilder<T>
 
   RestClientBuilder<T> addProvider(final ParamConverterProvider provider);
 
-  RestClientBuilder<T> addProvider(final RestExceptionHandlerProvider restExceptionHandlerProvider);
+  RestClientBuilder<T> addProvider(final RestResponseHandlerProvider restResponseHandlerProvider);
 
   RestClientBuilder<T> url(final String url);
 
