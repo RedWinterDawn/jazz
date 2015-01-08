@@ -14,15 +14,15 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE, ElementType.METHOD})
-public @interface RestResponseHandler
+public @interface RestResponseStrategy
 {
   static final String DEFAULT_HANDLER = "default";
   static final String NO_RETRY = "no-retry";
 
   /**
-   * If specified, this value indicates that there's a bounded instance of RestResponseHandler and
+   * If specified, this value indicates that there's a bounded instance of RestResponseStrategy and
    *   that will be used to handle error if occur from this endpoint
-   * @return the name of a bound instance of RestResponseHandler
+   * @return the name of a bound instance of RestResponseStrategy
    */
   String handlerName() default DEFAULT_HANDLER;
 

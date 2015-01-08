@@ -28,8 +28,6 @@ public interface RestClientBuilder<T>
 
   RestClientBuilder<T> addProvider(final ParamConverterProvider provider);
 
-  RestClientBuilder<T> addProvider(final RestResponseHandlerProvider restResponseHandlerProvider);
-
   RestClientBuilder<T> url(final String url);
 
   RestClientBuilder<T> url(final Supplier<String> urlSupplier);
