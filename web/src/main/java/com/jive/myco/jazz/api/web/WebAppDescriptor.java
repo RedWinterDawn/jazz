@@ -34,6 +34,8 @@ public final class WebAppDescriptor
 
   private final boolean includeJazzContextEnhancerRulesFilter;
 
+  private final boolean includeJazzHttpRequestContextFilter;
+
   @Builder
   private WebAppDescriptor(
       final String id,
@@ -42,7 +44,8 @@ public final class WebAppDescriptor
       @NonNull final List<StaticResourceDescriptor> staticResources,
       final boolean includeJazzContextFilter,
       final boolean includeJazzMdcFilter,
-      final boolean includeJazzContextEnhancerRulesFilter)
+      final boolean includeJazzContextEnhancerRulesFilter,
+      final boolean includeJazzHttpRequestContextFilter)
   {
     this.id = id == null ? "web-app-" + INSTANCE_COUNTER.getAndIncrement() : id;
     this.servlets =
@@ -54,6 +57,7 @@ public final class WebAppDescriptor
     this.includeJazzContextFilter = includeJazzContextFilter;
     this.includeJazzMdcFilter = includeJazzMdcFilter;
     this.includeJazzContextEnhancerRulesFilter = includeJazzContextEnhancerRulesFilter;
+    this.includeJazzHttpRequestContextFilter = includeJazzHttpRequestContextFilter;
   }
 
   /**
@@ -69,6 +73,7 @@ public final class WebAppDescriptor
     private boolean includeJazzContextFilter = true;
     private boolean includeJazzMdcFilter = true;
     private boolean includeJazzContextEnhancerRulesFilter = true;
+    private boolean includeJazzHttpRequestContextFilter = true;
 
     /**
      * Adds a servlet to the servlets provided via the descriptor.
