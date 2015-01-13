@@ -1,6 +1,7 @@
 package com.jive.myco.jazz.api.rest.client;
 
 import java.util.concurrent.Executor;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Supplier;
 
 import javax.ws.rs.ext.ParamConverterProvider;
@@ -34,6 +35,8 @@ public interface RestClientBuilder<T>
   RestClientBuilder<T> url(final RestrictedSupplier<String> urlRestrictedSupplier);
 
   RestClientBuilder<T> headerDecorator(final HttpClientHeaderDecorator headerDecorator);
+
+  RestClientBuilder<T> scheduledExecutor(final ScheduledExecutorService executor);
 
   T build();
 }
