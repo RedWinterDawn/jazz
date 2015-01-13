@@ -20,11 +20,11 @@ public interface RestResponseHandler
    * @param lastResult the result from the last handled error
    * @return
    */
-  RestResponseHandlingResult handle(
+  AbstractRestResponseHandlerResult handle(
       Optional<Response> response,
       Optional<Exception> exception,
       Function<List<String>, Optional<String>> urlSupplier,
-      RestResponseHandlingResult lastResult);
+      AbstractRestResponseHandlerResult lastResult);
 
   RestResponseHandler expectedStatuses(int[] statuses);
 

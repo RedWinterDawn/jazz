@@ -7,7 +7,7 @@ import lombok.Getter;
  * @author Rich Adams
  */
 @Getter
-public class ExceptionalResult extends RestResponseHandlingResult
+public class ExceptionalResult extends AbstractRestResponseHandlerResult
 {
   private final Exception exception;
 

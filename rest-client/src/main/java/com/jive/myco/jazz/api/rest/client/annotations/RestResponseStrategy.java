@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation signalling that the rest client need special error handling strategy.
+ * Annotation signaling that the rest client need special error handling strategy.
  *
  * Can appear on both interface and function.
  *

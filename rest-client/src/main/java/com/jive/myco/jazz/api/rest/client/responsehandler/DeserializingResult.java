@@ -7,7 +7,7 @@ import lombok.Getter;
  * @author Rich Adams
  */
 @Getter
-public class DeserializingResult extends RestResponseHandlingResult
+public class DeserializingResult extends AbstractRestResponseHandlerResult
 {
 
   private DeserializingResult(final String baseUrl, final int retryCount)
