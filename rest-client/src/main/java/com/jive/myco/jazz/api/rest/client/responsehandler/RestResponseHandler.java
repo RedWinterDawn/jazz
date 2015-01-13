@@ -24,7 +24,7 @@ public interface RestResponseHandler
       Optional<Response> response,
       Optional<Exception> exception,
       Function<List<String>, Optional<String>> urlSupplier,
-      AbstractRestResponseHandlerResult lastResult);
+      RestResponseHandlerResult lastResult);
 
   RestResponseHandler expectedStatuses(int[] statuses);
 
