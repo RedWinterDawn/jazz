@@ -1,10 +1,11 @@
 package com.jive.myco.jazz.api.rest.client.responsehandler;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
 import javax.ws.rs.core.Response;
+
+import com.jive.v5.jumpy.JumpyRecordFilter;
 
 /**
  * @author Binh Tran
@@ -23,7 +24,7 @@ public interface RestResponseHandler
   AbstractRestResponseHandlerResult handle(
       Optional<Response> response,
       Optional<Exception> exception,
-      Function<List<String>, Optional<String>> urlSupplier,
+      Function<JumpyRecordFilter<String>, Optional<String>> urlSupplier,
       RestResponseHandlerResult lastResult);
 
   RestResponseHandler expectedStatuses(int[] statuses);
