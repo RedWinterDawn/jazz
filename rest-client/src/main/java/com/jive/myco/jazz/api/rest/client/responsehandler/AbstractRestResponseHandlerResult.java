@@ -9,7 +9,7 @@ import lombok.Getter;
  * @author Rich Adams
  */
 @Getter
-public abstract class AbstractRestResponseHandlerResult
+public abstract class AbstractRestResponseHandlerResult implements RestResponseHandlerResult
 {
   private String baseUrl;
   private int retryCount;
@@ -20,16 +20,6 @@ public abstract class AbstractRestResponseHandlerResult
     this.retryCount = retryCount;
   }
 
-  private static class BaseAbstractRestResponseHandlerResult
-      extends AbstractRestResponseHandlerResult
-  {
-
-    protected BaseAbstractRestResponseHandlerResult(final String baseUrl, final int retryCount)
-    {
-      super(baseUrl, retryCount);
-    }
-  }
-
-  public static Function<String, AbstractRestResponseHandlerResult> firstResultBuilder =
+  public static Function<String, RestResponseHandlerResult> firstResultBuilder =
       (s) -> new BaseAbstractRestResponseHandlerResult(s, 0);
 }
