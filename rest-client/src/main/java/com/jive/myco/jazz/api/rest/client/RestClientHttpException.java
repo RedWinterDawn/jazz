@@ -38,7 +38,7 @@ public class RestClientHttpException extends RestClientException
       final String message,
       final Throwable cause)
   {
-    super(message, cause);
+    super(message == null ? cause.getMessage() : message, cause);
 
     this.responseCode = responseCode;
     this.reasonPhrase = reasonPhrase;
