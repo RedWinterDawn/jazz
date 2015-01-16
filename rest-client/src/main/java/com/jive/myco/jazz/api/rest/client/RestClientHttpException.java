@@ -6,7 +6,11 @@ import lombok.Getter;
  * A representation of an error in the REST client related to a non-200 series HTTP response code.
  *
  * @author David Valeri
+ *
+ * @deprecated use {@link HttpRestClientException} instead. This class will be removed from the
+ *             hierarchy in a future release.
  */
+@Deprecated
 public class RestClientHttpException extends RestClientException
 {
   private static final long serialVersionUID = -1007929739748850333L;
@@ -45,10 +49,16 @@ public class RestClientHttpException extends RestClientException
   }
 
   @Override
-  public String toString()
+  public String getMessage()
   {
-    final String s = getClass().getName();
-    final String message = getLocalizedMessage();
-    return (message != null) ? (s + ": [" + responseCode + "(" + reasonPhrase + ")]" + message) : s;
+    String message = "[" + responseCode + " (" + reasonPhrase + ")]";
+    final String superMessage = super.getMessage();
+
+    if (superMessage != null)
+    {
+      message += " " + superMessage;
+    }
+
+    return message;
   }
 }

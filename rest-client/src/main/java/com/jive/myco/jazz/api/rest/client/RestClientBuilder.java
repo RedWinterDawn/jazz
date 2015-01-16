@@ -7,8 +7,8 @@ import java.util.function.Supplier;
 import javax.ws.rs.ext.ParamConverterProvider;
 
 import com.jive.myco.jazz.api.web.HttpClientHeaderDecorator;
-import com.jive.v5.jumpy.JumpyRecordFilter;
-import com.jive.v5.jumpy.model.RestrictedSupplier;
+import com.jive.v5.jumpy.JumpyRecordFilterCriteria;
+import com.jive.v5.jumpy.RestrictedSupplier;
 
 /**
  * Builder for a REST client.
@@ -33,7 +33,8 @@ public interface RestClientBuilder<T>
 
   RestClientBuilder<T> url(final Supplier<String> urlSupplier);
 
-  RestClientBuilder<T> url(final RestrictedSupplier<String, JumpyRecordFilter<String>> urlRestrictedSupplier);
+  RestClientBuilder<T> url(
+      final RestrictedSupplier<String, JumpyRecordFilterCriteria> urlRestrictedSupplier);
 
   RestClientBuilder<T> headerDecorator(final HttpClientHeaderDecorator headerDecorator);
 
