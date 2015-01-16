@@ -22,7 +22,7 @@ public class RestResponseStrategyModel
       Collections
           .unmodifiableSet(
           new HashSet<>(
-              Arrays.asList(200, 202)));
+              Arrays.asList(200, 204)));
 
   private final Set<Integer> expectedResponseCodes;
   private final int maxRetries;
