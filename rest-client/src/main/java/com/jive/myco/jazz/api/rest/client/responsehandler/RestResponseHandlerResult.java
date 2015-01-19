@@ -5,7 +5,5 @@ package com.jive.myco.jazz.api.rest.client.responsehandler;
  */
 public interface RestResponseHandlerResult
 {
-  String getBaseUrl();
-
-  int getRetryCount();
+  // No-Op
 }
