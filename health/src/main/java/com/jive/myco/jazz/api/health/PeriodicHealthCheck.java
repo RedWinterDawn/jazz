@@ -4,48 +4,31 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import org.fusesource.hawtdispatch.DispatchQueue;
-
-import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.jive.myco.commons.concurrent.Pnky;
 import com.jive.myco.commons.concurrent.PnkyPromise;
 import com.jive.myco.commons.hawtdispatch.DefaultDispatchQueueBuilder;
 import com.jive.myco.commons.hawtdispatch.DispatchQueueBuilder;
-import com.jive.myco.commons.lifecycle.AbstractLifecycled;
-import com.jive.myco.commons.lifecycle.LifecycleListener;
-import com.jive.myco.commons.lifecycle.LifecycleStage;
 import com.jive.myco.commons.lifecycle.ListenableLifecycled;
-import com.jive.myco.commons.listenable.Listenable;
 
 /**
  * A basic health check base class that provides on-demand status calculations. Subclasses should
- * implement {@link #calculateHealthStatus()} to return the current status on-demand.
+ * implement {@link #calculateHealthStatusSync()}, or {@link #calculateHealthStatusAndMessageSync()}
+ * to return the current status on-demand.
+ *
+ * For purely async / non-blocking health check implementations, consider extending
+ * {@link AbstractAsyncPeriodicHealthCheck} directly.
  *
  * @author David Valeri
  */
 @Slf4j
-public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
+public abstract class PeriodicHealthCheck extends AbstractAsyncPeriodicHealthCheck implements
     ListenableLifecycled
 {
-  /**
-   * The helper used to skirt single inheritance.
-   */
-  private final LifecycledHelper lifecycledHelper;
-
-  /**
-   * The interval, in milliseconds, between executions of the health check. If the execution takes
-   * longer than this interval, the next execution of the check occurs immediately.
-   */
-  private final long checkInterval;
-
-  private final DispatchQueueBuilder dispatchQueueBuilder;
-
   /**
    * A thread pool used for blocking background processes.
    */
@@ -56,11 +39,6 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
    * destroy the executor when shutting down.
    */
   private volatile boolean destroyExecutor;
-
-  /**
-   * The time when we next expect to to fork a new process to perform a check.
-   */
-  private volatile long nextCheckTime = 0;
 
   public PeriodicHealthCheck(final String id, final long checkInterval)
   {
@@ -77,54 +55,9 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
       @NonNull final DispatchQueueBuilder dispatchQueueBuilder,
       final Executor executor)
   {
-    super(id);
+    super(id, checkInterval, dispatchQueueBuilder);
 
-    Preconditions.checkArgument(checkInterval > 0, "checkInterval must be greater than 0.");
-
-    this.checkInterval = checkInterval;
-    this.dispatchQueueBuilder = dispatchQueueBuilder;
     this.executor = executor;
-
-    lifecycledHelper = new LifecycledHelper(
-        dispatchQueueBuilder.segment("check", id, "lifecycle").build());
-  }
-
-  @Override
-  public final PnkyPromise<Void> init()
-  {
-    return lifecycledHelper.init();
-  }
-
-  @Override
-  public final PnkyPromise<Void> destroy()
-  {
-    return lifecycledHelper.destroy();
-  }
-
-  @Override
-  public boolean isRestartable()
-  {
-    return false;
-  }
-
-  @Override
-  public final Listenable<LifecycleListener> getLifecycleListenable()
-  {
-    return lifecycledHelper.getLifecycleListenable();
-  }
-
-  @Override
-  public final LifecycleStage getLifecycleStage()
-  {
-    return lifecycledHelper.getLifecycleStage();
-  }
-
-  /**
-   * Returns the lifecycle queue.
-   */
-  protected final DispatchQueue getLifecycleQueue()
-  {
-    return lifecycledHelper.getLifecycleQueue();
   }
 
   /**
@@ -136,20 +69,48 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
   }
 
   /**
-   * Performs additional initializtion actions specific to sub-classes. The default implementation
-   * returns an immediately complete future.
+   * Performs additional initialization actions specific to sub-classes. Subclasses overriding this
+   * method MUST call the this super method.
    */
+  @Override
   protected PnkyPromise<Void> doInit()
   {
+    if (executor == null)
+    {
+      destroyExecutor = true;
+
+      executor = Executors.newCachedThreadPool(
+          new ThreadFactoryBuilder()
+              .setDaemon(true)
+              .setNameFormat("periodic-health-check-" + getId() + "-%d")
+              .setUncaughtExceptionHandler(new UncaughtExceptionHandler()
+              {
+                @Override
+                public void uncaughtException(final Thread t, final Throwable e)
+                {
+                  log.error("[{}]: Unhandled exception in check.", getId(), e);
+                }
+              })
+              .build());
+    }
+
     return Pnky.immediatelyComplete(null);
   }
 
   /**
-   * Performs additional cleanup actions specific to sub-classes. The default implementation returns
-   * an immediately complete future.
+   * Performs additional cleanup actions specific to sub-classes. Subclasses overriding this method
+   * MUST call the this super method.
    */
+  @Override
   protected PnkyPromise<Void> doDestroy()
   {
+    if (executor != null && destroyExecutor)
+    {
+      ((ExecutorService) executor).shutdownNow();
+    }
+
+    executor = null;
+
     return Pnky.immediatelyComplete(null);
   }
 
@@ -173,7 +134,11 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
    * method directly for an asynchronous, non-blocking check calculation.
    *
    * @return the new status for the check
+   *
+   * @deprecated extend {@link AbstractAsyncPeriodicHealthCheck} directly and override
+   *             {@link AbstractAsyncPeriodicHealthCheck#calculateHealthStatusAndMessage()} instead.
    */
+  @Deprecated
   protected PnkyPromise<HealthStatus> calculateHealthStatus()
   {
     return Pnky.supplyAsync(this::calculateHealthStatusSync, executor);
@@ -203,192 +168,14 @@ public abstract class PeriodicHealthCheck extends AbstractHealthCheck implements
    * @return the new status and message for the check
    *
    * @see #calculateHealthStatusAndMessageSync()
+   *
+   * @deprecated extend {@link AbstractAsyncPeriodicHealthCheck} directly and override
+   *             {@link AbstractAsyncPeriodicHealthCheck#calculateHealthStatusAndMessage()} instead.
    */
+  @Deprecated
+  @Override
   protected PnkyPromise<HealthStatusAndMessage> calculateHealthStatusAndMessage()
   {
     return Pnky.supplyAsync(this::calculateHealthStatusAndMessageSync, executor);
-  }
-
-  private PnkyPromise<Void> initInternal()
-  {
-    if (executor == null)
-    {
-      destroyExecutor = true;
-
-      executor = Executors.newCachedThreadPool(
-          new ThreadFactoryBuilder()
-              .setDaemon(true)
-              .setNameFormat("periodic-health-check-" + getId() + "-%d")
-              .setUncaughtExceptionHandler(new UncaughtExceptionHandler()
-              {
-                @Override
-                public void uncaughtException(final Thread t, final Throwable e)
-                {
-                  log.error("[{}]: Unhandled exception in check.", getId(), e);
-                }
-              })
-              .build());
-    }
-
-    return doInit()
-        // Schedule the scheduling to happen after init finishes such that we are fully
-        // initialized when the scheduling runs.
-        .thenAccept((result) -> getLifecycleQueue().execute(this::scheduleCheck));
-  }
-
-  private PnkyPromise<Void> destroyInternal()
-  {
-    return doDestroy()
-        .thenAccept((result) ->
-        {
-          if (executor != null && destroyExecutor)
-          {
-            ((ExecutorService) executor).shutdownNow();
-          }
-
-          executor = null;
-
-          nextCheckTime = 0;
-
-          setHealthStatus(new HealthStatusAndMessage(HealthStatus.UNKNOWN));
-        });
-  }
-
-  /**
-   * Triggers {@link #calculateHealthStatus()} and reschedules the next execution.
-   * <p>
-   * This method must be invoked on the {@link #getLifecycleQueue() lifecycle queue}.
-   */
-  private void updateHealthStatus()
-  {
-    if (getLifecycleStage() == LifecycleStage.INITIALIZED)
-    {
-      try
-      {
-        calculateHealthStatusAndMessage()
-            // Process the check results on the lifecycle queue
-            .alwaysAccept((result, cause) ->
-            {
-              if (getLifecycleStage() == LifecycleStage.INITIALIZED)
-              {
-                if (cause == null)
-                {
-                  setHealthStatus(result);
-                }
-                else
-                {
-                  log.error(
-                      "[{}]: Health check threw exception.  Setting status to critical.",
-                      getId(), cause);
-                  setHealthStatus(new HealthStatusAndMessage(HealthStatus.CRITICAL));
-                }
-              }
-              else
-              {
-                log.debug("[{}]: Ignoring check outcome.  Lifecycle stage is [{}].", getId(),
-                    lifecycledHelper.getLifecycleStage());
-              }
-            }, getLifecycleQueue())
-            // Requeue check, using a different queue to prevent getting stuck in a loop on the
-            // lifecycle queue.
-            .alwaysAccept((result, cause) ->
-            {
-              getLifecycleQueue().execute(this::scheduleCheck);
-            }, dispatchQueueBuilder.getDispatcher().getGlobalQueue());
-      }
-      catch (final RuntimeException e)
-      {
-        getLifecycleQueue().resume();
-        throw e;
-      }
-    }
-    else
-    {
-      log.debug("[{}]: Skipping scheduled check.  Lifecycle stage is [{}].", getId(),
-          lifecycledHelper.getLifecycleStage());
-    }
-  }
-
-  /**
-   * Schedules the next execution of the forked process, attempting to maintain the accuracy of
-   * {@link #checkInterval}.
-   * <p>
-   * This method must be invoked on the {@link #getLifecycleQueue() lifecycle queue}.
-   */
-  private void scheduleCheck()
-  {
-    if (getLifecycleStage() == LifecycleStage.INITIALIZED)
-    {
-      final long currentTime = System.currentTimeMillis();
-
-      // We took too long so run it immediately.
-      if (nextCheckTime <= currentTime)
-      {
-        if (nextCheckTime != 0)
-        {
-          log.debug(
-              "[{}]: Check was expected to next run at [{}], but the current time is [{}]. "
-                  + "Scheduling check immediately.",
-              getId(), nextCheckTime, currentTime);
-        }
-
-        // Calculate the time when we next expect to run.
-        nextCheckTime = currentTime + checkInterval;
-
-        getLifecycleQueue().execute(this::updateHealthStatus);
-      }
-      // We have time left before we were next scheduled to run, figure out how long until then and
-      // schedule us for that time.
-      else
-      {
-        final long delay = Math.max(0, nextCheckTime - currentTime);
-
-        log.trace(
-            "[{}]: Next check expected to run at [{}].  Current time is [{}].  "
-                + "Scheduling check with delay [{}].",
-            getId(), nextCheckTime, currentTime, delay);
-
-        getLifecycleQueue().executeAfter(
-            delay,
-            TimeUnit.MILLISECONDS,
-            this::updateHealthStatus);
-
-        // Calculate the time when we next expect to run.
-        nextCheckTime += checkInterval;
-      }
-    }
-    else
-    {
-      log.debug("[{}]: Not rescheduling.  Lifecycle stage is [{}].", getId(),
-          lifecycledHelper.getLifecycleStage());
-    }
-  }
-
-  /**
-   * A little helper to mix-in so we don't have to re-implement all of {@link AbstractLifecycled}.
-   */
-  private final class LifecycledHelper extends AbstractLifecycled
-  {
-    public LifecycledHelper(final DispatchQueue lifecycleQueue)
-    {
-      super(lifecycleQueue);
-    }
-
-    @Override
-    protected PnkyPromise<Void> initInternal()
-    {
-      return PeriodicHealthCheck.this.initInternal();
-    }
-
-    @Override
-    protected PnkyPromise<Void> destroyInternal()
-    {
-      return PeriodicHealthCheck.this.destroyInternal();
-    }
-
-    private DispatchQueue getLifecycleQueue()
-    {
-      return lifecycleQueue;
-    }
   }
 }

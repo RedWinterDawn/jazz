@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import com.jive.myco.commons.listenable.DefaultListenableContainer;
 
@@ -17,6 +18,7 @@ import com.jive.myco.commons.listenable.DefaultListenableContainer;
  * @author David Valeri
  */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@Slf4j
 public abstract class AbstractHealthCheck implements HealthCheck
 {
   private final DefaultListenableContainer<HealthCheckListener> listenableContainer =
@@ -97,6 +99,8 @@ public abstract class AbstractHealthCheck implements HealthCheck
       {
         if (healthStatus.compareAndSet(oldHealthStatus, newHealthStatus))
         {
+          log.debug("[{}]: Changing health status to [{}].", id, newHealthStatusAndMessage);
+
           healthStatusAndMessage = newHealthStatusAndMessage;
 
           listenableContainer
