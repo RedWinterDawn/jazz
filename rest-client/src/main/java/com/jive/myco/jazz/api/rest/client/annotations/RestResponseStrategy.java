@@ -13,10 +13,10 @@ import java.lang.annotation.Target;
  * @author Binh Tran
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.METHOD})
+@Target({ ElementType.TYPE, ElementType.METHOD })
 public @interface RestResponseStrategy
 {
-  int[] expectedStatus() default {200, 204};
+  int[] expectedStatus() default { 200, 201, 202, 203, 204, 205, 206 };
 
   int maxRetries() default 0;
 }

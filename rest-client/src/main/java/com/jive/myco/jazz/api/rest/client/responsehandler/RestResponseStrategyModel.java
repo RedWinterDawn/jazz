@@ -8,6 +8,7 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.ToString;
 
+import com.google.common.collect.ImmutableSet;
 import com.jive.myco.jazz.api.rest.client.annotations.RestResponseStrategy;
 
 /**
@@ -22,7 +23,7 @@ public class RestResponseStrategyModel
       Collections
           .unmodifiableSet(
           new HashSet<>(
-              Arrays.asList(200, 204)));
+              Arrays.asList(200, 201, 202, 203, 204, 205, 206)));
 
   private final Set<Integer> expectedResponseCodes;
   private final int maxRetries;
@@ -60,9 +61,10 @@ public class RestResponseStrategyModel
     this.expectedResponseCodes =
         expectedResponseCodes == null ?
             DEFAULT_EXPECTED_RESPONSE_CODES :
-            Collections
-                .unmodifiableSet(
-                    new HashSet<>(expectedResponseCodes));
+            ImmutableSet.<Integer> builder()
+                .addAll(expectedResponseCodes)
+                .addAll(DEFAULT_EXPECTED_RESPONSE_CODES)
+                .build();
 
     this.maxRetries = 0;
   }
