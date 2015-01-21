@@ -34,7 +34,7 @@ import com.jive.myco.commons.listenable.Listenable;
 public abstract class AbstractAsyncPeriodicHealthCheck extends AbstractHealthCheck implements
     ListenableLifecycled
 {
-  private static final long DEFAULT_LIFECYCLE_GRACE_PERIOD = 0L;
+  protected static final long DEFAULT_LIFECYCLE_GRACE_PERIOD = 0L;
 
   /**
    * The default health status and message returned when the health check is not running.
@@ -104,24 +104,6 @@ public abstract class AbstractAsyncPeriodicHealthCheck extends AbstractHealthChe
    * period value may be replaced at the expiration of the grace period.
    */
   private volatile HealthStatusAndMessage lastHealthStatusAndMessage = null;
-
-  public AbstractAsyncPeriodicHealthCheck(final String id, final long checkInterval)
-  {
-    this(id, checkInterval, null);
-  }
-
-  public AbstractAsyncPeriodicHealthCheck(final String id, final long checkInterval,
-      final DispatchQueueBuilder dispatchQueueBuilder)
-  {
-    this(id,
-        checkInterval,
-        TimeUnit.MILLISECONDS,
-        DEFAULT_LIFECYCLE_GRACE_PERIOD,
-        TimeUnit.MILLISECONDS,
-        null,
-        null,
-        null);
-  }
 
   public AbstractAsyncPeriodicHealthCheck(
       final String id,
@@ -473,10 +455,10 @@ public abstract class AbstractAsyncPeriodicHealthCheck extends AbstractHealthChe
   {
     protected String id;
 
-    protected long period = 5000;
+    protected long period = 5000L;
     protected TimeUnit periodUnit = TimeUnit.MILLISECONDS;
 
-    protected long lifecycleGracePeriod = 0;
+    protected long lifecycleGracePeriod = 0L;
     protected TimeUnit lifecycleGracePeriodUnit = TimeUnit.MILLISECONDS;
 
     protected DispatchQueueBuilder dispatchQueueBuilder;

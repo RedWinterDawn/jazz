@@ -4,6 +4,8 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -51,11 +53,42 @@ public abstract class PeriodicHealthCheck extends AbstractAsyncPeriodicHealthChe
     this(id, checkInterval, dispatchQueueBuilder, null);
   }
 
-  public PeriodicHealthCheck(final String id, final long checkInterval,
+  public PeriodicHealthCheck(final String id, final long period,
       @NonNull final DispatchQueueBuilder dispatchQueueBuilder,
       final Executor executor)
   {
-    super(id, checkInterval, dispatchQueueBuilder);
+    this(
+        id,
+        period,
+        TimeUnit.MILLISECONDS,
+        DEFAULT_LIFECYCLE_GRACE_PERIOD,
+        TimeUnit.MILLISECONDS,
+        null,
+        null,
+        null,
+        executor);
+  }
+
+  public PeriodicHealthCheck(
+      final String id,
+      final long period,
+      @NonNull final TimeUnit periodUnit,
+      final long lifecycleGracePeriod,
+      @NonNull final TimeUnit lifecycleGracePeriodUnit,
+      final DispatchQueueBuilder dispatchQueueBuilder,
+      final Supplier<HealthStatusAndMessage> unstartedHealthStatusAndMessageSupplier,
+      final Supplier<HealthStatusAndMessage> lifecycleGracePeriodHealthStatusAndMessageSupplier,
+      final Executor executor)
+  {
+    super(
+        id,
+        period,
+        periodUnit,
+        lifecycleGracePeriod,
+        lifecycleGracePeriodUnit,
+        dispatchQueueBuilder,
+        unstartedHealthStatusAndMessageSupplier,
+        lifecycleGracePeriodHealthStatusAndMessageSupplier);
 
     this.executor = executor;
   }
@@ -177,5 +210,17 @@ public abstract class PeriodicHealthCheck extends AbstractAsyncPeriodicHealthChe
   protected PnkyPromise<HealthStatusAndMessage> calculateHealthStatusAndMessage()
   {
     return Pnky.supplyAsync(this::calculateHealthStatusAndMessageSync, executor);
+  }
+
+  protected static abstract class PeriodicHealthCheckBuilder<T extends AbstractAsyncPeriodicHealthCheckBuilder<T>>
+      extends AbstractAsyncPeriodicHealthCheckBuilder<T>
+  {
+    protected Executor executor;
+
+    protected T executor(final Executor executor)
+    {
+      this.executor = executor;
+      return getThis();
+    }
   }
 }

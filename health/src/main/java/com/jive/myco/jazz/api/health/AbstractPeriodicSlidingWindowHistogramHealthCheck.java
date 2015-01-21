@@ -112,19 +112,19 @@ public abstract class AbstractPeriodicSlidingWindowHistogramHealthCheck extends
     protected TimeUnit windowUnit = TimeUnit.MILLISECONDS;
     protected Function<Snapshot, PnkyPromise<HealthStatusAndMessage>> healthCalculator;
 
-    public T window(final long window)
+    protected T window(final long window)
     {
       this.window = window;
       return getThis();
     }
 
-    public T windowUnit(final TimeUnit windowUnit)
+    protected T windowUnit(final TimeUnit windowUnit)
     {
       this.windowUnit = windowUnit;
       return getThis();
     }
 
-    public T healthCalculator(
+    protected T healthCalculator(
         final Function<Snapshot, PnkyPromise<HealthStatusAndMessage>> healthCalculator)
     {
       this.healthCalculator = healthCalculator;
