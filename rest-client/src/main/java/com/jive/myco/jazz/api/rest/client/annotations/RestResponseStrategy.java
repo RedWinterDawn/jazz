@@ -19,4 +19,6 @@ public @interface RestResponseStrategy
   int[] expectedStatus() default { 200, 201, 202, 203, 204, 205, 206 };
 
   int maxRetries() default 0;
+
+  boolean allowAll2xxResponseCodes() default true;
 }

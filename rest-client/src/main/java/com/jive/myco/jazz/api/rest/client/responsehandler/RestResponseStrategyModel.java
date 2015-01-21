@@ -8,7 +8,6 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.ToString;
 
-import com.google.common.collect.ImmutableSet;
 import com.jive.myco.jazz.api.rest.client.annotations.RestResponseStrategy;
 
 /**
@@ -28,11 +27,7 @@ public class RestResponseStrategyModel
   private final Set<Integer> expectedResponseCodes;
   private final int maxRetries;
   private final String restResponseHandlerKey = DEFAULT_REST_RESPONSE_HANDLER_KEY;
-
-  public RestResponseStrategyModel()
-  {
-    this((Set<Integer>) null);
-  }
+  private final boolean allowAll2xxResponseCodes;
 
   public RestResponseStrategyModel(final RestResponseStrategy annotation)
   {
@@ -54,18 +49,18 @@ public class RestResponseStrategyModel
     }
 
     this.maxRetries = annotation.maxRetries();
+    this.allowAll2xxResponseCodes = annotation.allowAll2xxResponseCodes();
   }
 
-  public RestResponseStrategyModel(final Set<Integer> expectedResponseCodes)
+  public RestResponseStrategyModel(final Set<Integer> expectedResponseCodes,
+      final boolean allowAll2xxResponseCodes)
   {
     this.expectedResponseCodes =
         expectedResponseCodes == null ?
             DEFAULT_EXPECTED_RESPONSE_CODES :
-            ImmutableSet.<Integer> builder()
-                .addAll(expectedResponseCodes)
-                .addAll(DEFAULT_EXPECTED_RESPONSE_CODES)
-                .build();
+            Collections.unmodifiableSet(new HashSet<>(expectedResponseCodes));
 
     this.maxRetries = 0;
+    this.allowAll2xxResponseCodes = allowAll2xxResponseCodes;
   }
 }
