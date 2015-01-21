@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 @Target({ ElementType.TYPE, ElementType.METHOD })
 public @interface RestResponseStrategy
 {
-  int[] expectedStatus() default { 200, 201, 202, 203, 204, 205, 206 };
+  int[] expectedStatus() default {};
 
   int maxRetries() default 0;
 

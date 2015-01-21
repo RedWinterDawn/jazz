@@ -1,6 +1,5 @@
 package com.jive.myco.jazz.api.rest.client.responsehandler;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,11 +17,6 @@ import com.jive.myco.jazz.api.rest.client.annotations.RestResponseStrategy;
 public class RestResponseStrategyModel
 {
   private static final String DEFAULT_REST_RESPONSE_HANDLER_KEY = "default";
-  private static final Set<Integer> DEFAULT_EXPECTED_RESPONSE_CODES =
-      Collections
-          .unmodifiableSet(
-          new HashSet<>(
-              Arrays.asList(200, 201, 202, 203, 204, 205, 206)));
 
   private final Set<Integer> expectedResponseCodes;
   private final int maxRetries;
@@ -57,7 +51,7 @@ public class RestResponseStrategyModel
   {
     this.expectedResponseCodes =
         expectedResponseCodes == null ?
-            DEFAULT_EXPECTED_RESPONSE_CODES :
+            Collections.emptySet() :
             Collections.unmodifiableSet(new HashSet<>(expectedResponseCodes));
 
     this.maxRetries = 0;
