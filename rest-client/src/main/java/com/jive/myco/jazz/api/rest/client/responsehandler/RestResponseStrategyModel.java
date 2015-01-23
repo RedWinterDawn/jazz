@@ -1,6 +1,5 @@
 package com.jive.myco.jazz.api.rest.client.responsehandler;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,20 +17,11 @@ import com.jive.myco.jazz.api.rest.client.annotations.RestResponseStrategy;
 public class RestResponseStrategyModel
 {
   private static final String DEFAULT_REST_RESPONSE_HANDLER_KEY = "default";
-  private static final Set<Integer> DEFAULT_EXPECTED_RESPONSE_CODES =
-      Collections
-          .unmodifiableSet(
-          new HashSet<>(
-              Arrays.asList(200, 204)));
 
   private final Set<Integer> expectedResponseCodes;
   private final int maxRetries;
   private final String restResponseHandlerKey = DEFAULT_REST_RESPONSE_HANDLER_KEY;
-
-  public RestResponseStrategyModel()
-  {
-    this((Set<Integer>) null);
-  }
+  private final boolean allowAll2xxResponseCodes;
 
   public RestResponseStrategyModel(final RestResponseStrategy annotation)
   {
@@ -53,17 +43,18 @@ public class RestResponseStrategyModel
     }
 
     this.maxRetries = annotation.maxRetries();
+    this.allowAll2xxResponseCodes = annotation.allowAll2xxResponseCodes();
   }
 
-  public RestResponseStrategyModel(final Set<Integer> expectedResponseCodes)
+  public RestResponseStrategyModel(final Set<Integer> expectedResponseCodes,
+      final boolean allowAll2xxResponseCodes)
   {
     this.expectedResponseCodes =
         expectedResponseCodes == null ?
-            DEFAULT_EXPECTED_RESPONSE_CODES :
-            Collections
-                .unmodifiableSet(
-                    new HashSet<>(expectedResponseCodes));
+            Collections.emptySet() :
+            Collections.unmodifiableSet(new HashSet<>(expectedResponseCodes));
 
     this.maxRetries = 0;
+    this.allowAll2xxResponseCodes = allowAll2xxResponseCodes;
   }
 }
