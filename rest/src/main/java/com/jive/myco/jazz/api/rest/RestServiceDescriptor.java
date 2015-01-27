@@ -50,6 +50,9 @@ public final class RestServiceDescriptor
   @Getter
   private final boolean includeJazzContextEnhancerRulesFilter;
 
+  @Getter
+  private final boolean includeJazzHttpRequestContextFilter;
+
   /**
    * An optional multipart config element used to configure multi-part support on the REST service.
    */
@@ -84,6 +87,7 @@ public final class RestServiceDescriptor
       final boolean includeJazzContextFilter,
       final boolean includeJazzMdcFilter,
       final boolean includeJazzContextEnhancerRulesFilter,
+      final boolean includeJazzHttpRequestContextFilter,
       final MultipartConfigElement multipartConfigElement,
       final boolean enableMetrics,
       final boolean forceMetrics,
@@ -100,6 +104,7 @@ public final class RestServiceDescriptor
     this.includeJazzContextFilter = includeJazzContextFilter;
     this.includeJazzMdcFilter = includeJazzMdcFilter;
     this.includeJazzContextEnhancerRulesFilter = includeJazzContextEnhancerRulesFilter;
+    this.includeJazzHttpRequestContextFilter = includeJazzHttpRequestContextFilter;
     this.multipartConfigElement = multipartConfigElement;
     this.enableMetrics = enableMetrics;
     this.forceMetrics = forceMetrics;
@@ -127,6 +132,8 @@ public final class RestServiceDescriptor
     private boolean includeJazzMdcFilter = true;
 
     private boolean includeJazzContextEnhancerRulesFilter = true;
+
+    private boolean includeJazzHttpRequestContextFilter = true;
 
     private boolean enableMetrics = true;
 

@@ -44,6 +44,7 @@ public final class WebAppDescriptor
   @Getter
   private final boolean includeJazzContextEnhancerRulesFilter;
 
+  private final boolean includeJazzHttpRequestContextFilter;
   @Getter
   private final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor;
 
@@ -62,6 +63,7 @@ public final class WebAppDescriptor
       final boolean includeJazzContextFilter,
       final boolean includeJazzMdcFilter,
       final boolean includeJazzContextEnhancerRulesFilter,
+      final boolean includeJazzHttpRequestContextFilter,
       final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor,
       final String contextPath,
       @NonNull final List<ConnectorDescriptor> connectorDescriptors)
@@ -76,6 +78,7 @@ public final class WebAppDescriptor
     this.includeJazzContextFilter = includeJazzContextFilter;
     this.includeJazzMdcFilter = includeJazzMdcFilter;
     this.includeJazzContextEnhancerRulesFilter = includeJazzContextEnhancerRulesFilter;
+    this.includeJazzHttpRequestContextFilter = includeJazzHttpRequestContextFilter;
     this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
     this.contextPath = contextPath;
     this.connectorDescriptors = Collections.unmodifiableList(new ArrayList<>(connectorDescriptors));
@@ -95,6 +98,7 @@ public final class WebAppDescriptor
     private boolean includeJazzContextFilter = true;
     private boolean includeJazzMdcFilter = true;
     private boolean includeJazzContextEnhancerRulesFilter = true;
+    private boolean includeJazzHttpRequestContextFilter = true;
     private final List<ConnectorDescriptor> connectorDescriptors = new LinkedList<>();
 
     @Override

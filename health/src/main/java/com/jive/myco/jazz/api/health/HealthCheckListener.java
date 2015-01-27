@@ -2,9 +2,7 @@ package com.jive.myco.jazz.api.health;
 
 
 /**
- * A listener for updates in status of a {@link HealthCheck}. Listener implementations should expect
- * the possibility of concurrent updates and must provide their own means of synchronization if
- * ordering of notification processing is important.
+ * A listener for updates in status of a {@link HealthCheck}.
  *
  * @author David Valeri
  */
