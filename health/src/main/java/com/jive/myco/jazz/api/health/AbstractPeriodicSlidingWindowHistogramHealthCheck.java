@@ -87,7 +87,7 @@ public abstract class AbstractPeriodicSlidingWindowHistogramHealthCheck extends
     }
     else if (currentReservoir != null)
     {
-      reservoir.update(value);
+      currentReservoir.update(value);
     }
 
   }
