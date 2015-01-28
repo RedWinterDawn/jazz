@@ -3,6 +3,7 @@ package com.jive.myco.jazz.api.runtime;
 import java.util.Optional;
 
 import com.codahale.metrics.MetricRegistry;
+import com.jive.myco.commons.hawtdispatch.DispatchQueueBuilder;
 import com.jive.myco.jazz.api.config.ConfigurationManager;
 import com.jive.myco.jazz.api.config.JazzConfiguration;
 import com.jive.myco.jazz.api.health.HealthCheckManager;
@@ -43,4 +44,6 @@ public interface JazzCore<T extends JazzConfiguration>
   Optional<RegistryManager> getRegistryManager();
 
   RulesEngine getRulesEngine();
+
+  DispatchQueueBuilder getDispatchQueueBuilder();
 }

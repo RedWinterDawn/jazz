@@ -231,6 +231,14 @@ public final class RestServiceDescriptor
       return this;
     }
 
+    @Override
+    public RestServiceDescriptorBuilder addConnectors(
+        final Iterable<? extends ConnectorDescriptor> connectorDescriptors)
+    {
+      connectorDescriptors.forEach(this.connectorDescriptors::add);
+      return this;
+    }
+
     // Hidden because of Lombok
     @SuppressWarnings("unused")
     private RestServiceDescriptorBuilder singletons(final Set<Object> additionalSingletons)

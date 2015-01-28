@@ -149,4 +149,14 @@ public interface FluentAbstractRestServiceDescriptorBuilder<T extends FluentAbst
    * @return this builder for chaining
    */
   T addConnector(final ConnectorDescriptor connectorDescriptor);
+
+  /**
+   * Add connector descriptors on which to bind the service.
+   *
+   * @param connectorDescriptors
+   *          the descriptors
+   *
+   * @return this builder for chaining
+   */
+  T addConnectors(final Iterable<? extends ConnectorDescriptor> connectorDescriptors);
 }
