@@ -1,6 +1,5 @@
 package com.jive.myco.jazz.api.web;
 
-import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
 import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
 
 /**
@@ -18,6 +17,16 @@ import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
 public interface FluentAbstractWebAppDescriptorBuilder<T extends FluentAbstractWebAppDescriptorBuilder<T>>
 {
   /**
+   * The context path to publish the application under.
+   *
+   * @param contextPath
+   *          the context path
+   *
+   * @return this builder for chaining
+   */
+  T contextPath(final String contextPath);
+
+  /**
    * Sets an ID for the described application.
    *
    * @param id
@@ -26,37 +35,6 @@ public interface FluentAbstractWebAppDescriptorBuilder<T extends FluentAbstractW
    * @return this builder for chaining
    */
   T id(final String id);
-
-  /**
-   * Adds a static resource to the static resources provided via the descriptor.
-   *
-   * @param staticResourceDescriptor
-   *          pthe resource to add
-   *
-   * @return this builder for chaining
-   */
-  T addStaticResource(final StaticResourceDescriptor staticResourceDescriptor);
-
-  /**
-   * Adds static resources to the static resources provided via the descriptor.
-   *
-   * @param staticResourceDescriptors
-   *          the resources to add
-   *
-   * @return this builder for chaining
-   */
-  T addStaticResources(
-      final Iterable<? extends StaticResourceDescriptor> staticResourceDescriptors);
-
-  /**
-   * Adds static resources to the static resources provided via the descriptor.
-   *
-   * @param staticResourceDescriptors
-   *          the resources to add
-   *
-   * @return this builder for chaining
-   */
-  T addStaticResources(final StaticResourceDescriptor... staticResourceDescriptors);
 
   /**
    * Indicates of the application should automatically include a filter that enhances the Jazz
@@ -94,6 +72,17 @@ public interface FluentAbstractWebAppDescriptorBuilder<T extends FluentAbstractW
   T includeJazzContextEnhancerRulesFilter(final boolean includeJazzContextEnhancerRulesFilter);
 
   /**
+   * Indicates if the application should automatically include a filter that enhances the Jazz
+   * context with values based on HTTP request properties. Defaults to {@code true}.
+   *
+   * @param includeJazzHttpRequestContextFilter
+   *          whether or not to include the filter
+   *
+   * @return this builder for chaining
+   */
+  T includeJazzHttpRequestContextFilter(final boolean includeJazzHttpRequestContextFilter);
+
+  /**
    * Indicates the details of the application to automatically register in the service registry
    * after starting the application.
    *
@@ -103,34 +92,4 @@ public interface FluentAbstractWebAppDescriptorBuilder<T extends FluentAbstractW
    * @return this builder for chaining
    */
   T register(final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor);
-
-  /**
-   * The context path to publish the application under.
-   *
-   * @param contextPath
-   *          the context path
-   *
-   * @return this builder for chaining
-   */
-  T contextPath(final String contextPath);
-
-  /**
-   * Adds a connector descriptor for a connector on which to bind the application.
-   *
-   * @param connectorDescriptor
-   *          the descriptor
-   *
-   * @return this builder for chaining
-   */
-  T addConnector(final ConnectorDescriptor connectorDescriptor);
-
-  /**
-   * Add connector descriptors on which to bind the application.
-   *
-   * @param connectorDescriptors
-   *          the descriptors
-   *
-   * @return this builder for chaining
-   */
-  T addConnectors(final Iterable<? extends ConnectorDescriptor> connectorDescriptors);
 }

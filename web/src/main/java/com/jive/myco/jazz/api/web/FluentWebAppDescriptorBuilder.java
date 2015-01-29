@@ -1,5 +1,6 @@
 package com.jive.myco.jazz.api.web;
 
+import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
 
 /**
  * Describes fluent builder API for constructing a {@link WebAppDescriptor}. The {@code build()}
@@ -15,15 +16,34 @@ package com.jive.myco.jazz.api.web;
 public interface FluentWebAppDescriptorBuilder<T extends FluentWebAppDescriptorBuilder<T>> extends FluentAbstractWebAppDescriptorBuilder<T>
 {
   /**
-   * Adds a servlet to the servlets provided via the descriptor.
+   * Adds a connector descriptor for a connector on which to bind the application.
    *
-   * @param servletMappingDescriptor
-   *          the descriptor for the servlet to add
+   * @param connectorDescriptor
+   *          the descriptor
    *
    * @return this builder for chaining
    */
-  T addServlet(
-      final ServletMappingDescriptor servletMappingDescriptor);
+  T addConnector(final ConnectorDescriptor connectorDescriptor);
+
+  /**
+   * Add connector descriptors on which to bind the application.
+   *
+   * @param connectorDescriptors
+   *          the descriptors
+   *
+   * @return this builder for chaining
+   */
+  T addConnectors(final Iterable<? extends ConnectorDescriptor> connectorDescriptors);
+
+  /**
+   * Add connector descriptors on which to bind the application.
+   *
+   * @param connectorDescriptors
+   *          the descriptors
+   *
+   * @return this builder for chaining
+   */
+  T addConnectors(final ConnectorDescriptor... connectorDescriptors);
 
   /**
    * Adds a filter to the filters provided via the descriptor.
@@ -57,4 +77,46 @@ public interface FluentWebAppDescriptorBuilder<T extends FluentWebAppDescriptorB
    */
   T addFilters(
       final FilterMappingDescriptor... filterMappingDescriptors);
+
+  /**
+   * Adds a servlet to the servlets provided via the descriptor.
+   *
+   * @param servletMappingDescriptor
+   *          the descriptor for the servlet to add
+   *
+   * @return this builder for chaining
+   */
+  T addServlet(
+      final ServletMappingDescriptor servletMappingDescriptor);
+
+  /**
+   * Adds a static resource to the static resources provided via the descriptor.
+   *
+   * @param staticResourceDescriptor
+   *          pthe resource to add
+   *
+   * @return this builder for chaining
+   */
+  T addStaticResource(final StaticResourceDescriptor staticResourceDescriptor);
+
+  /**
+   * Adds static resources to the static resources provided via the descriptor.
+   *
+   * @param staticResourceDescriptors
+   *          the resources to add
+   *
+   * @return this builder for chaining
+   */
+  T addStaticResources(
+      final Iterable<? extends StaticResourceDescriptor> staticResourceDescriptors);
+
+  /**
+   * Adds static resources to the static resources provided via the descriptor.
+   *
+   * @param staticResourceDescriptors
+   *          the resources to add
+   *
+   * @return this builder for chaining
+   */
+  T addStaticResources(final StaticResourceDescriptor... staticResourceDescriptors);
 }

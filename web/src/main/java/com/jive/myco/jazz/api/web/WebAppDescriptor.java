@@ -18,7 +18,6 @@ import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
  *
  * @author David Valeri
  */
-@Getter
 public final class WebAppDescriptor
 {
   private final AtomicInteger INSTANCE_COUNTER = new AtomicInteger();
@@ -44,7 +43,9 @@ public final class WebAppDescriptor
   @Getter
   private final boolean includeJazzContextEnhancerRulesFilter;
 
+  @Getter
   private final boolean includeJazzHttpRequestContextFilter;
+
   @Getter
   private final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor;
 
@@ -92,20 +93,37 @@ public final class WebAppDescriptor
   public static final class WebAppDescriptorBuilder implements
       FluentWebAppDescriptorBuilder<WebAppDescriptorBuilder>
   {
-    private final List<ServletMappingDescriptor> servlets = new LinkedList<>();
+    private final List<ConnectorDescriptor> connectorDescriptors = new LinkedList<>();
     private final List<FilterMappingDescriptor> filters = new LinkedList<>();
+    private final List<ServletMappingDescriptor> servlets = new LinkedList<>();
     private final List<StaticResourceDescriptor> staticResources = new LinkedList<>();
+
     private boolean includeJazzContextFilter = true;
     private boolean includeJazzMdcFilter = true;
     private boolean includeJazzContextEnhancerRulesFilter = true;
     private boolean includeJazzHttpRequestContextFilter = true;
-    private final List<ConnectorDescriptor> connectorDescriptors = new LinkedList<>();
 
     @Override
-    public WebAppDescriptorBuilder addServlet(
-        final ServletMappingDescriptor servletMappingDescriptor)
+    public WebAppDescriptorBuilder addConnector(
+        @NonNull final ConnectorDescriptor connectorDescriptor)
     {
-      servlets.add(servletMappingDescriptor);
+      connectorDescriptors.add(connectorDescriptor);
+      return this;
+    }
+
+    @Override
+    public WebAppDescriptorBuilder addConnectors(
+        final Iterable<? extends ConnectorDescriptor> connectorDescriptors)
+    {
+      connectorDescriptors.forEach(this.connectorDescriptors::add);
+      return this;
+    }
+
+    @Override
+    public WebAppDescriptorBuilder addConnectors(
+        @NonNull final ConnectorDescriptor... connectorDescriptors)
+    {
+      Collections.addAll(this.connectorDescriptors, connectorDescriptors);
       return this;
     }
 
@@ -130,6 +148,14 @@ public final class WebAppDescriptor
         @NonNull final FilterMappingDescriptor... filterMappingDescriptors)
     {
       Collections.addAll(this.filters, filterMappingDescriptors);
+      return this;
+    }
+
+    @Override
+    public WebAppDescriptorBuilder addServlet(
+        final ServletMappingDescriptor servletMappingDescriptor)
+    {
+      servlets.add(servletMappingDescriptor);
       return this;
     }
 
@@ -162,29 +188,6 @@ public final class WebAppDescriptor
         final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor)
     {
       this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
-      return this;
-    }
-
-    @Override
-    public WebAppDescriptorBuilder contextPath(final String contextPath)
-    {
-      this.contextPath = contextPath;
-      return this;
-    }
-
-    @Override
-    public WebAppDescriptorBuilder addConnector(
-        @NonNull final ConnectorDescriptor connectorDescriptor)
-    {
-      connectorDescriptors.add(connectorDescriptor);
-      return this;
-    }
-
-    @Override
-    public WebAppDescriptorBuilder addConnectors(
-        final Iterable<? extends ConnectorDescriptor> connectorDescriptors)
-    {
-      connectorDescriptors.forEach(this.connectorDescriptors::add);
       return this;
     }
 

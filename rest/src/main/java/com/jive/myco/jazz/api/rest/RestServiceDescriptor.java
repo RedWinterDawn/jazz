@@ -121,48 +121,44 @@ public final class RestServiceDescriptor
   public static final class RestServiceDescriptorBuilder implements
       FluentRestServiceDescriptorBuilder<RestServiceDescriptorBuilder>
   {
-    private final Set<Object> singletons = new HashSet<>();
-
+    private final List<ConnectorDescriptor> connectorDescriptors = new LinkedList<>();
     private final List<FilterMappingDescriptor> filters = new LinkedList<>();
-
+    private final Set<Object> singletons = new HashSet<>();
     private final List<StaticResourceDescriptor> staticResources = new LinkedList<>();
 
     private boolean includeJazzContextFilter = true;
-
     private boolean includeJazzMdcFilter = true;
-
     private boolean includeJazzContextEnhancerRulesFilter = true;
-
     private boolean includeJazzHttpRequestContextFilter = true;
-
     private boolean enableMetrics = true;
 
-    private final List<ConnectorDescriptor> connectorDescriptors = new LinkedList<>();
-
     @Override
-    public RestServiceDescriptorBuilder addSingleton(final Object singleton)
+    public RestServiceDescriptorBuilder addConnector(
+        @NonNull final ConnectorDescriptor connectorDescriptor)
     {
-      singletons.add(singleton);
+      connectorDescriptors.add(connectorDescriptor);
       return this;
     }
 
     @Override
-    public RestServiceDescriptorBuilder addSingletons(
-        @NonNull final Iterable<? extends Object> additionalSingletons)
+    public RestServiceDescriptorBuilder addConnectors(
+        @NonNull final Iterable<? extends ConnectorDescriptor> connectorDescriptors)
     {
-      additionalSingletons.forEach(singletons::add);
+      connectorDescriptors.forEach(this.connectorDescriptors::add);
       return this;
     }
 
     @Override
-    public RestServiceDescriptorBuilder addSingletons(@NonNull final Object... additionalSingletons)
+    public RestServiceDescriptorBuilder addConnectors(
+        @NonNull final ConnectorDescriptor... connectorDescriptors)
     {
-      Collections.addAll(singletons, additionalSingletons);
+      Collections.addAll(this.connectorDescriptors, connectorDescriptors);
       return this;
     }
 
     @Override
-    public RestServiceDescriptorBuilder addFilter(final FilterMappingDescriptor filterDescriptor)
+    public RestServiceDescriptorBuilder addFilter(
+        @NonNull final FilterMappingDescriptor filterDescriptor)
     {
       filters.add(filterDescriptor);
       return this;
@@ -181,6 +177,28 @@ public final class RestServiceDescriptor
         @NonNull final FilterMappingDescriptor... filterDescriptors)
     {
       Collections.addAll(this.filters, filterDescriptors);
+      return this;
+    }
+
+    @Override
+    public RestServiceDescriptorBuilder addSingleton(@NonNull final Object singleton)
+    {
+      singletons.add(singleton);
+      return this;
+    }
+
+    @Override
+    public RestServiceDescriptorBuilder addSingletons(
+        @NonNull final Iterable<? extends Object> additionalSingletons)
+    {
+      additionalSingletons.forEach(singletons::add);
+      return this;
+    }
+
+    @Override
+    public RestServiceDescriptorBuilder addSingletons(@NonNull final Object... additionalSingletons)
+    {
+      Collections.addAll(singletons, additionalSingletons);
       return this;
     }
 
@@ -213,29 +231,6 @@ public final class RestServiceDescriptor
         final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor)
     {
       this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
-      return this;
-    }
-
-    @Override
-    public RestServiceDescriptorBuilder contextPath(final String contextPath)
-    {
-      this.contextPath = contextPath;
-      return this;
-    }
-
-    @Override
-    public RestServiceDescriptorBuilder addConnector(
-        @NonNull final ConnectorDescriptor connectorDescriptor)
-    {
-      connectorDescriptors.add(connectorDescriptor);
-      return this;
-    }
-
-    @Override
-    public RestServiceDescriptorBuilder addConnectors(
-        final Iterable<? extends ConnectorDescriptor> connectorDescriptors)
-    {
-      connectorDescriptors.forEach(this.connectorDescriptors::add);
       return this;
     }
 

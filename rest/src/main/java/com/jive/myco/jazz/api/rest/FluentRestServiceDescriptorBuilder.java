@@ -2,7 +2,10 @@ package com.jive.myco.jazz.api.rest;
 
 import javax.servlet.MultipartConfigElement;
 
+import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
+import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
 import com.jive.myco.jazz.api.web.FilterMappingDescriptor;
+import com.jive.myco.jazz.api.web.StaticResourceDescriptor;
 
 /**
  * Describes fluent builder API for constructing a {@link RestServiceDescriptor}. The
@@ -20,47 +23,34 @@ public interface FluentRestServiceDescriptorBuilder<T extends FluentRestServiceD
     extends FluentAbstractRestServiceDescriptorBuilder<T>
 {
   /**
-   * Adds a singleton to the singletons provided via the descriptor.
-   * <p>
-   * If a singleton that {@link Object#equals(Object) equals} {@code singleton} has already been
-   * configured, this call overwrites the previous value.
-   * <p>
-   * Singletons may be any JAX-RS related object including a REST resource or a {@code Provider}
+   * Adds a connector descriptor for a connector on which to bind the service.
    *
-   * @param singleton
-   *          the singleton JAX-RS resource to add
+   * @param connectorDescriptor
+   *          the descriptor
    *
    * @return this builder for chaining
    */
-  T addSingleton(final Object singleton);
+  T addConnector(final ConnectorDescriptor connectorDescriptor);
 
   /**
-   * Adds singletons to the singletons provided via the descriptor.
-   * <p>
-   * If a singleton that {@link Object#equals(Object) equals} a value provided by {@code singletons}
-   * has already been configured, this call overwrites the previous value.
+   * Add connector descriptors on which to bind the service.
    *
-   * @param additionalSingletons
-   *          the singletons to add
+   * @param connectorDescriptors
+   *          the descriptors
    *
    * @return this builder for chaining
    */
-  T addSingletons(
-      final Iterable<? extends Object> additionalSingletons);
+  T addConnectors(final Iterable<? extends ConnectorDescriptor> connectorDescriptors);
 
   /**
-   * Adds singletons to the singletons provided via the descriptor.
-   * <p>
-   * If a singleton that {@link Object#equals(Object) equals} a value provided by {@code singletons}
-   * has already been configured, this call overwrites the previous value.
+   * Add connector descriptors on which to bind the service.
    *
-   * @param additionalSingletons
-   *          the singletons to add
+   * @param connectorDescriptors
+   *          the descriptors
    *
    * @return this builder for chaining
    */
-  T addSingletons(
-      final Object... additionalSingletons);
+  T addConnectors(final ConnectorDescriptor... connectorDescriptors);
 
   /**
    * Adds a filter to the filters provided via the descriptor.
@@ -96,6 +86,82 @@ public interface FluentRestServiceDescriptorBuilder<T extends FluentRestServiceD
   T addFilters(final FilterMappingDescriptor... filterDescriptors);
 
   /**
+   * Adds a singleton to the singletons provided via the descriptor.
+   * <p>
+   * If a singleton that {@link Object#equals(Object) equals} {@code singleton} has already been
+   * configured, this call overwrites the previous value.
+   * <p>
+   * Singletons may be any JAX-RS related object including a REST resource or a {@code Provider}
+   *
+   * @param singleton
+   *          the singleton JAX-RS resource to add
+   *
+   * @return this builder for chaining
+   */
+  T addSingleton(final Object singleton);
+
+  /**
+   * Adds singletons to the singletons provided via the descriptor.
+   * <p>
+   * If a singleton that {@link Object#equals(Object) equals} a value provided by {@code singletons}
+   * has already been configured, this call overwrites the previous value.
+   *
+   * @param singletons
+   *          the singletons to add
+   *
+   * @return this builder for chaining
+   */
+  T addSingletons(
+      final Iterable<? extends Object> singletons);
+
+  /**
+   * Adds singletons to the singletons provided via the descriptor.
+   * <p>
+   * If a singleton that {@link Object#equals(Object) equals} a value provided by {@code singletons}
+   * has already been configured, this call overwrites the previous value.
+   *
+   * @param singletons
+   *          the singletons to add
+   *
+   * @return this builder for chaining
+   */
+  T addSingletons(
+      final Object... singletons);
+
+  /**
+   * Adds a static resource to the static resources provided via the descriptor.
+   *
+   * @param staticResourceDescriptor
+   *          the resource to add
+   *
+   * @return this builder for chaining
+   */
+  T addStaticResource(
+      final StaticResourceDescriptor staticResourceDescriptor);
+
+  /**
+   * Adds static resources to the static resources provided via the descriptor.
+   *
+   * @param staticResourceDescriptors
+   *          the resources to add
+   *
+   * @return this builder for chaining
+   */
+  T addStaticResources(
+      final Iterable<? extends StaticResourceDescriptor> staticResourceDescriptors);
+
+  /**
+   * Adds static resources to the static resources provided via the descriptor.
+   *
+   * @param staticResourceDescriptors
+   *          the resources to add
+   *
+   * @return this builder for chaining
+   */
+  T addStaticResources(
+      final StaticResourceDescriptor... staticResourceDescriptors);
+
+  /**
    * An optional multipart config element used to configure multi-part support on the REST service.
    *
    * @param multipartConfigElement
@@ -105,4 +171,15 @@ public interface FluentRestServiceDescriptorBuilder<T extends FluentRestServiceD
    */
   T multipartConfigElement(
       final MultipartConfigElement multipartConfigElement);
+
+  /**
+   * Indicates the details of the service to automatically register in the service registry after
+   * starting the service.
+   *
+   * @param autoRegisteredServiceInstanceDescriptor
+   *          the descriptor containing the information to publish in the registry
+   *
+   * @return this builder for chaining
+   */
+  T register(final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor);
 }
