@@ -27,7 +27,7 @@ import lombok.experimental.Builder;
  * </ol>
  * <li>If port is specified, use the specified port, otherwise use a random port</li> </ol>
  *
- * After resolving the network ID, IP address, and port to use, the receiver of this diescriptor
+ * After resolving the network ID, IP address, and port to use, the receiver of this descriptor
  * creates a connector for the resolved combination. Existing connections for a combination may be
  * reused depending on the context in which this descriptor is supplied. See documentation for the
  * target context for exact behavior in any given context.

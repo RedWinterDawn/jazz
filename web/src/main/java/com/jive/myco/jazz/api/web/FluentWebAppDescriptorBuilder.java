@@ -1,6 +1,7 @@
 package com.jive.myco.jazz.api.web;
 
 import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
+import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
 
 /**
  * Describes fluent builder API for constructing a {@link WebAppDescriptor}. The {@code build()}
@@ -119,4 +120,15 @@ public interface FluentWebAppDescriptorBuilder<T extends FluentWebAppDescriptorB
    * @return this builder for chaining
    */
   T addStaticResources(final StaticResourceDescriptor... staticResourceDescriptors);
+
+  /**
+   * Indicates the details of the application to automatically register in the service registry
+   * after starting the application.
+   *
+   * @param autoRegisteredServiceInstanceDescriptor
+   *          the descriptor containing the information to publish in the registry
+   *
+   * @return this builder for chaining
+   */
+  T register(final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor);
 }
