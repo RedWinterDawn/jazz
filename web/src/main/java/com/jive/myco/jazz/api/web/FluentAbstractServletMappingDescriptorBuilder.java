@@ -14,10 +14,5 @@ package com.jive.myco.jazz.api.web;
  */
 public interface FluentAbstractServletMappingDescriptorBuilder<T extends FluentAbstractServletMappingDescriptorBuilder<T>>
 {
-  T id(final String id);
-
-  /**
-   * The URL pattern used to map requests to the filter in this descriptor.
-   */
-  T urlPattern(final String urlPattern);
+  // No-Op
 }

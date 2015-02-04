@@ -14,15 +14,15 @@ public interface RegisteredServiceInstanceBinding
 {
   /**
    * Unregisters the service instance from the registry.
-   *
-   * @deprecated signature is changing, use removeAsync in the interim
    */
-  @Deprecated
-  void remove();
+  PnkyPromise<Void> remove();
 
   /**
    * Unregisters the service instance from the registry.
+   *
+   * @deprecated used to bridge API changes. Use {@link #remove()} instead.
    */
+  @Deprecated
   PnkyPromise<Void> removeAsync();
 
   /**

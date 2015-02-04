@@ -18,7 +18,19 @@ public interface FluentFilterMappingDescriptorBuilder<T extends FluentFilterMapp
     extends FluentAbstractFilterMappingDescriptorBuilder<T>
 {
   /**
-   * The filter to use.
+   * Sets the identifier for the filter produced by this builder.
+   *
+   * @return this builder for chaining
+   */
+  T id(final String id);
+
+  /**
+   * The URL pattern used to map requests to the filter in this descriptor.
+   */
+  T urlPattern(final String urlPattern);
+
+  /**
+   * Sets the {@link Filter} instance to use.
    */
   T filter(final Filter filter);
 }
