@@ -2,6 +2,7 @@ package com.jive.myco.jazz.api.web;
 
 import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
 import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
+import com.jive.myco.jazz.api.registry.ConnectedAndRegisteredBindingGracefulShutdownHook;
 
 /**
  * Describes fluent builder API for constructing a {@link WebAppDescriptor}. The {@code build()}
@@ -131,4 +132,16 @@ public interface FluentWebAppDescriptorBuilder<T extends FluentWebAppDescriptorB
    * @return this builder for chaining
    */
   T register(final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor);
+
+  /**
+   * Sets an optional graceful shutdown hook that may be used to control the removal process of the
+   * resulting {@link WebAppBinding} from the addition of the descriptor to the manager.
+   *
+   * @param gracefulShutdownHook
+   *          the hook to use
+   *
+   * @return this builder for chaining
+   */
+  T gracefulShutdownHook(
+      final ConnectedAndRegisteredBindingGracefulShutdownHook gracefulShutdownHook);
 }

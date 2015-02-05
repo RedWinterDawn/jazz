@@ -11,7 +11,9 @@ import lombok.NonNull;
 import lombok.experimental.Builder;
 
 import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
+import com.jive.myco.jazz.api.registry.AbstractConnectedAndRegisteredBindingGracefulShutdownHook;
 import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
+import com.jive.myco.jazz.api.registry.ConnectedAndRegisteredBindingGracefulShutdownHook;
 
 /**
  * Represents a collection of Web resources that may be bound in a {@link HttpServerManager}.
@@ -20,6 +22,9 @@ import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
  */
 public final class WebAppDescriptor
 {
+  private static final AbstractConnectedAndRegisteredBindingGracefulShutdownHook NULL_SHUTDOWN_HOOK =
+      new AbstractConnectedAndRegisteredBindingGracefulShutdownHook() {/* */};
+
   private final AtomicInteger INSTANCE_COUNTER = new AtomicInteger();
 
   @Getter
@@ -55,6 +60,9 @@ public final class WebAppDescriptor
   @Getter
   private final List<ConnectorDescriptor> connectorDescriptors;
 
+  @Getter
+  private final ConnectedAndRegisteredBindingGracefulShutdownHook gracefulShutdownHook;
+
   @Builder
   private WebAppDescriptor(
       final String id,
@@ -67,7 +75,8 @@ public final class WebAppDescriptor
       final boolean includeJazzHttpRequestContextFilter,
       final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor,
       final String contextPath,
-      @NonNull final List<ConnectorDescriptor> connectorDescriptors)
+      @NonNull final List<ConnectorDescriptor> connectorDescriptors,
+      final ConnectedAndRegisteredBindingGracefulShutdownHook gracefulShutdownHook)
   {
     this.id = id == null ? "web-app-" + INSTANCE_COUNTER.getAndIncrement() : id;
     this.servlets =
@@ -83,6 +92,8 @@ public final class WebAppDescriptor
     this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
     this.contextPath = contextPath;
     this.connectorDescriptors = Collections.unmodifiableList(new ArrayList<>(connectorDescriptors));
+    this.gracefulShutdownHook = gracefulShutdownHook == null 
+        ? NULL_SHUTDOWN_HOOK : gracefulShutdownHook;
   }
 
   /**

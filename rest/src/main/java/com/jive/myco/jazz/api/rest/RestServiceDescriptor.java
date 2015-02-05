@@ -16,6 +16,7 @@ import lombok.experimental.Builder;
 
 import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
 import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
+import com.jive.myco.jazz.api.registry.ConnectedAndRegisteredBindingGracefulShutdownHook;
 import com.jive.myco.jazz.api.web.FilterMappingDescriptor;
 import com.jive.myco.jazz.api.web.StaticResourceDescriptor;
 
@@ -78,6 +79,9 @@ public final class RestServiceDescriptor
   @Getter
   private final List<ConnectorDescriptor> connectorDescriptors;
 
+  @Getter
+  private final ConnectedAndRegisteredBindingGracefulShutdownHook gracefulShutdownHook;
+
   @Builder
   private RestServiceDescriptor(
       final String id,
@@ -93,7 +97,8 @@ public final class RestServiceDescriptor
       final boolean forceMetrics,
       final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor,
       final String contextPath,
-      @NonNull final List<ConnectorDescriptor> connectorDescriptors)
+      @NonNull final List<ConnectorDescriptor> connectorDescriptors,
+      final ConnectedAndRegisteredBindingGracefulShutdownHook gracefulShutdownHook)
   {
     this.id = id == null ? "rest-service-" + INSTANCE_COUNTER.getAndIncrement() : id;
     this.singletons = Collections.unmodifiableSet(new HashSet<>(singletons));
@@ -111,6 +116,7 @@ public final class RestServiceDescriptor
     this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
     this.contextPath = contextPath;
     this.connectorDescriptors = Collections.unmodifiableList(new ArrayList<>(connectorDescriptors));
+    this.gracefulShutdownHook = gracefulShutdownHook;
   }
 
   /**

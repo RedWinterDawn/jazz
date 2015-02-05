@@ -4,6 +4,7 @@ import javax.servlet.MultipartConfigElement;
 
 import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
 import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
+import com.jive.myco.jazz.api.registry.ConnectedAndRegisteredBindingGracefulShutdownHook;
 import com.jive.myco.jazz.api.web.FilterMappingDescriptor;
 import com.jive.myco.jazz.api.web.StaticResourceDescriptor;
 
@@ -182,4 +183,16 @@ public interface FluentRestServiceDescriptorBuilder<T extends FluentRestServiceD
    * @return this builder for chaining
    */
   T register(final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor);
+
+  /**
+   * Sets an optional graceful shutdown hook that may be used to control the removal process of the
+   * resulting {@link RestServiceBinding} from the addition of the descriptor to the manager.
+   *
+   * @param gracefulShutdownHook
+   *          the hook to use
+   *
+   * @return this builder for chaining
+   */
+  T gracefulShutdownHook(
+      final ConnectedAndRegisteredBindingGracefulShutdownHook gracefulShutdownHook);
 }
