@@ -281,7 +281,6 @@ public abstract class AbstractAsyncPeriodicHealthCheck extends AbstractHealthChe
     return doDestroy()
         .thenAccept((result) ->
         {
-          inLifecycleGracePeriod.set(false);
           inLifecycleGracePeriod = null;
           lastHealthStatusAndMessage = null;
           nextCheckTime = 0;
