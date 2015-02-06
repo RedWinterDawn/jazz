@@ -16,7 +16,7 @@ import lombok.experimental.Builder;
 @Getter
 public final class FilterMappingDescriptor
 {
-  private final AtomicInteger COUNTER = new AtomicInteger();
+  private static final AtomicInteger COUNTER = new AtomicInteger();
 
   /**
    * A descriptive ID for this filter.
