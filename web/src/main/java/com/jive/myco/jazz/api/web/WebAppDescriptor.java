@@ -10,31 +10,58 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Builder;
 
+import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
+import com.jive.myco.jazz.api.registry.AbstractConnectedAndRegisteredBindingGracefulShutdownHook;
+import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
+import com.jive.myco.jazz.api.registry.ConnectedAndRegisteredBindingGracefulShutdownHook;
+
 /**
  * Represents a collection of Web resources that may be bound in a {@link HttpServerManager}.
  *
  * @author David Valeri
  */
-@Getter
 public final class WebAppDescriptor
 {
+  private static final AbstractConnectedAndRegisteredBindingGracefulShutdownHook NULL_SHUTDOWN_HOOK =
+      new AbstractConnectedAndRegisteredBindingGracefulShutdownHook() {/* */};
+
   private final AtomicInteger INSTANCE_COUNTER = new AtomicInteger();
 
+  @Getter
   private final String id;
 
+  @Getter
   private final List<ServletMappingDescriptor> servlets;
 
+  @Getter
   private final List<FilterMappingDescriptor> filters;
 
+  @Getter
   private final List<StaticResourceDescriptor> staticResources;
 
+  @Getter
   private final boolean includeJazzContextFilter;
 
+  @Getter
   private final boolean includeJazzMdcFilter;
 
+  @Getter
   private final boolean includeJazzContextEnhancerRulesFilter;
 
+  @Getter
   private final boolean includeJazzHttpRequestContextFilter;
+
+  @Getter
+  private final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor;
+
+  @Getter
+  private final String contextPath;
+
+  @Getter
+  private final List<ConnectorDescriptor> connectorDescriptors;
+
+  @Getter
+  private final ConnectedAndRegisteredBindingGracefulShutdownHook gracefulShutdownHook;
 
   @Builder
   private WebAppDescriptor(
@@ -45,7 +72,11 @@ public final class WebAppDescriptor
       final boolean includeJazzContextFilter,
       final boolean includeJazzMdcFilter,
       final boolean includeJazzContextEnhancerRulesFilter,
-      final boolean includeJazzHttpRequestContextFilter)
+      final boolean includeJazzHttpRequestContextFilter,
+      final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor,
+      final String contextPath,
+      @NonNull final List<ConnectorDescriptor> connectorDescriptors,
+      final ConnectedAndRegisteredBindingGracefulShutdownHook gracefulShutdownHook)
   {
     this.id = id == null ? "web-app-" + INSTANCE_COUNTER.getAndIncrement() : id;
     this.servlets =
@@ -58,6 +89,11 @@ public final class WebAppDescriptor
     this.includeJazzMdcFilter = includeJazzMdcFilter;
     this.includeJazzContextEnhancerRulesFilter = includeJazzContextEnhancerRulesFilter;
     this.includeJazzHttpRequestContextFilter = includeJazzHttpRequestContextFilter;
+    this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
+    this.contextPath = contextPath;
+    this.connectorDescriptors = Collections.unmodifiableList(new ArrayList<>(connectorDescriptors));
+    this.gracefulShutdownHook = gracefulShutdownHook == null 
+        ? NULL_SHUTDOWN_HOOK : gracefulShutdownHook;
   }
 
   /**
@@ -65,39 +101,44 @@ public final class WebAppDescriptor
    *
    * @author David Valeri
    */
-  public static final class WebAppDescriptorBuilder
+  public static final class WebAppDescriptorBuilder implements
+      FluentWebAppDescriptorBuilder<WebAppDescriptorBuilder>
   {
-    private final List<ServletMappingDescriptor> servlets = new LinkedList<>();
+    private final List<ConnectorDescriptor> connectorDescriptors = new LinkedList<>();
     private final List<FilterMappingDescriptor> filters = new LinkedList<>();
+    private final List<ServletMappingDescriptor> servlets = new LinkedList<>();
     private final List<StaticResourceDescriptor> staticResources = new LinkedList<>();
+
     private boolean includeJazzContextFilter = true;
     private boolean includeJazzMdcFilter = true;
     private boolean includeJazzContextEnhancerRulesFilter = true;
     private boolean includeJazzHttpRequestContextFilter = true;
 
-    /**
-     * Adds a servlet to the servlets provided via the descriptor.
-     *
-     * @param servletMappingDescriptor
-     *          the descriptor for the servlet to add
-     *
-     * @return this builder for chaining
-     */
-    public WebAppDescriptorBuilder addServlet(
-        final ServletMappingDescriptor servletMappingDescriptor)
+    @Override
+    public WebAppDescriptorBuilder addConnector(
+        @NonNull final ConnectorDescriptor connectorDescriptor)
     {
-      servlets.add(servletMappingDescriptor);
+      connectorDescriptors.add(connectorDescriptor);
       return this;
     }
 
-    /**
-     * Adds a filter to the filters provided via the descriptor.
-     *
-     * @param filter
-     *          the filter to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
+    public WebAppDescriptorBuilder addConnectors(
+        final Iterable<? extends ConnectorDescriptor> connectorDescriptors)
+    {
+      connectorDescriptors.forEach(this.connectorDescriptors::add);
+      return this;
+    }
+
+    @Override
+    public WebAppDescriptorBuilder addConnectors(
+        @NonNull final ConnectorDescriptor... connectorDescriptors)
+    {
+      Collections.addAll(this.connectorDescriptors, connectorDescriptors);
+      return this;
+    }
+
+    @Override
     public WebAppDescriptorBuilder addFilter(
         final FilterMappingDescriptor filterMappingDescriptor)
     {
@@ -105,14 +146,7 @@ public final class WebAppDescriptor
       return this;
     }
 
-    /**
-     * Adds a filter to the filters provided via the descriptor.
-     *
-     * @param filterMappingDescriptors
-     *          the filters to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public WebAppDescriptorBuilder addFilters(
         @NonNull final Iterable<? extends FilterMappingDescriptor> filterMappingDescriptors)
     {
@@ -120,14 +154,7 @@ public final class WebAppDescriptor
       return this;
     }
 
-    /**
-     * Adds filters to the filters provided via the descriptor.
-     *
-     * @param filterMappingDescriptors
-     *          the filters to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public WebAppDescriptorBuilder addFilters(
         @NonNull final FilterMappingDescriptor... filterMappingDescriptors)
     {
@@ -135,14 +162,15 @@ public final class WebAppDescriptor
       return this;
     }
 
-    /**
-     * Adds a static resource to the static resources provided via the descriptor.
-     *
-     * @param staticResourceDescriptor
-     *          the resource to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
+    public WebAppDescriptorBuilder addServlet(
+        final ServletMappingDescriptor servletMappingDescriptor)
+    {
+      servlets.add(servletMappingDescriptor);
+      return this;
+    }
+
+    @Override
     public WebAppDescriptorBuilder addStaticResource(
         @NonNull final StaticResourceDescriptor staticResourceDescriptor)
     {
@@ -150,14 +178,7 @@ public final class WebAppDescriptor
       return this;
     }
 
-    /**
-     * Adds static resources to the static resources provided via the descriptor.
-     *
-     * @param staticResourceDescriptors
-     *          the resources to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public WebAppDescriptorBuilder addStaticResources(
         @NonNull final Iterable<? extends StaticResourceDescriptor> staticResourceDescriptors)
     {
@@ -165,18 +186,19 @@ public final class WebAppDescriptor
       return this;
     }
 
-    /**
-     * Adds static resources to the static resources provided via the descriptor.
-     *
-     * @param staticResourceDescriptors
-     *          the resources to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public WebAppDescriptorBuilder addStaticResources(
         @NonNull final StaticResourceDescriptor... staticResourceDescriptors)
     {
       Collections.addAll(this.staticResources, staticResourceDescriptors);
+      return this;
+    }
+
+    @Override
+    public WebAppDescriptorBuilder register(
+        final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor)
+    {
+      this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
       return this;
     }
 
@@ -200,6 +222,22 @@ public final class WebAppDescriptor
     @SuppressWarnings("unused")
     private WebAppDescriptorBuilder filters(
         final List<FilterMappingDescriptor> filterMappingDescriptors)
+    {
+      return this;
+    }
+
+    // Hidden due to Lombok
+    @SuppressWarnings("unused")
+    private WebAppDescriptorBuilder autoRegisteredServiceInstanceDescriptor(
+        final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor)
+    {
+      return this;
+    }
+
+    // Hidden due to Lombok
+    @SuppressWarnings("unused")
+    private WebAppDescriptorBuilder connectorDescriptors(
+        final List<ConnectorDescriptor> connectorDescriptors)
     {
       return this;
     }

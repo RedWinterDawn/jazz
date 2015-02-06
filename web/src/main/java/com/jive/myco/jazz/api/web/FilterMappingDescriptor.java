@@ -1,10 +1,11 @@
 package com.jive.myco.jazz.api.web;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.servlet.Filter;
 
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.Builder;
 
 /**
@@ -12,20 +13,64 @@ import lombok.experimental.Builder;
  *
  * @author David Valeri
  */
-@RequiredArgsConstructor
 @Getter
-@Builder
 public final class FilterMappingDescriptor
 {
+  private final AtomicInteger COUNTER = new AtomicInteger();
+
+  /**
+   * A descriptive ID for this filter.
+   */
+  private final String id;
+
   /**
    * The URL pattern used to map requests to the filter in this descriptor.
    */
-  @NonNull
   private final String urlPattern;
 
   /**
    * The filter to use.
    */
-  @NonNull
   private final Filter filter;
+
+  /**
+   * Creates a new instance.
+   *
+   * @param urlPattern
+   *          the URL pattern used to map requests to the filter in this descriptor
+   * @param filter
+   *          the filter to use
+   *
+   * @deprecated use {@link #builder} instead
+   */
+  @Deprecated
+  public FilterMappingDescriptor(final String urlPattern, final Filter filter)
+  {
+    this(null, urlPattern, filter);
+  }
+
+  /**
+   * Creates a new instance.
+   *
+   * @param id
+   *          a descriptive ID for this filter
+   * @param urlPattern
+   *          the URL pattern used to map requests to the filter in this descriptor
+   * @param filter
+   *          the filter to use
+   */
+  @Builder
+  private FilterMappingDescriptor(
+      final String id, @NonNull final String urlPattern, @NonNull final Filter filter)
+  {
+    this.id = id == null ? "filter-" + COUNTER.getAndIncrement() : id;
+    this.urlPattern = urlPattern;
+    this.filter = filter;
+  }
+
+  public static final class FilterMappingDescriptorBuilder implements
+      FluentFilterMappingDescriptorBuilder<FilterMappingDescriptorBuilder>
+  {
+    // No-op, just ensuring that we implement the correct interface.
+  }
 }

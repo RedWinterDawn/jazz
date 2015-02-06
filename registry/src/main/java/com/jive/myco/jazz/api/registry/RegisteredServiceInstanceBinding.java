@@ -3,6 +3,7 @@ package com.jive.myco.jazz.api.registry;
 import java.util.Map;
 
 import com.jive.myco.commons.concurrent.PnkyPromise;
+import com.jive.myco.jazz.api.core.Binding;
 
 /**
  * Represents information about a registered service instance and the actions that may be applied to
@@ -10,19 +11,14 @@ import com.jive.myco.commons.concurrent.PnkyPromise;
  *
  * @author John Norton
  */
-public interface RegisteredServiceInstanceBinding
+public interface RegisteredServiceInstanceBinding extends Binding<Void>
 {
   /**
    * Unregisters the service instance from the registry.
    *
-   * @deprecated signature is changing, use removeAsync in the interim
+   * @deprecated used to bridge API changes. Use {@link #remove()} instead.
    */
   @Deprecated
-  void remove();
-
-  /**
-   * Unregisters the service instance from the registry.
-   */
   PnkyPromise<Void> removeAsync();
 
   /**
@@ -32,4 +28,10 @@ public interface RegisteredServiceInstanceBinding
    *          the new properties to assign
    */
   void update(final Map<String, String> properties);
+
+  /**
+   * Unregisters the service instance from the registry.
+   */
+  @Override
+  PnkyPromise<Void> remove();
 }

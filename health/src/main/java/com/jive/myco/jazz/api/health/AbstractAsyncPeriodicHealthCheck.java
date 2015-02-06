@@ -149,6 +149,7 @@ public abstract class AbstractAsyncPeriodicHealthCheck extends AbstractHealthChe
     }
 
     lifecycledHelper = new LifecycledHelper(
+        id,
         this.dispatchQueueBuilder.segment("check", id, "lifecycle").build());
   }
 
@@ -428,9 +429,9 @@ public abstract class AbstractAsyncPeriodicHealthCheck extends AbstractHealthChe
    */
   private final class LifecycledHelper extends AbstractLifecycled
   {
-    public LifecycledHelper(final DispatchQueue lifecycleQueue)
+    public LifecycledHelper(final String id, final DispatchQueue lifecycleQueue)
     {
-      super(lifecycleQueue);
+      super(id, lifecycleQueue);
     }
 
     @Override

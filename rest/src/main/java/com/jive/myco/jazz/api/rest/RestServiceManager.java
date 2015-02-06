@@ -38,6 +38,10 @@ public interface RestServiceManager extends ListenableLifecycled
   /**
    * Binds a {@link RestServiceDescriptor set of REST resources} to be served with the provided
    * settings.
+   * <p>
+   * A {@link RestServiceDescriptor} did not originally contain information regarding context path
+   * and connectors. This legacy API method gives precedent to the values supplied as arguments over
+   * values supplied in the descriptor itself.
    *
    * @param restServiceDescriptor
    *          the set of REST components to be served
@@ -52,8 +56,24 @@ public interface RestServiceManager extends ListenableLifecycled
    *
    * @return a future that completes with the binding information after the REST resources have been
    *         bound in the manager
+   *
+   * @deprecated use {@link #addService(RestServiceDescriptor) instead.
    */
+  @Deprecated
   public PnkyPromise<RestServiceBinding> addService(
       final RestServiceDescriptor restServiceDescriptor, final String contextPath,
       final NetworkId networkId, final InetAddress inetAddress, final Integer port);
+
+  /**
+   * Binds a {@link RestServiceDescriptor set of REST resources} to be served with the provided
+   * settings.
+   *
+   * @param restServiceDescriptor
+   *          the set of REST components to be served
+   *
+   * @return a future that completes with the binding information after the REST resources have been
+   *         bound in the manager
+   */
+  public PnkyPromise<RestServiceBinding> addService(
+      final RestServiceDescriptor restServiceDescriptor);
 }
