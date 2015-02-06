@@ -26,23 +26,44 @@ public final class StaticResourceDescriptor
   /**
    * The path, relative to the apps's context path, where the files in {@link #path} are exposed.
    */
-  @NonNull
   private final String relativeUrlPath;
 
   /**
    * The location from which to lookup static resources.
    */
-  @NonNull
   private final String path;
 
-
+  /**
+   * Creates a new instance.
+   *
+   * @param relativeUrlPath
+   *          the path, relative to the apps's context path, where the files in {@code path} are
+   *          exposed
+   * @param path
+   *          the location from which to lookup static resources
+   *
+   * @deprecated use {@link #builder()} instead
+   */
+  @Deprecated
   public StaticResourceDescriptor(final String relativeUrlPath, final String path)
   {
     this(null, relativeUrlPath, path);
   }
 
+  /**
+   * Creates a new instance.
+   *
+   * @param id
+   *          a descriptive ID for this static resource
+   * @param relativeUrlPath
+   *          the path, relative to the apps's context path, where the files in {@code path} are
+   *          exposed
+   * @param path
+   *          the location from which to lookup static resources
+   */
   @Builder
-  public StaticResourceDescriptor(final String id, final String relativeUrlPath, final String path)
+  private StaticResourceDescriptor(final String id, @NonNull final String relativeUrlPath,
+      @NonNull final String path)
   {
     this.id = id == null ? "static-" + INSTANCE_COUNTER.getAndIncrement() : id;
 

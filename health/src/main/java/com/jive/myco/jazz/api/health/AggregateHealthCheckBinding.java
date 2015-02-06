@@ -12,7 +12,7 @@ public interface AggregateHealthCheckBinding extends AggregateHealthCheck
   /**
    * Removes the check from the manager.
    *
-   * @return a future that completes when the check has been removed or an error ocurrs
+   * @return a future that completes when the check has been removed or an error occurs
    */
   PnkyPromise<Void> remove();
 }

@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.jive.myco.jazz.api</groupId>
     <artifactId>root</artifactId>
-    <version>0.2.49-SNAPSHOT</version>
+    <version>0.2.50-SNAPSHOT</version>
   </parent>
 
   <artifactId>jazz-api-web</artifactId>
@@ -18,6 +18,12 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>jazz-api-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>jazz-api-registry</artifactId>
       <version>${project.version}</version>
     </dependency>
 

@@ -18,7 +18,7 @@ import com.jive.myco.commons.hawtdispatch.DispatchQueueBuilder;
  * <p>
  * The health check may be updated with events via {@link #mark()} or {@link #mark(long)} at any
  * time.
- * 
+ *
  * @author David Valeri
  */
 @Slf4j
@@ -58,7 +58,7 @@ public abstract class AbstractPeriodicMeteringHealthCheck extends AbstractAsyncP
    * Update the meter outside of the periodic cycle for a single occurrence. This method is thread
    * safe and may be invoked at any time.
    */
-  public void mark()
+  public final void mark()
   {
     mark(1);
   }
@@ -70,7 +70,7 @@ public abstract class AbstractPeriodicMeteringHealthCheck extends AbstractAsyncP
    * @param value
    *          the number of occurrences to add to the meter
    */
-  public void mark(final long n)
+  public final void mark(final long n)
   {
     // This is a bit hacky, but we are not concerned with absolute ordering or ensuring that we
     // catch every event during the transition from grace period to normal operation. As such,

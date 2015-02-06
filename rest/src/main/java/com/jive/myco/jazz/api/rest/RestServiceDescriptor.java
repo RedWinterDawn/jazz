@@ -14,6 +14,9 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Builder;
 
+import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
+import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;
+import com.jive.myco.jazz.api.registry.ConnectedAndRegisteredBindingGracefulShutdownHook;
 import com.jive.myco.jazz.api.web.FilterMappingDescriptor;
 import com.jive.myco.jazz.api.web.StaticResourceDescriptor;
 
@@ -67,6 +70,18 @@ public final class RestServiceDescriptor
   @Getter
   private final boolean forceMetrics;
 
+  @Getter
+  private final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor;
+
+  @Getter
+  private final String contextPath;
+
+  @Getter
+  private final List<ConnectorDescriptor> connectorDescriptors;
+
+  @Getter
+  private final ConnectedAndRegisteredBindingGracefulShutdownHook gracefulShutdownHook;
+
   @Builder
   private RestServiceDescriptor(
       final String id,
@@ -79,7 +94,11 @@ public final class RestServiceDescriptor
       final boolean includeJazzHttpRequestContextFilter,
       final MultipartConfigElement multipartConfigElement,
       final boolean enableMetrics,
-      final boolean forceMetrics)
+      final boolean forceMetrics,
+      final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor,
+      final String contextPath,
+      @NonNull final List<ConnectorDescriptor> connectorDescriptors,
+      final ConnectedAndRegisteredBindingGracefulShutdownHook gracefulShutdownHook)
   {
     this.id = id == null ? "rest-service-" + INSTANCE_COUNTER.getAndIncrement() : id;
     this.singletons = Collections.unmodifiableSet(new HashSet<>(singletons));
@@ -94,6 +113,10 @@ public final class RestServiceDescriptor
     this.multipartConfigElement = multipartConfigElement;
     this.enableMetrics = enableMetrics;
     this.forceMetrics = forceMetrics;
+    this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
+    this.contextPath = contextPath;
+    this.connectorDescriptors = Collections.unmodifiableList(new ArrayList<>(connectorDescriptors));
+    this.gracefulShutdownHook = gracefulShutdownHook;
   }
 
   /**
@@ -101,102 +124,53 @@ public final class RestServiceDescriptor
    *
    * @author David Valeri
    */
-  public static final class RestServiceDescriptorBuilder
+  public static final class RestServiceDescriptorBuilder implements
+      FluentRestServiceDescriptorBuilder<RestServiceDescriptorBuilder>
   {
-    private final Set<Object> singletons = new HashSet<>();
-
+    private final List<ConnectorDescriptor> connectorDescriptors = new LinkedList<>();
     private final List<FilterMappingDescriptor> filters = new LinkedList<>();
-
+    private final Set<Object> singletons = new HashSet<>();
     private final List<StaticResourceDescriptor> staticResources = new LinkedList<>();
 
     private boolean includeJazzContextFilter = true;
-
     private boolean includeJazzMdcFilter = true;
-
     private boolean includeJazzContextEnhancerRulesFilter = true;
-
     private boolean includeJazzHttpRequestContextFilter = true;
-
     private boolean enableMetrics = true;
 
-    /**
-     * Adds a singleton to the singletons provided via the descriptor.
-     * <p>
-     * If a singleton that {@link Object#equals(Object) equals} {@code singleton} has already been
-     * configured, this call overwrites the previous value.
-     * <p>
-     * Singletons may be any JAX-RS related object including a REST resource or a {@code Provider}
-     *
-     * @param singleton
-     *          the singleton JAX-RS resource to add
-     *
-     * @return this builder for chaining
-     */
-    public RestServiceDescriptorBuilder addSingleton(final Object singleton)
+    @Override
+    public RestServiceDescriptorBuilder addConnector(
+        @NonNull final ConnectorDescriptor connectorDescriptor)
     {
-      singletons.add(singleton);
+      connectorDescriptors.add(connectorDescriptor);
       return this;
     }
 
-    /**
-     * Adds singletons to the singletons provided via the descriptor.
-     * <p>
-     * If a singleton that {@link Object#equals(Object) equals} a value provided by
-     * {@code singletons} has already been configured, this call overwrites the previous value.
-     *
-     * @param additionalSingletons
-     *          the singletons to add
-     *
-     * @return this builder for chaining
-     */
-    public RestServiceDescriptorBuilder addSingletons(
-        @NonNull final Iterable<? extends Object> additionalSingletons)
+    @Override
+    public RestServiceDescriptorBuilder addConnectors(
+        @NonNull final Iterable<? extends ConnectorDescriptor> connectorDescriptors)
     {
-      additionalSingletons.forEach(singletons::add);
+      connectorDescriptors.forEach(this.connectorDescriptors::add);
       return this;
     }
 
-    /**
-     * Adds singletons to the singletons provided via the descriptor.
-     * <p>
-     * If a singleton that {@link Object#equals(Object) equals} a value provided by
-     * {@code singletons} has already been configured, this call overwrites the previous value.
-     *
-     * @param additionalSingletons
-     *          the singletons to add
-     *
-     * @return this builder for chaining
-     */
-    public RestServiceDescriptorBuilder addSingletons(@NonNull final Object... additionalSingletons)
+    @Override
+    public RestServiceDescriptorBuilder addConnectors(
+        @NonNull final ConnectorDescriptor... connectorDescriptors)
     {
-      Collections.addAll(singletons, additionalSingletons);
+      Collections.addAll(this.connectorDescriptors, connectorDescriptors);
       return this;
     }
 
-    /**
-     * Adds a filter to the filters provided via the descriptor.
-     * <p>
-     * Filters are provided in the order in which they are added to this builder.
-     *
-     * @param filterDescriptor
-     *          the filter to add
-     *
-     * @return this builder for chaining
-     */
-    public RestServiceDescriptorBuilder addFilter(final FilterMappingDescriptor filterDescriptor)
+    @Override
+    public RestServiceDescriptorBuilder addFilter(
+        @NonNull final FilterMappingDescriptor filterDescriptor)
     {
       filters.add(filterDescriptor);
       return this;
     }
 
-    /**
-     * Adds a filter to the filters provided via the descriptor.
-     *
-     * @param filterDescriptors
-     *          the filters to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public RestServiceDescriptorBuilder addFilters(
         @NonNull final Iterable<? extends FilterMappingDescriptor> filterDescriptors)
     {
@@ -204,14 +178,7 @@ public final class RestServiceDescriptor
       return this;
     }
 
-    /**
-     * Adds filters to the filters provided via the descriptor.
-     *
-     * @param filterDescriptors
-     *          the filters to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public RestServiceDescriptorBuilder addFilters(
         @NonNull final FilterMappingDescriptor... filterDescriptors)
     {
@@ -219,14 +186,29 @@ public final class RestServiceDescriptor
       return this;
     }
 
-    /**
-     * Adds a static resource to the static resources provided via the descriptor.
-     *
-     * @param staticResourceDescriptor
-     *          the resource to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
+    public RestServiceDescriptorBuilder addSingleton(@NonNull final Object singleton)
+    {
+      singletons.add(singleton);
+      return this;
+    }
+
+    @Override
+    public RestServiceDescriptorBuilder addSingletons(
+        @NonNull final Iterable<? extends Object> additionalSingletons)
+    {
+      additionalSingletons.forEach(singletons::add);
+      return this;
+    }
+
+    @Override
+    public RestServiceDescriptorBuilder addSingletons(@NonNull final Object... additionalSingletons)
+    {
+      Collections.addAll(singletons, additionalSingletons);
+      return this;
+    }
+
+    @Override
     public RestServiceDescriptorBuilder addStaticResource(
         @NonNull final StaticResourceDescriptor staticResourceDescriptor)
     {
@@ -234,14 +216,7 @@ public final class RestServiceDescriptor
       return this;
     }
 
-    /**
-     * Adds static resources to the static resources provided via the descriptor.
-     *
-     * @param staticResourceDescriptors
-     *          the resources to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public RestServiceDescriptorBuilder addStaticResources(
         @NonNull final Iterable<? extends StaticResourceDescriptor> staticResourceDescriptors)
     {
@@ -249,18 +224,19 @@ public final class RestServiceDescriptor
       return this;
     }
 
-    /**
-     * Adds static resources to the static resources provided via the descriptor.
-     *
-     * @param staticResourceDescriptors
-     *          the resources to add
-     *
-     * @return this builder for chaining
-     */
+    @Override
     public RestServiceDescriptorBuilder addStaticResources(
         @NonNull final StaticResourceDescriptor... staticResourceDescriptors)
     {
       Collections.addAll(this.staticResources, staticResourceDescriptors);
+      return this;
+    }
+
+    @Override
+    public RestServiceDescriptorBuilder register(
+        final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor)
+    {
+      this.autoRegisteredServiceInstanceDescriptor = autoRegisteredServiceInstanceDescriptor;
       return this;
     }
 
@@ -283,6 +259,22 @@ public final class RestServiceDescriptor
     @SuppressWarnings("unused")
     private RestServiceDescriptorBuilder filters(
         final List<StaticResourceDescriptor> additionalFilters)
+    {
+      return this;
+    }
+
+    // Hidden due to Lombok
+    @SuppressWarnings("unused")
+    private RestServiceDescriptorBuilder autoRegisteredServiceInstanceDescriptor(
+        final AutoRegisteredServiceInstanceDescriptor autoRegisteredServiceInstanceDescriptor)
+    {
+      return this;
+    }
+
+    // Hidden due to Lombok
+    @SuppressWarnings("unused")
+    private RestServiceDescriptorBuilder connectorDescriptors(
+        final List<ConnectorDescriptor> connectorDescriptors)
     {
       return this;
     }

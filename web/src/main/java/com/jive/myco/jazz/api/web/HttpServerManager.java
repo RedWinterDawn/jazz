@@ -6,6 +6,7 @@ import javax.servlet.Servlet;
 
 import com.jive.myco.commons.concurrent.PnkyPromise;
 import com.jive.myco.commons.lifecycle.ListenableLifecycled;
+import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
 import com.jive.myco.jazz.api.core.network.NetworkId;
 
 /**
@@ -65,6 +66,10 @@ public interface HttpServerManager extends ListenableLifecycled
   /**
    * Binds a collection of Web resources into the manager and exposes them on the desired connector.
    * Connector resolution is performed as described in the {@link HttpServerManager} documentation.
+   * <p>
+   * A {@link WebAppDescriptor} did not originally contain information regarding context path and
+   * connectors. This legacy API method gives precedent to the values supplied as arguments over
+   * values supplied in the descriptor itself.
    *
    * @param webAppDescriptor
    *          the descriptor for the resources to bind
@@ -79,8 +84,24 @@ public interface HttpServerManager extends ListenableLifecycled
    *
    * @return a future that completes with the binding information after the resources have been
    *         bound in the manager
+   *
+   * @deprecated use {@link #addWebApp(WebAppDescriptor)} instead.
    */
+  @Deprecated
   public PnkyPromise<WebAppBinding> addWebApp(
       final WebAppDescriptor webAppDescriptor, final String contextPath,
       final NetworkId networkId, final InetAddress inetAddress, final Integer port);
+
+  /**
+   * Binds a collection of Web resources into the manager and exposes them on the desired
+   * connector(s). Connector resolution is performed as described in {@link ConnectorDescriptor}
+   * documentation.
+   *
+   * @param webAppDescriptor
+   *          the descriptor for the resources to bind
+   *
+   * @return a future that completes with the binding information after the resources have been
+   *         bound in the manager
+   */
+  public PnkyPromise<WebAppBinding> addWebApp(final WebAppDescriptor webAppDescriptor);
 }

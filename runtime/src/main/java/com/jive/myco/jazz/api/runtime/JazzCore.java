@@ -3,12 +3,14 @@ package com.jive.myco.jazz.api.runtime;
 import java.util.Optional;
 
 import com.codahale.metrics.MetricRegistry;
+import com.jive.myco.commons.hawtdispatch.DispatchQueueBuilder;
 import com.jive.myco.jazz.api.config.ConfigurationManager;
 import com.jive.myco.jazz.api.config.JazzConfiguration;
 import com.jive.myco.jazz.api.health.HealthCheckManager;
 import com.jive.myco.jazz.api.metrics.MetricsManager;
 import com.jive.myco.jazz.api.registry.RegistryManager;
 import com.jive.myco.jazz.api.rest.RestServiceManager;
+import com.jive.myco.jazz.api.rest.client.RestClientFactoryManager;
 import com.jive.myco.jazz.api.rules.czar.model.RulesEngine;
 import com.jive.myco.jazz.api.web.HttpServerManager;
 import com.jive.v5.isp.client.IspClient;
@@ -43,4 +45,8 @@ public interface JazzCore<T extends JazzConfiguration>
   Optional<RegistryManager> getRegistryManager();
 
   RulesEngine getRulesEngine();
+
+  DispatchQueueBuilder getDispatchQueueBuilder();
+
+  Optional<RestClientFactoryManager> getRestClientFactoryManager();
 }

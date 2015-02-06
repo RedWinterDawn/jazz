@@ -1,14 +1,5 @@
 package com.jive.myco.jazz.api.rest.client;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.function.Supplier;
-
-import javax.ws.rs.ext.ParamConverterProvider;
-
-import com.jive.myco.jazz.api.web.HttpClientHeaderDecorator;
-import com.jive.v5.jumpy.JumpyRecordFilterCriteria;
-import com.jive.v5.jumpy.RestrictedSupplier;
 
 /**
  * Builder for a REST client.
@@ -19,26 +10,12 @@ import com.jive.v5.jumpy.RestrictedSupplier;
  * @param <T>
  *          the interface type for the returned client
  */
-public interface RestClientBuilder<T>
+public interface RestClientBuilder<T> extends FluentRestClientBuilder<RestClientBuilder<T>>
 {
-  RestClientBuilder<T> addRestClientSerializer(final RestClientSerializer mapper);
-
-  RestClientBuilder<T> addListener(final RestClientListener listener);
-
-  RestClientBuilder<T> addListener(final RestClientListener listener, final Executor executor);
-
-  RestClientBuilder<T> addProvider(final ParamConverterProvider provider);
-
-  RestClientBuilder<T> url(final String url);
-
-  RestClientBuilder<T> url(final Supplier<String> urlSupplier);
-
-  RestClientBuilder<T> url(
-      final RestrictedSupplier<String, JumpyRecordFilterCriteria> urlRestrictedSupplier);
-
-  RestClientBuilder<T> headerDecorator(final HttpClientHeaderDecorator headerDecorator);
-
-  RestClientBuilder<T> scheduledExecutor(final ScheduledExecutorService executor);
-
+  /**
+   * Complete the builder and create the client.
+   *
+   * @return the fully initialized client
+   */
   T build();
 }

@@ -3,13 +3,15 @@ package com.jive.myco.jazz.api.web;
 import java.util.Set;
 
 import com.jive.myco.commons.concurrent.PnkyPromise;
+import com.jive.myco.jazz.api.core.Binding;
 
 /**
  * Represents the binding of a collection of web resources into the {@link HttpServerManager}.
- * 
+ *
  * @author David Valeri
  */
-public interface WebAppBinding
+@SuppressWarnings("deprecation")
+public interface WebAppBinding extends Binding<Void>
 {
   /**
    * Returns the context path on which this binding is bound.
@@ -38,5 +40,6 @@ public interface WebAppBinding
    * @return a future that completes when this binding has been removed from the
    *         {@link HttpServerManager}
    */
+  @Override
   PnkyPromise<Void> remove();
 }

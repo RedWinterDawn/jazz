@@ -71,7 +71,7 @@ public abstract class AbstractPeriodicSlidingWindowHistogramHealthCheck extends
    * @param value
    *          the value to add to record in the reservoir
    */
-  public void update(final long value)
+  public final void update(final long value)
   {
     // This is a bit hacky, but we are not concerned with absolute ordering or ensuring that we
     // catch every event during the transition from grace period to normal operation. As such,
@@ -87,7 +87,7 @@ public abstract class AbstractPeriodicSlidingWindowHistogramHealthCheck extends
     }
     else if (currentReservoir != null)
     {
-      reservoir.update(value);
+      currentReservoir.update(value);
     }
 
   }

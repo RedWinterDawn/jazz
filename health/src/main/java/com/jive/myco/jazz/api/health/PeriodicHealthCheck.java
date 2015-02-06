@@ -63,7 +63,7 @@ public abstract class PeriodicHealthCheck extends AbstractAsyncPeriodicHealthChe
         TimeUnit.MILLISECONDS,
         DEFAULT_LIFECYCLE_GRACE_PERIOD,
         TimeUnit.MILLISECONDS,
-        null,
+        dispatchQueueBuilder,
         null,
         null,
         executor);

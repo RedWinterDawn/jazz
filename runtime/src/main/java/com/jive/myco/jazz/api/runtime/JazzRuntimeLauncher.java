@@ -1,7 +1,7 @@
 package com.jive.myco.jazz.api.runtime;
 
 /**
- * Describes the interface for the entry point from which Jazz boostraps.
+ * Describes the interface for the entry point from which Jazz bootraps.
  *
  * @author David Valeri
  */
