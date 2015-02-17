@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.codahale.metrics.MetricRegistry;
 import com.jive.myco.commons.hawtdispatch.DispatchQueueBuilder;
+import com.jive.myco.isp.client2.api.IspClient;
 import com.jive.myco.jazz.api.config.ConfigurationManager;
 import com.jive.myco.jazz.api.config.JazzConfiguration;
 import com.jive.myco.jazz.api.health.HealthCheckManager;
@@ -13,7 +14,6 @@ import com.jive.myco.jazz.api.rest.RestServiceManager;
 import com.jive.myco.jazz.api.rest.client.RestClientFactoryManager;
 import com.jive.myco.jazz.api.rules.czar.model.RulesEngine;
 import com.jive.myco.jazz.api.web.HttpServerManager;
-import com.jive.v5.isp.client.IspClient;
 import com.jive.v5.jumpy.Jumpy;
 
 /**
@@ -38,7 +38,13 @@ public interface JazzCore<T extends JazzConfiguration>
 
   ConfigurationManager<T> getConfigurationManager();
 
-  Optional<IspClient> getIspClient();
+  /**
+   * @deprecated use {@link #getIspClient2()} instead
+   */
+  @Deprecated
+  Optional<com.jive.v5.isp.client.IspClient> getIspClient();
+
+  Optional<IspClient> getIspClient2();
 
   Optional<Jumpy> getJumpy();
 

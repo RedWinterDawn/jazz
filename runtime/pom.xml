@@ -73,6 +73,16 @@
       <artifactId>jazz-api-web</artifactId>
       <version>${project.version}</version>
     </dependency>
+    
+    <dependency>
+      <groupId>com.jive.myco.commons</groupId>
+      <artifactId>myco-commons-concurrent</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.jive.myco.isp</groupId>
+      <artifactId>isp-client2-api</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>com.jive.v5.isp</groupId>
@@ -87,11 +97,6 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.jive.myco.commons</groupId>
-      <artifactId>myco-commons-concurrent</artifactId>
     </dependency>
 
   </dependencies>
