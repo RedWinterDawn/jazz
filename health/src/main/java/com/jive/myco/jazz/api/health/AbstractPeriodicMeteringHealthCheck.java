@@ -43,8 +43,11 @@ public abstract class AbstractPeriodicMeteringHealthCheck extends AbstractAsyncP
   {
     super(
         id,
-        period,
-        periodUnit,
+        // Chop down the requested check period. The internal meter will only update its value
+        // every 5 seconds
+        periodUnit.convert(period, TimeUnit.SECONDS) > 5 ? periodUnit.toMillis(period)
+            : TimeUnit.SECONDS.toMillis(5),
+        TimeUnit.MILLISECONDS,
         lifecycleGracePeriod,
         lifecycleGracePeriodUnit,
         dispatchQueueBuilder,
