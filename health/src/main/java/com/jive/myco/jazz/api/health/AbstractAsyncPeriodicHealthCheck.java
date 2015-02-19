@@ -290,7 +290,7 @@ public abstract class AbstractAsyncPeriodicHealthCheck extends AbstractHealthChe
   }
 
   /**
-   * Triggers {@link #calculateHealthStatus()} and reschedules the next execution.
+   * Triggers {@link #calculateHealthStatusAndMessage()} and reschedules the next execution.
    * <p>
    * This method must be invoked on the {@link #getLifecycleQueue() lifecycle queue}.
    */
