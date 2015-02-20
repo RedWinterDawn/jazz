@@ -9,7 +9,7 @@
 
   <groupId>com.jive.myco.jazz.api</groupId>
   <artifactId>root</artifactId>
-  <version>0.2.52-SNAPSHOT</version>
+  <version>0.2.53-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Jazz :: API :: Root</name>
@@ -40,7 +40,7 @@
   <properties>
     <deps.commons-lang.version>2.6</deps.commons-lang.version>
     <deps.jax-rs-api.version>2.0.1</deps.jax-rs-api.version>
-    <deps.jumpy.version>0.41-SNAPSHOT</deps.jumpy.version>
+    <deps.jumpy.version>0.41</deps.jumpy.version>
     <deps.myco-commons.version>0.2.6</deps.myco-commons.version>
     <deps.servlet.version>3.1.0</deps.servlet.version>
   </properties>
