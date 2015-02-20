@@ -6,7 +6,7 @@ package com.jive.myco.jazz.api.metrics;
 public interface Meter
 {
   /**
-   * Mark a single occurrence of an event
+   * Mark a single occurrence of an event.
    */
   void mark();
 
