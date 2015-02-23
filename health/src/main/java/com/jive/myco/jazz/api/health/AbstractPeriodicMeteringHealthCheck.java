@@ -23,6 +23,7 @@ import com.jive.myco.commons.hawtdispatch.DispatchQueueBuilder;
  */
 @Slf4j
 public abstract class AbstractPeriodicMeteringHealthCheck extends AbstractAsyncPeriodicHealthCheck
+  implements com.jive.myco.jazz.api.metrics.Meter
 {
   private final Function<Meter, PnkyPromise<HealthStatusAndMessage>> healthCalculator;
   private final boolean supressUpdatesDuringLifecycleGracePeriod;
@@ -42,8 +43,11 @@ public abstract class AbstractPeriodicMeteringHealthCheck extends AbstractAsyncP
   {
     super(
         id,
-        period,
-        periodUnit,
+        // Chop down the requested check period. The internal meter will only update its value
+        // every 5 seconds
+        periodUnit.convert(period, TimeUnit.SECONDS) > 5 ? periodUnit.toMillis(period)
+            : TimeUnit.SECONDS.toMillis(5),
+        TimeUnit.MILLISECONDS,
         lifecycleGracePeriod,
         lifecycleGracePeriodUnit,
         dispatchQueueBuilder,
@@ -58,6 +62,7 @@ public abstract class AbstractPeriodicMeteringHealthCheck extends AbstractAsyncP
    * Update the meter outside of the periodic cycle for a single occurrence. This method is thread
    * safe and may be invoked at any time.
    */
+  @Override
   public final void mark()
   {
     mark(1);
@@ -67,10 +72,11 @@ public abstract class AbstractPeriodicMeteringHealthCheck extends AbstractAsyncP
    * Update the meter outside of the periodic cycle. This method is thread safe and may be invoked
    * at any time.
    *
-   * @param value
+   * @param occurrences
    *          the number of occurrences to add to the meter
    */
-  public final void mark(final long n)
+  @Override
+  public final void mark(final long occurrences)
   {
     // This is a bit hacky, but we are not concerned with absolute ordering or ensuring that we
     // catch every event during the transition from grace period to normal operation. As such,
@@ -82,11 +88,11 @@ public abstract class AbstractPeriodicMeteringHealthCheck extends AbstractAsyncP
 
     if (inGracePeriod != null && inGracePeriod.get() && supressUpdatesDuringLifecycleGracePeriod)
     {
-      log.trace("[{}]: Suppressing mark [{}] during lifecycle grace period.", n, getId());
+      log.trace("[{}]: Suppressing mark [{}] during lifecycle grace period.", occurrences, getId());
     }
     else if (currentMeter != null)
     {
-      meter.mark(n);
+      meter.mark(occurrences);
     }
   }
 
