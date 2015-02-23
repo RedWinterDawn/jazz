@@ -32,7 +32,7 @@ public abstract class AbstractPeriodicMeteringHealthCheck extends AbstractAsyncP
   public AbstractPeriodicMeteringHealthCheck(
       @NonNull final String id,
       final long period,
-      @NonNull final TimeUnit periodUnit,
+      final TimeUnit periodUnit,
       final long lifecycleGracePeriod,
       @NonNull final TimeUnit lifecycleGracePeriodUnit,
       final DispatchQueueBuilder dispatchQueueBuilder,
