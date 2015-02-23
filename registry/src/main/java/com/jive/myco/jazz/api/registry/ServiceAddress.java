@@ -3,6 +3,7 @@ package com.jive.myco.jazz.api.registry;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 import lombok.experimental.Builder;
 
 /**
@@ -13,6 +14,7 @@ import lombok.experimental.Builder;
 @Builder
 @EqualsAndHashCode
 @Getter
+@ToString
 public final class ServiceAddress
 {
   @NonNull

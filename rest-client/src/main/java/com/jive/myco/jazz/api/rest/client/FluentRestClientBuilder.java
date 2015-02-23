@@ -6,6 +6,8 @@ import java.util.function.Supplier;
 
 import javax.ws.rs.ext.ParamConverterProvider;
 
+import com.jive.myco.jazz.api.registry.RegistryManager;
+import com.jive.myco.jazz.api.registry.ServiceInstanceSupplier;
 import com.jive.myco.jazz.api.web.HttpClientHeaderDecorator;
 import com.jive.v5.jumpy.JumpyRecordFilterCriteria;
 import com.jive.v5.jumpy.RestrictedSupplier;
@@ -82,12 +84,40 @@ public interface FluentRestClientBuilder<T extends FluentRestClientBuilder<T>>
    *
    * @param urlSupplier
    *          a supplier that provides a valid base URL on each invocation of {@link Supplier#get()}
+   *
    * @return this builder for chaining
    */
   T url(final Supplier<String> urlSupplier);
 
+  /**
+   * Sets a dynamically calculated base URL based on the Jumpy service discovery API. The provided
+   * supplier is invoked for each request with additional filter criteria as needed.
+   *
+   * @param urlRestrictedSupplier
+   *          a supplier that provides a valid base URL on each invocation
+   *          {@link RestrictedSupplier#getRestricted(Object)}.
+   *
+   * @return this builder for chaining
+   *
+   * @deprecated use {@link #url(ServiceInstanceSupplier)} instead
+   */
+  @Deprecated
   T url(
       final RestrictedSupplier<String, JumpyRecordFilterCriteria> urlRestrictedSupplier);
+
+  /**
+   * Sets a dynamically calculated base URL based on the {@link RegistryManager} service discovery
+   * API. The provided supplier is invoked for each request with additional filter criteria as
+   * needed.
+   *
+   * @param serviceInstanceSupplier
+   *          a supplier that provides the best matching service instance on each invocation of
+   *          {@link ServiceInstanceSupplier#get(com.jive.myco.jazz.api.registry.ServiceInstanceSupplierSelectorCriteria)}
+   *          .
+   *
+   * @return this builder for chaining
+   */
+  T url(final ServiceInstanceSupplier serviceInstanceSupplier);
 
   /**
    * Sets the header decorator used by the client when making requests.

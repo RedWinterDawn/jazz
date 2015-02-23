@@ -1,8 +1,10 @@
 package com.jive.myco.jazz.api.registry;
 
+import java.util.concurrent.Executor;
+
 import com.jive.myco.commons.concurrent.PnkyPromise;
 import com.jive.myco.commons.lifecycle.ListenableLifecycled;
-import com.jive.myco.jazz.api.registry.exceptions.RegistryManagerException;
+import com.jive.myco.commons.versions.VersionRange;
 
 /**
  * Used to register and lookup services in the service Registry.
@@ -17,18 +19,90 @@ public interface RegistryManager extends ListenableLifecycled
 {
   /**
    * Registers a service instance.
-   * <p>
-   * NOTE: The exceptions declared to be thrown in this JavaDoc are actually used to complete the
-   * returned future rather than being thrown.
    *
    * @param serviceInstanceDescriptor
    *          information about the service to be registered
    *
-   * @return future with information about the registered service
-   *
-   * @throws RegistryManagerException
-   *           if there is an error
+   * @return a promise completed with information about the registered service on success or
+   *         completed exceptionally with an {@link IllegalStateException} if the manager is not
+   *         initialized
    */
   PnkyPromise<RegisteredServiceInstanceBinding> registerService(
       final ServiceInstanceDescriptor serviceInstanceDescriptor);
+
+  /**
+   * Creates a supplier, limited to the scope of service instances matching the provided interface
+   * name, optional protocol, and optional version range.
+   *
+   * @param serviceInterfaceName
+   *          the interface name to limit the supplier's result to
+   * @param protocol
+   *          the optional protocol with which to limit the supplier's result to
+   * @param versionRange
+   *          the optional version range with which to limit the supplier's results to
+   *
+   * @return a promise containing the supplier on success or completed exceptionally with an
+   *         {@link IllegalStateException} if the manager is not initialized
+   */
+  PnkyPromise<ServiceInstanceSupplier> supplier(
+      final ServiceInterfaceName serviceInterfaceName,
+      final String protocol,
+      final VersionRange versionRange);
+
+  /**
+   * Subscribe a listener to events related to service instances that match the provided interface
+   * name, optional protocol, and optional version range.
+   * <p>
+   * The listener will be immediately notified of all matching service instances via calls to
+   * {@link ServiceInstanceListener#registered(ServiceInstance)} followed by subsequent for updates
+   * and removals while the subscription is active.
+   *
+   * @param serviceInterfaceName
+   *          the interface name to limit the subscription to
+   * @param protocol
+   *          the optional protocol with which to limit the subscription
+   * @param versionRange
+   *          the optional version range with which to limit the subscription
+   * @param listener
+   *          the listener to notify regarding matching service instances
+   *
+   * @return a promise completed with the binding the represents the subscription on success or
+   *         completed exceptionally with an {@link IllegalStateException} if the manager is not
+   *         initialized
+   */
+  PnkyPromise<ServiceInstanceSubscriptionBinding> subscribe(
+      final ServiceInterfaceName serviceInterfaceName,
+      final String protocol,
+      final VersionRange versionRange,
+      final ServiceInstanceListener listener);
+
+  /**
+   * Subscribe a listener to events related to service instances that match the provided interface
+   * name, optional protocol, and optional version range.
+   * <p>
+   * The listener will be immediately notified of all matching service instances via calls to
+   * {@link ServiceInstanceListener#registered(ServiceInstance)} followed by subsequent for updates
+   * and removals while the subscription is active.
+   *
+   * @param serviceInterfaceName
+   *          the interface name to limit the subscription to
+   * @param protocol
+   *          the optional protocol with which to limit the subscription
+   * @param versionRange
+   *          the optional version range with which to limit the subscription
+   * @param listener
+   *          the listener to notify regarding matching service instances
+   * @param executor
+   *          the executor on which the listener is invoked
+   *
+   * @return a promise completed with the binding the represents the subscription on success or
+   *         completed exceptionally with an {@link IllegalStateException} if the manager is not
+   *         initialized
+   */
+  PnkyPromise<ServiceInstanceSubscriptionBinding> subscribe(
+      final ServiceInterfaceName serviceInterfaceName,
+      final String protocol,
+      final VersionRange versionRange,
+      final ServiceInstanceListener listener,
+      final Executor executor);
 }

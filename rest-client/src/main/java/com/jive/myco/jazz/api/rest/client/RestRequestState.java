@@ -1,9 +1,10 @@
 package com.jive.myco.jazz.api.rest.client;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 
-import com.jive.v5.jumpy.JumpyRecordFilterCriteria;
-import com.jive.v5.jumpy.RestrictedSupplier;
+import com.jive.myco.jazz.api.registry.ServiceInstanceSupplier;
 
 /**
  * Encapsulates the state of a {@link RestRequest REST resquest}.
@@ -24,8 +25,6 @@ public interface RestRequestState
 
   /**
    * Returns the most recently used base URL to which the request has been sent.
-   *
-   * @return
    */
   String getLastBaseUrl();
 
@@ -36,7 +35,14 @@ public interface RestRequestState
   int getRetryCount();
 
   /**
-   * Returns the restricted supplier used to source base URLs.
+   * Returns the function used source base URLs when a {@link ServiceInstanceSupplier} is not
+   * available. This method or {@link #getServiceInstanceSupplier()} will return a non-null result.
    */
-  RestrictedSupplier<String, JumpyRecordFilterCriteria> getUrlSupplier();
+  Function<Collection<? extends String>, String> getUrlSupplier();
+
+  /**
+   * Returns the service instance supplier used to source base URLs. This method or
+   * {@link #getServiceInstanceSupplier()} will return a non-null result.
+   */
+  ServiceInstanceSupplier getServiceInstanceSupplier();
 }
