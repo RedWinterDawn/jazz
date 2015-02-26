@@ -66,7 +66,7 @@ public final class PeriodicThresholdMeteringHealthCheck extends AbstractPeriodic
       final double warnThreshold,
       final double criticalThreshold)
   {
-    log.debug("[{}]: Calculating status from meter [count={}, oneMinuteRate={}].",
+    log.trace("[{}]: Calculating status from meter [count={}, oneMinuteRate={}].",
         id, meter.getCount(), meter.getOneMinuteRate());
 
     HealthStatusAndMessage hsam = new HealthStatusAndMessage(HealthStatus.OK);
@@ -102,7 +102,7 @@ public final class PeriodicThresholdMeteringHealthCheck extends AbstractPeriodic
       hsam = new HealthStatusAndMessage(HealthStatus.OK);
     }
 
-    log.debug("[{}]: Calculating status as [{}].", id, hsam);
+    log.trace("[{}]: Calculating status as [{}].", id, hsam);
 
     return Pnky.immediatelyComplete(hsam);
   }
