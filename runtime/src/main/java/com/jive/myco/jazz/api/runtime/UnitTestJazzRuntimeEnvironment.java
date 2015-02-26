@@ -9,7 +9,5 @@ import java.util.Set;
  */
 public interface UnitTestJazzRuntimeEnvironment extends JazzRuntimeEnvironment
 {
-  // Marker
-
   Set<String> getAlteredSystemPropertyKeys();
 }
