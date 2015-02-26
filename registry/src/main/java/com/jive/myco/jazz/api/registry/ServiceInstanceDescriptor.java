@@ -71,7 +71,7 @@ public final class ServiceInstanceDescriptor
     @Override
     public ServiceInstanceDescriptorBuilder properties(final Map<String, String> properties)
     {
-      properties.clear();
+      this.properties.clear();
       addProperties(properties);
       return this;
     }

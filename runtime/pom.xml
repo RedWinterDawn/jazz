@@ -81,7 +81,7 @@
 
     <dependency>
       <groupId>com.jive.myco.isp</groupId>
-      <artifactId>isp-client2-api</artifactId>
+      <artifactId>isp-client-api</artifactId>
     </dependency>
 
     <dependency>
