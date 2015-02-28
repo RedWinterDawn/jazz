@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.codahale.metrics.MetricRegistry;
 import com.jive.myco.commons.hawtdispatch.DispatchQueueBuilder;
+import com.jive.myco.isp.client.api.AsyncIspClient;
 import com.jive.myco.jazz.api.config.ConfigurationManager;
 import com.jive.myco.jazz.api.config.JazzConfiguration;
 import com.jive.myco.jazz.api.health.HealthCheckManager;
@@ -13,7 +14,6 @@ import com.jive.myco.jazz.api.rest.RestServiceManager;
 import com.jive.myco.jazz.api.rest.client.RestClientFactoryManager;
 import com.jive.myco.jazz.api.rules.czar.model.RulesEngine;
 import com.jive.myco.jazz.api.web.HttpServerManager;
-import com.jive.v5.isp.client.IspClient;
 import com.jive.v5.jumpy.Jumpy;
 
 /**
@@ -24,6 +24,7 @@ import com.jive.v5.jumpy.Jumpy;
  *
  * @author David Valeri
  */
+@SuppressWarnings("deprecation")
 public interface JazzCore<T extends JazzConfiguration>
 {
   Optional<HttpServerManager> getHttpServerManager();
@@ -38,8 +39,14 @@ public interface JazzCore<T extends JazzConfiguration>
 
   ConfigurationManager<T> getConfigurationManager();
 
-  Optional<IspClient> getIspClient();
+  Optional<com.jive.v5.isp.client.IspClient> getIspClient();
 
+  Optional<AsyncIspClient> getAsyncIspClient();
+
+  /**
+   * @deprecated prefer {@link #getRegistryManager()} over this legacy service discovery API.
+   */
+  @Deprecated
   Optional<Jumpy> getJumpy();
 
   Optional<RegistryManager> getRegistryManager();

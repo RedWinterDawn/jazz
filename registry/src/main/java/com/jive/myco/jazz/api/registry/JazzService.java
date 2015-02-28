@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import com.jive.myco.commons.versions.Version;
+import com.jive.myco.commons.versions.VersionRange;
 
 /**
  * Indicates that an interface represents an entry point to a Jazz Service.
@@ -17,14 +18,14 @@ import com.jive.myco.commons.versions.Version;
 public @interface JazzService
 {
   /**
-   * A required field indicating the identifier for the service interface Name. Must be a valid
+   * A required field indicating the identifier for the service interface name. Must be a valid
    * {@link ServiceInterfaceName} value.
    */
   public String serviceInterfaceName();
 
   /**
    * A required field indicating the version of the service interface. Must be a valid
-   * {@link Version} value.
+   * {@link Version} or {@link VersionRange} value.
    */
   public String serviceInterfaceVersion();
 

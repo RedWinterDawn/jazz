@@ -39,9 +39,11 @@
 
   <properties>
     <deps.commons-lang.version>2.6</deps.commons-lang.version>
+    <deps.isp.version>1.0.4-SNAPSHOT</deps.isp.version>
     <deps.jax-rs-api.version>2.0.1</deps.jax-rs-api.version>
     <deps.jumpy.version>0.42-SNAPSHOT</deps.jumpy.version>
     <deps.myco-commons.version>0.2.7-SNAPSHOT</deps.myco-commons.version>
+    <deps.v5-isp.version>1.0.4-SNAPSHOT</deps.v5-isp.version>
     <deps.servlet.version>3.1.0</deps.servlet.version>
   </properties>
 
@@ -55,11 +57,27 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-
+      
+      <dependency>
+        <groupId>com.jive.myco.isp</groupId>
+        <artifactId>isp-bom</artifactId>
+        <version>${deps.isp.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      
       <dependency>
         <groupId>com.jive.v5.jumpy</groupId>
         <artifactId>jumpy-bom</artifactId>
         <version>${deps.jumpy.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.jive.v5.isp</groupId>
+        <artifactId>isp-bom</artifactId>
+        <version>${deps.v5-isp.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

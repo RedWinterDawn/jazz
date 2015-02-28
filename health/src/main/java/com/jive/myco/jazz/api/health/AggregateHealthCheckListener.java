@@ -2,11 +2,11 @@ package com.jive.myco.jazz.api.health;
 
 import java.util.Map;
 
-
 /**
- * A listener for updates in status of a {@link HealthCheck}. Listener implementations should expect
+ * A listener for updates to an {@link AggregateHealthCheck}. Listener implementations should expect
  * the possibility of concurrent updates and must provide their own means of synchronization if
- * ordering of notification processing is important.
+ * ordering of notification processing is important when registered to multiple aggregate health
+ * checks or adding to a health check with a user supplied executor.
  *
  * @author David Valeri
  */
@@ -20,37 +20,44 @@ public interface AggregateHealthCheckListener
    *          the check that experienced the status change
    * @param status
    *          the new status
-   *
-   * @see HealthCheck#addListener(HealthCheckListener)
-   * @see HealthCheck#addListener(HealthCheckListener, java.util.concurrent.Executor)
-   *
-   * @deprecated use {@link #onHealthCheckStatusChanged(AggregateHealthCheck, HealthStatus, Map)}
-   *             instead.
-   */
-  @Deprecated
-  void onHealthCheckStatusChanged(final AggregateHealthCheck healthCheck,
-      final HealthStatus status);
-
-  /**
-   * Triggers on the change of the health status of {@code healthCheck} or on initial addition to a
-   * {@link HealthCheck}.
-   * <p/>
-   * The default implementation delegates to
-   * {@link #onHealthCheckStatusChanged(AggregateHealthCheck, HealthStatus)}.
-   *
-   * @param healthCheck
-   *          the check that experienced the status change
-   * @param status
-   *          the new status
    * @param healthCheckStatuses
    *          the statuses of each constituent check at the moment the listener triggers
    *
    * @see HealthCheck#addListener(HealthCheckListener)
    * @see HealthCheck#addListener(HealthCheckListener, java.util.concurrent.Executor)
    */
-  default void onHealthCheckStatusChanged(final AggregateHealthCheck healthCheck,
-      final HealthStatus status, final Map<HealthCheck, HealthStatusAndMessage> healthCheckStatuses)
+  void onHealthCheckStatusChanged(final AggregateHealthCheck healthCheck,
+      final HealthStatus status, final Map<HealthCheck, HealthStatusAndMessage> healthCheckStatuses);
+
+  /**
+   * Triggers on the addition of {@code healthCheck} to {@code aggregateHealthCheck}.
+   * <p/>
+   * The default implementation performs a No-op.
+   *
+   * @param aggregateHealthCheck
+   *          the aggregate health check that {@code healthCheck} was added to
+   * @param healthCheck
+   *          the check that was added
+   */
+  default void onHealthCheckAdded(final AggregateHealthCheck aggregateHealthCheck,
+      final HealthCheck healthCheck)
   {
-    onHealthCheckStatusChanged(healthCheck, status);
+    // No-Op
+  }
+
+  /**
+   * Triggers on the removal of {@code healthCheck} from {@code aggregateHealthCheck}.
+   * <p/>
+   * The default implementation performs a No-op.
+   *
+   * @param aggregateHealthCheck
+   *          the aggregate health check that {@code healthCheck} was removed from
+   * @param healthCheck
+   *          the check that was removed
+   */
+  default void onHealthCheckRemoved(final AggregateHealthCheck aggregateHealthCheck,
+      final HealthCheck healthCheck)
+  {
+    // No-Op
   }
 }

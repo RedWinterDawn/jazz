@@ -15,7 +15,8 @@ public class RetryRestResponseHandlerResult extends AbstractRestResponseHandlerR
   private final Supplier<String> baseUrlSupplier;
   private final Exception exception;
 
-  public RetryRestResponseHandlerResult(@NonNull final Supplier<String> baseUrlSupplier,
+  public RetryRestResponseHandlerResult(
+      @NonNull final Supplier<String> baseUrlSupplier,
       @NonNull final Exception exception)
   {
     this.baseUrlSupplier = baseUrlSupplier;

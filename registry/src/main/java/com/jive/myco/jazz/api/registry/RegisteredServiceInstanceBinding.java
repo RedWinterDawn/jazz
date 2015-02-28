@@ -14,12 +14,16 @@ import com.jive.myco.jazz.api.core.Binding;
 public interface RegisteredServiceInstanceBinding extends Binding<Void>
 {
   /**
-   * Unregisters the service instance from the registry.
+   * Updates the service instance data in the registry.
    *
-   * @deprecated used to bridge API changes. Use {@link #remove()} instead.
+   * @param properties
+   *          the new properties to assign
+   *
+   * @deprecated use {@link #updateAsync(Map) instead. This method will be replaced by the async
+   *             signature in a future release.
    */
   @Deprecated
-  PnkyPromise<Void> removeAsync();
+  void update(final Map<String, String> properties);
 
   /**
    * Updates the service instance data in the registry.
@@ -27,7 +31,7 @@ public interface RegisteredServiceInstanceBinding extends Binding<Void>
    * @param properties
    *          the new properties to assign
    */
-  void update(final Map<String, String> properties);
+  PnkyPromise<Void> updateAsync(final Map<String, String> properties);
 
   /**
    * Unregisters the service instance from the registry.

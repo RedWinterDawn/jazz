@@ -37,15 +37,16 @@ public final class ServiceInstanceDescriptor
   private final Map<String, String> properties;
 
   @Builder
-  private ServiceInstanceDescriptor(final ServiceInterfaceName serviceInterfaceName,
-      final ServiceAddress serviceAddress, final Version serviceInterfaceVersion,
+  private ServiceInstanceDescriptor(
+      final ServiceInterfaceName serviceInterfaceName,
+      final ServiceAddress serviceAddress,
+      final Version serviceInterfaceVersion,
       final Map<String, String> properties)
   {
     this.serviceInterfaceName = serviceInterfaceName;
     this.serviceAddress = serviceAddress;
     this.serviceInterfaceVersion = serviceInterfaceVersion;
-    // Note, we can only get away with not making a copy because this is a private constructor
-    this.properties = Collections.unmodifiableMap(properties);
+    this.properties = Collections.unmodifiableMap(new HashMap<>(properties));
   }
 
   public static final class ServiceInstanceDescriptorBuilder implements
@@ -70,7 +71,7 @@ public final class ServiceInstanceDescriptor
     @Override
     public ServiceInstanceDescriptorBuilder properties(final Map<String, String> properties)
     {
-      properties.clear();
+      this.properties.clear();
       addProperties(properties);
       return this;
     }
