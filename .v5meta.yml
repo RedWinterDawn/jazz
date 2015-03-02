@@ -1,3 +1,6 @@
 properties:
   com.jive.myco.commons: deps.myco-commons.version
   com.jive.v5.jumpy: deps.jumpy.version
+  com.jive.myco.isp: deps.isp.version
+  com.jive.v5.isp: deps.v5-isp.version
+
