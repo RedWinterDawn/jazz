@@ -91,7 +91,7 @@
 
     <dependency>
       <groupId>com.jive.v5.jumpy</groupId>
-      <artifactId>jumpy-isp</artifactId>
+      <artifactId>jumpy-api</artifactId>
     </dependency>
 
     <dependency>
