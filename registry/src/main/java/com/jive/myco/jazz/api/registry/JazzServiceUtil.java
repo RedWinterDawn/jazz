@@ -14,7 +14,7 @@ import com.jive.v5.jumpy.JumpyService;
 public final class JazzServiceUtil
 {
   private static final Pattern JUMPY_RECORD_NAME_PATTERN = Pattern.compile(
-      "(_[^.]+._[^.]+)?\\.?([^\\/]+)?(?:\\/[v]([0-9]+))?");
+      "(_[^.]+._[^.]+)?\\.?([^\\/]+)?(?:\\/[vV]([0-9]+))?");
 
   private JazzServiceUtil()
   {
