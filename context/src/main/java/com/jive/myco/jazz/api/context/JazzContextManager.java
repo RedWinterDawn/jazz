@@ -387,17 +387,20 @@ public final class JazzContextManager
   {
     try
     {
-      return context.get().entrySet()
+      final Map<String, String> map = new HashMap<>();
+
+      context.get().entrySet()
           .stream()
           .filter((entry) -> entry.getValue().getScope() == Scope.PUBLIC)
-          .collect(
-              Collectors.toMap(
-                  Map.Entry::getKey,
-                  (entry) -> entry.getValue().getValue(),
-                  // @formatter:off
-                  (u, v) -> { throw new IllegalStateException(String.format("Duplicate key %s", u)); },
-                  // @formatter:on
-                  HashMap::new));
+          .forEach((entry) ->
+          {
+            if (map.put(entry.getKey(), entry.getValue().getValue()) != null)
+            {
+              throw new IllegalStateException(String.format("Duplicate key %s", entry.getKey()));
+            }
+          });
+
+      return map;
     }
     catch (final NullPointerException e)
     {
