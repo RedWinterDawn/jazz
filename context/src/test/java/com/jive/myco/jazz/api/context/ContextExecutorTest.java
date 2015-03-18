@@ -1,3 +1,4 @@
+package com.jive.myco.jazz.api.context;
 import static com.jayway.awaitility.Awaitility.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;

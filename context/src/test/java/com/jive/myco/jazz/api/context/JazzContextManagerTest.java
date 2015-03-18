@@ -1,3 +1,4 @@
+package com.jive.myco.jazz.api.context;
 import static org.junit.Assert.*;
 
 import java.util.HashMap;
