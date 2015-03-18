@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang.RandomStringUtils;
 
@@ -23,6 +24,7 @@ import com.google.common.collect.Maps;
 /**
  * @author Brandon Pedersen &lt;bpedersen@getjive.com&gt;
  */
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class JazzContextManager
 {
@@ -383,17 +385,25 @@ public final class JazzContextManager
    */
   public static Map<String, String> toMap()
   {
-    return context.get().entrySet()
-        .stream()
-        .filter((entry) -> entry.getValue().getScope() == Scope.PUBLIC)
-        .collect(
-            Collectors.toMap(
-                Map.Entry::getKey,
-                (entry) -> entry.getValue().getValue(),
-                // @formatter:off
-                (u, v) -> { throw new IllegalStateException(String.format("Duplicate key %s", u)); },
-                // @formatter:on
-                HashMap::new));
+    try
+    {
+      return context.get().entrySet()
+          .stream()
+          .filter((entry) -> entry.getValue().getScope() == Scope.PUBLIC)
+          .collect(
+              Collectors.toMap(
+                  Map.Entry::getKey,
+                  (entry) -> entry.getValue().getValue(),
+                  // @formatter:off
+                  (u, v) -> { throw new IllegalStateException(String.format("Duplicate key %s", u)); },
+                  // @formatter:on
+                  HashMap::new));
+    }
+    catch (final NullPointerException e)
+    {
+      log.error("Error converting context [{}] to map.", context.get());
+      throw e;
+    }
   }
 
   /**
