@@ -41,7 +41,7 @@
     <deps.commons-lang.version>2.6</deps.commons-lang.version>
     <deps.isp.version>1.0.5</deps.isp.version>
     <deps.jax-rs-api.version>2.0.1</deps.jax-rs-api.version>
-    <deps.jumpy.version>0.43</deps.jumpy.version>
+    <deps.jumpy.version>0.44-SNAPSHOT</deps.jumpy.version>
     <deps.myco-commons.version>0.2.7</deps.myco-commons.version>
     <deps.v5-isp.version>1.0.5</deps.v5-isp.version>
     <deps.servlet.version>3.1.0</deps.servlet.version>

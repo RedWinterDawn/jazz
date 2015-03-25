@@ -24,7 +24,6 @@ import com.jive.v5.jumpy.Jumpy;
  *
  * @author David Valeri
  */
-@SuppressWarnings("deprecation")
 public interface JazzCore<T extends JazzConfiguration>
 {
   Optional<HttpServerManager> getHttpServerManager();
@@ -44,7 +43,8 @@ public interface JazzCore<T extends JazzConfiguration>
   Optional<AsyncIspClient> getAsyncIspClient();
 
   /**
-   * @deprecated prefer {@link #getRegistryManager()} over this legacy service discovery API.
+   * @deprecated prefer {@link #getRegistryManager()} over this legacy service discovery API. Please
+   *             provide feedback as to any deficiencies in the {@link RegistryManager} API.
    */
   @Deprecated
   Optional<Jumpy> getJumpy();
