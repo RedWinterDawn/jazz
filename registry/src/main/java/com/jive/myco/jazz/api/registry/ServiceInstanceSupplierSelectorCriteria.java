@@ -14,6 +14,9 @@ import lombok.experimental.Builder;
 @Getter
 public class ServiceInstanceSupplierSelectorCriteria
 {
+  public static final ServiceInstanceSupplierSelectorCriteria EMPTY_CRITERIA =
+      ServiceInstanceSupplierSelectorCriteria.builder().build();
+
   private final Set<String> deprioritizedServiceInstanceIds;
   private final Set<String> deprioritizedServiceAddresses;
 
