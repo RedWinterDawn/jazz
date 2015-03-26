@@ -68,10 +68,8 @@
       
       <dependency>
         <groupId>com.jive.v5.jumpy</groupId>
-        <artifactId>jumpy-bom</artifactId>
+        <artifactId>jumpy-api</artifactId>
         <version>${deps.jumpy.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
       </dependency>
       
       <dependency>
