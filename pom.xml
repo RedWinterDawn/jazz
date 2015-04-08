@@ -9,7 +9,7 @@
 
   <groupId>com.jive.myco.jazz.api</groupId>
   <artifactId>root</artifactId>
-  <version>0.2.61-SNAPSHOT</version>
+  <version>0.2.61</version>
   <packaging>pom</packaging>
 
   <name>Jazz :: API :: Root</name>
@@ -34,7 +34,7 @@
     <connection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</connection>
     <developerConnection>scm:git:git@github.com:jive/com.jive.myco.jazz.api.git</developerConnection>
     <url>https://github.com/jive/com.jive.myco.jazz.api</url>
-    <tag>HEAD</tag>
+    <tag>0.2.61</tag>
   </scm>
 
   <properties>
