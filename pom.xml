@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.jive.myco</groupId>
     <artifactId>parent</artifactId>
-    <version>35</version>
+    <version>37-SNAPSHOT</version>
   </parent>
 
   <groupId>com.jive.myco.jazz.api</groupId>
@@ -42,7 +42,7 @@
     <deps.isp.version>1.0.7</deps.isp.version>
     <deps.jax-rs-api.version>2.0.1</deps.jax-rs-api.version>
     <deps.jumpy.version>0.45</deps.jumpy.version>
-    <deps.myco-commons.version>0.2.7</deps.myco-commons.version>
+    <deps.myco-commons.version>0.2.8-SNAPSHOT</deps.myco-commons.version>
     <deps.v5-isp.version>1.0.6</deps.v5-isp.version>
     <deps.servlet.version>3.1.0</deps.servlet.version>
   </properties>
