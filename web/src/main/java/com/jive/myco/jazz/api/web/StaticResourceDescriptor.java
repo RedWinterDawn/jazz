@@ -2,9 +2,9 @@ package com.jive.myco.jazz.api.web;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.experimental.Builder;
 
 /**
  * Represents a location to lookup resources from and the relative URL pattern used to map requests

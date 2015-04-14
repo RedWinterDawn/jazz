@@ -3,9 +3,9 @@ package com.jive.myco.jazz.api.core.coordinates;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
-import lombok.experimental.Builder;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

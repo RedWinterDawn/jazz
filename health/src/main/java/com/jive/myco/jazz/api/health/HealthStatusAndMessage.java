@@ -1,10 +1,10 @@
 package com.jive.myco.jazz.api.health;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.Builder;
 
 /**
  * A container that combines a health status and an optional message.

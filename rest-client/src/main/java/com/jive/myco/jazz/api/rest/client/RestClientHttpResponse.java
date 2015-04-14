@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.experimental.Builder;
 
 /**
  * A HTTP response object that can be used to get additional information about a response from an

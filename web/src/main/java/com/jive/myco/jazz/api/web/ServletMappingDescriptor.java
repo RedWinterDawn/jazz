@@ -5,9 +5,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.Servlet;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.experimental.Builder;
 
 /**
  * Represents a servlet and the URL pattern used to map requests to the servlet.
