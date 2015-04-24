@@ -34,4 +34,16 @@ public class HttpRestClientException extends RestClientHttpException
   {
     super(responseCode, reasonPhrase, message, cause);
   }
+
+  @Override
+  public int getResponseCode()
+  {
+    return super.getResponseCode();
+  }
+
+  @Override
+  public String getReasonPhrase()
+  {
+    return super.getReasonPhrase();
+  }
 }
