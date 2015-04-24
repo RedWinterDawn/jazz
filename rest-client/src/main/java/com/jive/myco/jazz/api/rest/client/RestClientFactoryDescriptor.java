@@ -68,6 +68,12 @@ public class RestClientFactoryDescriptor
    */
   private final boolean relativeRedirectsAllowed;
 
+  /**
+   * Indicates if connections can be reused (TCP connection pooling).
+   */
+  private final boolean reuseConnections;
+
+
   public static final class RestClientFactoryDescriptorBuilder
   {
     private TimeUnit connectTimeoutUnit = TimeUnit.MILLISECONDS;
@@ -79,5 +85,7 @@ public class RestClientFactoryDescriptor
     private boolean redirectsEnabled = true;
 
     private boolean relativeRedirectsAllowed = true;
+
+    private boolean reuseConnections = false;
   }
 }
