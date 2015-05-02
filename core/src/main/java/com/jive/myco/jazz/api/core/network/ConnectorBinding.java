@@ -3,9 +3,9 @@ package com.jive.myco.jazz.api.core.network;
 import java.net.InetAddress;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.experimental.Builder;
 
 /**
  * Represents the binding of a resource, service, etc. to a particular connector that exposes the

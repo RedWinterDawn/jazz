@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
-import lombok.experimental.Builder;
 
 /**
  * Represents a named network available in the environment.

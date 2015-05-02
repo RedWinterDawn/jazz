@@ -10,9 +10,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.MultipartConfigElement;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.experimental.Builder;
 
 import com.jive.myco.jazz.api.core.network.ConnectorDescriptor;
 import com.jive.myco.jazz.api.registry.AutoRegisteredServiceInstanceDescriptor;

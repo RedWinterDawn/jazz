@@ -3,9 +3,9 @@ package com.jive.myco.jazz.api.registry;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.experimental.Builder;
 
 import com.jive.myco.commons.versions.Version;
 

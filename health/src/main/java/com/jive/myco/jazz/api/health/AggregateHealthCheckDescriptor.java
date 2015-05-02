@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.experimental.Builder;
 
 /**
  * A descriptor for the creation of an {@link AggregateHealthCheck} via the

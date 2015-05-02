@@ -1,8 +1,8 @@
 package com.jive.myco.jazz.api.rules.czar.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
-import lombok.experimental.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import com.jive.myco.jazz.api.context.JazzContextManager;
