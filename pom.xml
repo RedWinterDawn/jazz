@@ -39,7 +39,7 @@
 
   <properties>
     <deps.commons-lang.version>2.6</deps.commons-lang.version>
-    <deps.isp.version>1.0.8-SNAPSHOT</deps.isp.version>
+    <deps.isp.version>1.0.8</deps.isp.version>
     <deps.jax-rs-api.version>2.0.1</deps.jax-rs-api.version>
     <deps.jumpy.version>0.47</deps.jumpy.version>
     <deps.myco-commons.version>0.2.8</deps.myco-commons.version>
