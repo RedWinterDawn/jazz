@@ -58,6 +58,16 @@ public class Networks
     return null;
   }
 
+  @Override
+  public String toString()
+  {
+    final StringBuilder builder = new StringBuilder();
+    builder.append("Networks [networkIdMap=");
+    builder.append(networkIdMap);
+    builder.append("]");
+    return builder.toString();
+  }
+
   public static final class NetworksBuilder
   {
     private final Set<Network> networks = new HashSet<>();

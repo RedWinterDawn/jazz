@@ -70,4 +70,16 @@ public final class Network
       // Hidden (Lombok)
     }
   }
+
+  @Override
+  public String toString()
+  {
+    final StringBuilder builder = new StringBuilder();
+    builder.append("Network [id=");
+    builder.append(id);
+    builder.append(", inetAddresses=");
+    builder.append(inetAddresses);
+    builder.append("]");
+    return builder.toString();
+  }
 }
