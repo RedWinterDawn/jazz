@@ -4,9 +4,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.Filter;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.experimental.Builder;
 
 /**
  * Represents a filter and the URL pattern used to map requests to the filter.

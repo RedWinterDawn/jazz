@@ -1,10 +1,10 @@
 package com.jive.myco.jazz.api.registry;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.Builder;
 
 /**
  * Represents an address of the service. Any string valid except null.

@@ -3,8 +3,8 @@ package com.jive.myco.jazz.api.core.network;
 import java.net.InetAddress;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.experimental.Builder;
 
 /**
  * Represents a description of a requested binding for a resource, service, etc. to a particular

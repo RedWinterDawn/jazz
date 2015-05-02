@@ -3,9 +3,9 @@ package com.jive.myco.jazz.api.rules.czar.model;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
-import lombok.experimental.Builder;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -31,9 +31,9 @@ public class Action
   private String value;
 
   @JsonCreator
-  public static Action valueOf(@NonNull String expression) throws RuleException
+  public static Action valueOf(@NonNull final String expression) throws RuleException
   {
-    Matcher matcher = PATTERN.matcher(expression);
+    final Matcher matcher = PATTERN.matcher(expression);
     if (matcher.matches())
     {
       return Action.builder()

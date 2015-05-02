@@ -2,9 +2,9 @@ package com.jive.myco.jazz.api.rest.client;
 
 import java.util.concurrent.TimeUnit;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.experimental.Builder;
 
 import com.google.common.net.HostAndPort;
 

@@ -2,11 +2,11 @@ package com.jive.myco.jazz.api.core;
 
 import java.util.Optional;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.Builder;
 
 /**
  * Provides information regarding the ultimate source of something in the context of version control

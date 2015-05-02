@@ -8,8 +8,8 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import lombok.Builder;
 import lombok.NonNull;
-import lombok.experimental.Builder;
 
 /**
  * Represents a collection of named networks in the environment.
