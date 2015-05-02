@@ -1,9 +1,11 @@
 package com.jive.myco.jazz.api.context;
 
+import java.math.BigInteger;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -54,6 +56,23 @@ public final class JazzContextManager
    * @see #JAZZ_CONTEXT_ID_KEY
    */
   private static final int JAZZ_CONTEXT_ID_LENGTH = 32;
+
+  /**
+   * Number of random bits used to generate a trace ID.
+   *
+   * @see #JAZZ_TRACE_ID_KEY
+   * @see #JAZZ_TRACE_ID_RADIX
+   */
+  private static final int JAZZ_TRACE_ID_RANDOM_BITS = 130;
+
+  /**
+   * Generated trace ID radix. Using {@code 32} ensures the length of the generated ID is constant
+   * length based on the number of random bits.
+   *
+   * @see #JAZZ_TRACE_ID_KEY
+   * @see #JAZZ_TRACE_ID_RANDOM_BITS
+   */
+  private static final int JAZZ_TRACE_ID_RADIX = 32;
 
   /**
    * Pattern for valid characters for a context key.
@@ -407,6 +426,17 @@ public final class JazzContextManager
       log.error("Error converting context [{}] to map.", context.get());
       throw e;
     }
+  }
+
+  /**
+   * Generates a (mostly) unique trace ID which will be used to track a request throughout our
+   * infrastructure from one service to the next.
+   */
+  public static String generateTraceId()
+  {
+    return new BigInteger(JAZZ_TRACE_ID_RANDOM_BITS, ThreadLocalRandom.current())
+        .add(BigInteger.valueOf(System.currentTimeMillis()))
+        .toString(JAZZ_TRACE_ID_RADIX);
   }
 
   /**
