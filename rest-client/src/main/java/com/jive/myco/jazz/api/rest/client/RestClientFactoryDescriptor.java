@@ -73,6 +73,11 @@ public class RestClientFactoryDescriptor
    */
   private final boolean reuseConnections;
 
+  /**
+   * The cookie specification to enable on the underlying HTTP client. Defaults to an RFC 6265
+   * compliant spec.
+   */
+  private final CookieSpec cookieSpec;
 
   public static final class RestClientFactoryDescriptorBuilder
   {
@@ -87,5 +92,7 @@ public class RestClientFactoryDescriptor
     private boolean relativeRedirectsAllowed = true;
 
     private boolean reuseConnections = false;
+
+    private CookieSpec cookieSpec = CookieSpec.STANDARD;
   }
 }
