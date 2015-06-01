@@ -4,10 +4,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-import lombok.Builder;
 import lombok.NonNull;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 import com.jive.myco.commons.concurrent.Pnky;
@@ -123,14 +120,11 @@ public final class PeriodicThresholdGaugeHealthCheck<T extends Comparable<T>> ex
     return new PeriodicThresholdGaugeHealthCheckBuilder<>();
   }
 
-  @Accessors(fluent = true)
-  @Setter
   public static final class PeriodicThresholdGaugeHealthCheckBuilder<T extends Comparable<T>>
       extends AbstractAsyncPeriodicHealthCheckBuilder<PeriodicThresholdGaugeHealthCheckBuilder<T>>
   {
-    private final ThresholdMode thresholdMode = ThresholdMode.UPPER_BOUND;
-    private String id;
     private Supplier<PnkyPromise<T>> dataSupplier;
+    private final ThresholdMode thresholdMode = ThresholdMode.UPPER_BOUND;
     private T infoThreshold;
     private T warnThreshold;
     private T criticalThreshold;
@@ -151,6 +145,32 @@ public final class PeriodicThresholdGaugeHealthCheck<T extends Comparable<T>> ex
           infoThreshold,
           warnThreshold,
           criticalThreshold);
+
+    }
+
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> dataSupplier(
+        final Supplier<PnkyPromise<T>> dataSupplier)
+    {
+      this.dataSupplier = dataSupplier;
+      return this;
+    }
+
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> infoThreshold(final T infoThreshold)
+    {
+      this.infoThreshold = infoThreshold;
+      return this;
+    }
+
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> warnThreshold(final T warnThreshold)
+    {
+      this.warnThreshold = warnThreshold;
+      return this;
+    }
+
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> criticalThreshold(final T criticalThreshold)
+    {
+      this.criticalThreshold = criticalThreshold;
+      return this;
     }
 
     @Override
