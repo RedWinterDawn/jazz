@@ -22,9 +22,9 @@ import com.jive.myco.commons.hawtdispatch.DispatchQueueBuilder;
  * @author David Valeri
  */
 @Slf4j
-public final class PeriodicThresholdMeteringHealthCheck extends AbstractPeriodicMeteringHealthCheck
+public final class PeriodicThresholdSlidingWindowHistogramHealthCheck extends
+    AbstractPeriodicSlidingWindowHistogramHealthCheck
 {
-
   /**
    * @deprecated use {@link com.jive.myco.jazz.api.health.ThresholdMode} instead
    */
@@ -40,7 +40,7 @@ public final class PeriodicThresholdMeteringHealthCheck extends AbstractPeriodic
     private final com.jive.myco.jazz.api.health.ThresholdMode newThresholdMode;
   }
 
-  private PeriodicThresholdMeteringHealthCheck(
+  private PeriodicThresholdSlidingWindowHistogramHealthCheck(
       final String id,
       final long period,
       final TimeUnit periodUnit,
@@ -50,6 +50,8 @@ public final class PeriodicThresholdMeteringHealthCheck extends AbstractPeriodic
       final Supplier<HealthStatusAndMessage> unstartedHealthStatusAndMessageSupplier,
       final Supplier<HealthStatusAndMessage> lifecycleGracePeriodHealthStatusAndMessageSupplier,
       final boolean supressUpdatesDuringLifecycleGracePeriod,
+      final long window,
+      @NonNull final TimeUnit windowUnit,
       @NonNull final com.jive.myco.jazz.api.health.ThresholdMode thresholdMode,
       final double infoThreshold,
       final double warnThreshold,
@@ -64,27 +66,30 @@ public final class PeriodicThresholdMeteringHealthCheck extends AbstractPeriodic
         dispatchQueueBuilder,
         unstartedHealthStatusAndMessageSupplier,
         lifecycleGracePeriodHealthStatusAndMessageSupplier,
-        (m) -> Pnky.immediatelyComplete(
-            ThresholdHealthCheckUtil.calculateHealthStatusAndMessage(
+        window,
+        windowUnit,
+        (s) -> Pnky.immediatelyComplete(ThresholdHealthCheckUtil
+            .calculateHealthStatusAndMessage(
                 log,
                 id,
                 thresholdMode,
-                m.getOneMinuteRate(),
+                s.get99thPercentile(),
                 infoThreshold,
                 warnThreshold,
                 criticalThreshold)),
         supressUpdatesDuringLifecycleGracePeriod);
   }
 
-  public static ThresholdMeteringHealthCheckBuilder builder()
+  public static PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder builder()
   {
-    return new ThresholdMeteringHealthCheckBuilder();
+    return new PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder();
   }
 
   @Accessors(fluent = true)
   @Setter
-  public static final class ThresholdMeteringHealthCheckBuilder extends
-      AbstractPeriodicMeteringHealthCheckBuilder<ThresholdMeteringHealthCheckBuilder>
+  public static final class PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder
+      extends
+      AbstractPeriodicSlidingWindowHistogramHealthCheckBuilder<PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder>
   {
     private com.jive.myco.jazz.api.health.ThresholdMode thresholdMode =
         com.jive.myco.jazz.api.health.ThresholdMode.UPPER_BOUND;
@@ -92,9 +97,9 @@ public final class PeriodicThresholdMeteringHealthCheck extends AbstractPeriodic
     private double warnThreshold;
     private double criticalThreshold;
 
-    public PeriodicThresholdMeteringHealthCheck build()
+    public PeriodicThresholdSlidingWindowHistogramHealthCheck build()
     {
-      return new PeriodicThresholdMeteringHealthCheck(
+      return new PeriodicThresholdSlidingWindowHistogramHealthCheck(
           id,
           period,
           periodUnit,
@@ -104,6 +109,8 @@ public final class PeriodicThresholdMeteringHealthCheck extends AbstractPeriodic
           unstartedHealthStatusAndMessageSupplier,
           lifecycleGracePeriodHealthStatusAndMessageSupplier,
           supressUpdatesDuringLifecycleGracePeriod,
+          window,
+          windowUnit,
           thresholdMode,
           infoThreshold,
           warnThreshold,
@@ -111,80 +118,30 @@ public final class PeriodicThresholdMeteringHealthCheck extends AbstractPeriodic
     }
 
     @Override
-    public ThresholdMeteringHealthCheckBuilder id(final String id)
+    public PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder window(final long window)
     {
-      return super.id(id);
+      return super.window(window);
     }
 
     @Override
-    public ThresholdMeteringHealthCheckBuilder period(final long period)
+    public PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder windowUnit(
+        final TimeUnit windowUnit)
     {
-      return super.period(period);
-    }
-
-    @Override
-    public ThresholdMeteringHealthCheckBuilder periodUnit(final TimeUnit periodUnit)
-    {
-      return super.periodUnit(periodUnit);
-    }
-
-    @Override
-    public ThresholdMeteringHealthCheckBuilder lifecycleGracePeriod(
-        final long lifecycleGracePeriod)
-    {
-      return super.lifecycleGracePeriod(lifecycleGracePeriod);
-    }
-
-    @Override
-    public ThresholdMeteringHealthCheckBuilder lifecycleGracePeriodUnit(
-        final TimeUnit lifecycleGracePeriodUnit)
-    {
-      return super.lifecycleGracePeriodUnit(lifecycleGracePeriodUnit);
-    }
-
-    @Override
-    public ThresholdMeteringHealthCheckBuilder dispatchQueueBuilder(
-        final DispatchQueueBuilder dispatchQueueBuilder)
-    {
-      return super.dispatchQueueBuilder(dispatchQueueBuilder);
-    }
-
-    @Override
-    public ThresholdMeteringHealthCheckBuilder defaultUnstartedHealthStatusAndMessageSupplier(
-        final Supplier<HealthStatusAndMessage> unstartedHealthStatusAndMessageSupplier)
-    {
-      return super.defaultUnstartedHealthStatusAndMessageSupplier(
-          unstartedHealthStatusAndMessageSupplier);
-    }
-
-    @Override
-    public ThresholdMeteringHealthCheckBuilder lifecycleGracePeriodHealthStatusAndMessageSupplier(
-        final Supplier<HealthStatusAndMessage> lifecycleGracePeriodHealthStatusAndMessageSupplier)
-    {
-      return super.lifecycleGracePeriodHealthStatusAndMessageSupplier(
-          lifecycleGracePeriodHealthStatusAndMessageSupplier);
-    }
-
-    @Override
-    public ThresholdMeteringHealthCheckBuilder supressUpdatesDuringLifecycleGracePeriod(
-        final boolean supressUpdatesDuringLifecycleGracePeriod)
-    {
-      return super
-          .supressUpdatesDuringLifecycleGracePeriod(supressUpdatesDuringLifecycleGracePeriod);
+      return super.windowUnit(windowUnit);
     }
 
     /**
      * @deprecated use {@link #thresholdMode(com.jive.myco.jazz.api.health.ThresholdMode)} instead
      */
     @Deprecated
-    public ThresholdMeteringHealthCheckBuilder thresholdMode(
+    public PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder thresholdMode(
         final ThresholdMode thresholdMode)
     {
       this.thresholdMode = thresholdMode.getNewThresholdMode();
       return this;
     }
 
-    public ThresholdMeteringHealthCheckBuilder thresholdMode(
+    public PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder thresholdMode(
         final com.jive.myco.jazz.api.health.ThresholdMode thresholdMode)
     {
       this.thresholdMode = thresholdMode;
@@ -192,7 +149,71 @@ public final class PeriodicThresholdMeteringHealthCheck extends AbstractPeriodic
     }
 
     @Override
-    protected ThresholdMeteringHealthCheckBuilder getThis()
+    public PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder id(final String id)
+    {
+      return super.id(id);
+    }
+
+    @Override
+    public PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder period(final long period)
+    {
+      return super.period(period);
+    }
+
+    @Override
+    public PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder periodUnit(
+        final TimeUnit periodUnit)
+    {
+      return super.periodUnit(periodUnit);
+    }
+
+    @Override
+    public PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder lifecycleGracePeriod(
+        final long lifecycleGracePeriod)
+    {
+      return super.lifecycleGracePeriod(lifecycleGracePeriod);
+    }
+
+    @Override
+    public PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder lifecycleGracePeriodUnit(
+        final TimeUnit lifecycleGracePeriodUnit)
+    {
+      return super.lifecycleGracePeriodUnit(lifecycleGracePeriodUnit);
+    }
+
+    @Override
+    public PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder dispatchQueueBuilder(
+        final DispatchQueueBuilder dispatchQueueBuilder)
+    {
+      return super.dispatchQueueBuilder(dispatchQueueBuilder);
+    }
+
+    @Override
+    public PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder defaultUnstartedHealthStatusAndMessageSupplier(
+        final Supplier<HealthStatusAndMessage> unstartedHealthStatusAndMessageSupplier)
+    {
+      return super.defaultUnstartedHealthStatusAndMessageSupplier(
+          unstartedHealthStatusAndMessageSupplier);
+    }
+
+    @Override
+    public PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder lifecycleGracePeriodHealthStatusAndMessageSupplier(
+        final Supplier<HealthStatusAndMessage> lifecycleGracePeriodHealthStatusAndMessageSupplier)
+    {
+      return super.lifecycleGracePeriodHealthStatusAndMessageSupplier(
+          lifecycleGracePeriodHealthStatusAndMessageSupplier);
+    }
+
+    @Override
+    public PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder supressUpdatesDuringLifecycleGracePeriod(
+        final boolean supressUpdatesDuringLifecycleGracePeriod)
+    {
+      return super
+          .supressUpdatesDuringLifecycleGracePeriod(supressUpdatesDuringLifecycleGracePeriod);
+    }
+
+    @Override
+    protected PeriodicThresholdSlidingWindowHistogramHealthCheckBuilder getThis()
     {
       return this;
     }

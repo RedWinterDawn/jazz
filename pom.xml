@@ -20,6 +20,7 @@
     <module>config</module>
     <module>core</module>
     <module>health</module>
+    <module>jdbc</module>
     <module>metrics</module>
     <module>rest</module>
     <module>rest-client</module>
