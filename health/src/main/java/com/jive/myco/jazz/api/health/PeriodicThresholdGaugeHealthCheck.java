@@ -106,8 +106,10 @@ public final class PeriodicThresholdGaugeHealthCheck<T extends Comparable<T>> ex
       extends AbstractAsyncPeriodicHealthCheckBuilder<PeriodicThresholdGaugeHealthCheckBuilder<T>>
   {
     private Supplier<PnkyPromise<T>> dataSupplier;
+
     private com.jive.myco.jazz.api.health.ThresholdMode thresholdMode =
         com.jive.myco.jazz.api.health.ThresholdMode.UPPER_BOUND;
+
     private T infoThreshold;
     private T warnThreshold;
     private T criticalThreshold;
@@ -128,6 +130,7 @@ public final class PeriodicThresholdGaugeHealthCheck<T extends Comparable<T>> ex
           infoThreshold,
           warnThreshold,
           criticalThreshold);
+
     }
 
     @Override
@@ -183,13 +186,6 @@ public final class PeriodicThresholdGaugeHealthCheck<T extends Comparable<T>> ex
     {
       return super.lifecycleGracePeriodHealthStatusAndMessageSupplier(
           lifecycleGracePeriodHealthStatusAndMessageSupplier);
-    }
-
-    public PeriodicThresholdGaugeHealthCheckBuilder<T> dataSupplier(
-        final Supplier<PnkyPromise<T>> dataSupplier)
-    {
-      this.dataSupplier = dataSupplier;
-      return this;
     }
 
     /**
