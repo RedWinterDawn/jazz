@@ -105,12 +105,13 @@ public abstract class AbstractPeriodicSlidingWindowHistogramHealthCheck extends
     return healthCalculator.apply(reservoir.getSnapshot());
   }
 
-  public abstract static class AbstractPeriodicSlidingWindowHealthCheckBuilder<T extends AbstractPeriodicSlidingWindowHealthCheckBuilder<T>>
+  public abstract static class AbstractPeriodicSlidingWindowHistogramHealthCheckBuilder<T extends AbstractPeriodicSlidingWindowHistogramHealthCheckBuilder<T>>
       extends AbstractAsyncPeriodicHealthCheckBuilder<T>
   {
     protected long window = 30000L;
     protected TimeUnit windowUnit = TimeUnit.MILLISECONDS;
     protected Function<Snapshot, PnkyPromise<HealthStatusAndMessage>> healthCalculator;
+    protected boolean supressUpdatesDuringLifecycleGracePeriod = false;
 
     protected T window(final long window)
     {
@@ -128,6 +129,13 @@ public abstract class AbstractPeriodicSlidingWindowHistogramHealthCheck extends
         final Function<Snapshot, PnkyPromise<HealthStatusAndMessage>> healthCalculator)
     {
       this.healthCalculator = healthCalculator;
+      return getThis();
+    }
+
+    public T supressUpdatesDuringLifecycleGracePeriod(
+        final boolean supressUpdatesDuringLifecycleGracePeriod)
+    {
+      this.supressUpdatesDuringLifecycleGracePeriod = supressUpdatesDuringLifecycleGracePeriod;
       return getThis();
     }
   }

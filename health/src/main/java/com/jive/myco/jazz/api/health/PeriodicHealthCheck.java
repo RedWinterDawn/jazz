@@ -47,13 +47,17 @@ public abstract class PeriodicHealthCheck extends AbstractAsyncPeriodicHealthChe
     this(id, checkInterval, DefaultDispatchQueueBuilder.getDefaultBuilder());
   }
 
-  public PeriodicHealthCheck(final String id, final long checkInterval,
+  public PeriodicHealthCheck(
+      final String id,
+      final long period,
       final DispatchQueueBuilder dispatchQueueBuilder)
   {
-    this(id, checkInterval, dispatchQueueBuilder, null);
+    this(id, period, dispatchQueueBuilder, null);
   }
 
-  public PeriodicHealthCheck(final String id, final long period,
+  public PeriodicHealthCheck(
+      final String id,
+      final long period,
       @NonNull final DispatchQueueBuilder dispatchQueueBuilder,
       final Executor executor)
   {

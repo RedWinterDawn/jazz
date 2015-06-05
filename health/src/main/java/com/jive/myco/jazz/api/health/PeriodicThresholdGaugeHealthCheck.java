@@ -1,13 +1,15 @@
 package com.jive.myco.jazz.api.health;
 
 import java.util.concurrent.TimeUnit;
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
-import com.jive.myco.commons.concurrent.Pnky;
 import com.jive.myco.commons.concurrent.PnkyPromise;
 import com.jive.myco.commons.hawtdispatch.DispatchQueueBuilder;
 
@@ -23,14 +25,23 @@ import com.jive.myco.commons.hawtdispatch.DispatchQueueBuilder;
 public final class PeriodicThresholdGaugeHealthCheck<T extends Comparable<T>> extends
     AbstractAsyncPeriodicHealthCheck
 {
+  /**
+   * @deprecated use {@link com.jive.myco.jazz.api.health.ThresholdMode} instead
+   */
+  @Deprecated
+  @RequiredArgsConstructor
+  @Getter
   public static enum ThresholdMode
   {
-    UPPER_BOUND,
-    LOWER_BOUND;
+    UPPER_BOUND(com.jive.myco.jazz.api.health.ThresholdMode.UPPER_BOUND),
+    LOWER_BOUND(com.jive.myco.jazz.api.health.ThresholdMode.LOWER_BOUND);
+
+    @NonNull
+    private final com.jive.myco.jazz.api.health.ThresholdMode newThresholdMode;
   }
 
   private final Supplier<PnkyPromise<T>> dataSupplier;
-  private final ThresholdMode thresholdMode;
+  private final com.jive.myco.jazz.api.health.ThresholdMode thresholdMode;
   private final T infoThreshold;
   private final T warnThreshold;
   private final T criticalThreshold;
@@ -45,7 +56,7 @@ public final class PeriodicThresholdGaugeHealthCheck<T extends Comparable<T>> ex
       final Supplier<HealthStatusAndMessage> unstartedHealthStatusAndMessageSupplier,
       final Supplier<HealthStatusAndMessage> lifecycleGracePeriodHealthStatusAndMessageSupplier,
       final Supplier<PnkyPromise<T>> dataSupplier,
-      @NonNull final ThresholdMode thresholdMode,
+      @NonNull final com.jive.myco.jazz.api.health.ThresholdMode thresholdMode,
       final T infoThreshold,
       final T warnThreshold,
       final T criticalThreshold)
@@ -71,47 +82,16 @@ public final class PeriodicThresholdGaugeHealthCheck<T extends Comparable<T>> ex
   protected PnkyPromise<HealthStatusAndMessage> calculateHealthStatusAndMessage()
   {
     return dataSupplier.get()
-        .thenCompose((value) ->
+        .thenTransform((value) ->
         {
-          log.debug("[{}]: Calculating status from gauge [{].", getId(), value);
-
-          HealthStatusAndMessage hsam = new HealthStatusAndMessage(HealthStatus.OK);
-
-          final BiFunction<T, T, Boolean> compator;
-
-          switch (thresholdMode)
-          {
-            case LOWER_BOUND:
-              compator = (r, t) -> r.compareTo(t) < 0;
-              break;
-            case UPPER_BOUND:
-              compator = (r, t) -> r.compareTo(t) > 0;
-              break;
-            default:
-              throw new IllegalArgumentException("Unknown threshold mode [" + thresholdMode
-                  + "].");
-          }
-
-          if (compator.apply(value, criticalThreshold))
-          {
-            hsam = new HealthStatusAndMessage(HealthStatus.CRITICAL);
-          }
-          else if (compator.apply(value, warnThreshold))
-          {
-            hsam = new HealthStatusAndMessage(HealthStatus.WARN);
-          }
-          else if (compator.apply(value, infoThreshold))
-          {
-            hsam = new HealthStatusAndMessage(HealthStatus.INFO);
-          }
-          else
-          {
-            hsam = new HealthStatusAndMessage(HealthStatus.OK);
-          }
-
-          log.debug("[{}]: Calculating status as [{}].", getId(), hsam);
-
-          return Pnky.immediatelyComplete(hsam);
+          return ThresholdHealthCheckUtil.<T> calculateHealthStatusAndMessage(
+              log,
+              getId(),
+              thresholdMode,
+              value,
+              infoThreshold,
+              warnThreshold,
+              criticalThreshold);
         });
   }
 
@@ -120,11 +100,16 @@ public final class PeriodicThresholdGaugeHealthCheck<T extends Comparable<T>> ex
     return new PeriodicThresholdGaugeHealthCheckBuilder<>();
   }
 
+  @Accessors(fluent = true)
+  @Setter
   public static final class PeriodicThresholdGaugeHealthCheckBuilder<T extends Comparable<T>>
       extends AbstractAsyncPeriodicHealthCheckBuilder<PeriodicThresholdGaugeHealthCheckBuilder<T>>
   {
     private Supplier<PnkyPromise<T>> dataSupplier;
-    private final ThresholdMode thresholdMode = ThresholdMode.UPPER_BOUND;
+
+    private com.jive.myco.jazz.api.health.ThresholdMode thresholdMode =
+        com.jive.myco.jazz.api.health.ThresholdMode.UPPER_BOUND;
+
     private T infoThreshold;
     private T warnThreshold;
     private T criticalThreshold;
@@ -148,28 +133,76 @@ public final class PeriodicThresholdGaugeHealthCheck<T extends Comparable<T>> ex
 
     }
 
-    public PeriodicThresholdGaugeHealthCheckBuilder<T> dataSupplier(
-        final Supplier<PnkyPromise<T>> dataSupplier)
+    @Override
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> id(final String id)
     {
-      this.dataSupplier = dataSupplier;
+      return super.id(id);
+    }
+
+    @Override
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> period(final long period)
+    {
+      return super.period(period);
+    }
+
+    @Override
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> periodUnit(final TimeUnit periodUnit)
+    {
+      return super.periodUnit(periodUnit);
+    }
+
+    @Override
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> lifecycleGracePeriod(
+        final long lifecycleGracePeriod)
+    {
+      return super.lifecycleGracePeriod(lifecycleGracePeriod);
+    }
+
+    @Override
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> lifecycleGracePeriodUnit(
+        final TimeUnit lifecycleGracePeriodUnit)
+    {
+      return super.lifecycleGracePeriodUnit(lifecycleGracePeriodUnit);
+    }
+
+    @Override
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> dispatchQueueBuilder(
+        final DispatchQueueBuilder dispatchQueueBuilder)
+    {
+      return super.dispatchQueueBuilder(dispatchQueueBuilder);
+    }
+
+    @Override
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> defaultUnstartedHealthStatusAndMessageSupplier(
+        final Supplier<HealthStatusAndMessage> unstartedHealthStatusAndMessageSupplier)
+    {
+      return super.defaultUnstartedHealthStatusAndMessageSupplier(
+          unstartedHealthStatusAndMessageSupplier);
+    }
+
+    @Override
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> lifecycleGracePeriodHealthStatusAndMessageSupplier(
+        final Supplier<HealthStatusAndMessage> lifecycleGracePeriodHealthStatusAndMessageSupplier)
+    {
+      return super.lifecycleGracePeriodHealthStatusAndMessageSupplier(
+          lifecycleGracePeriodHealthStatusAndMessageSupplier);
+    }
+
+    /**
+     * @deprecated use {@link #thresholdMode(com.jive.myco.jazz.api.health.ThresholdMode)} instead
+     */
+    @Deprecated
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> thresholdMode(
+        final ThresholdMode thresholdMode)
+    {
+      this.thresholdMode = thresholdMode.getNewThresholdMode();
       return this;
     }
 
-    public PeriodicThresholdGaugeHealthCheckBuilder<T> infoThreshold(final T infoThreshold)
+    public PeriodicThresholdGaugeHealthCheckBuilder<T> thresholdMode(
+        final com.jive.myco.jazz.api.health.ThresholdMode thresholdMode)
     {
-      this.infoThreshold = infoThreshold;
-      return this;
-    }
-
-    public PeriodicThresholdGaugeHealthCheckBuilder<T> warnThreshold(final T warnThreshold)
-    {
-      this.warnThreshold = warnThreshold;
-      return this;
-    }
-
-    public PeriodicThresholdGaugeHealthCheckBuilder<T> criticalThreshold(final T criticalThreshold)
-    {
-      this.criticalThreshold = criticalThreshold;
+      this.thresholdMode = thresholdMode;
       return this;
     }
 
