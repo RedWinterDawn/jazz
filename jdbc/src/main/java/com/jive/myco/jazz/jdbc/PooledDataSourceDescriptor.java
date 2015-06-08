@@ -71,13 +71,57 @@ public class PooledDataSourceDescriptor
   private final boolean registerHealthChecks;
 
   /**
+   * A flag indicating if the connectivity health check should be registered if
+   * {@link #isRegisterHealthChecks()} is also true. Defaults to {@code true}.
+   */
+  private final boolean registerConnectivityHealthCheck;
+
+  /**
    * The period, in ms, at which the connectivity health check attempts to retrieve a connection
    * from the pool. Defaults to {@code 30} seconds.
    */
   private final long connectivityHealthCheckPeriod;
 
+  /**
+   * A flag indicating if the connection queue wait time health check should be registered if
+   * {@link #isRegisterHealthChecks()} is also true. Defaults to {@code true}.
+   * <p>
+   * NOTE: The connection establishment and validation times for connections to remote data centers
+   * is substantially larger than the default value for this health check and varies with the
+   * distance between the data centers.  It is not advised to enable this health check in such
+   * scenarios.
+   */
+  private final boolean registerConnectionQueueWaitTimeHealthCheck;
+
+  /**
+   * The time, in ms, that the 99th quantile for connection acquisition time must be below during
+   * the last 30 seconds in order to avoid an info health check status. Defaults to {@code 5ms}.
+   * <p>
+   * NOTE: The connection establishment and validation times for connections to remote data centers
+   * is substantially larger than 5ms and varies with the distance between the data centers.
+   */
+  private final double connectionQueueWaitTimeHealthCheckInfoThreshold;
+
+  /**
+   * The time, in ms, that the 99th quantile for connection acquisition time must be below during
+   * the last 30 seconds in order to avoid a warn health check status. Defaults to {@code 8ms}.
+   * <p>
+   * NOTE: The connection establishment and validation times for connections to remote data centers
+   * is substantially larger than 8ms and varies with the distance between the data centers.
+   */
+  private final double connectionQueueWaitTimeHealthCheckWarnThreshold;
+
+  /**
+   * The time, in ms, that the 99th quantile for connection acquisition time must be below during
+   * the last 30 seconds in order to avoid a critical health check status. Defaults to {@code 10ms}.
+   * <p>
+   * NOTE: The connection establishment and validation times for connections to remote data centers
+   * is substantially larger than 10ms and varies with the distance between the data centers.
+   */
+  private final double connectionQueueWaitTimeHealthCheckCriticalThreshold;
+
   @Builder
-  public PooledDataSourceDescriptor(
+  private PooledDataSourceDescriptor(
       final String id,
       final String jdbcUrl,
       final DataSource dataSource,
@@ -90,7 +134,12 @@ public class PooledDataSourceDescriptor
       final int minIdle,
       final Properties dataSourceProperties,
       final boolean registerHealthChecks,
-      final long connectivityHealthCheckPeriod)
+      final boolean registerConnectivityHealthCheck,
+      final long connectivityHealthCheckPeriod,
+      final boolean registerConnectionQueueWaitTimeHealthCheck,
+      final double connectionQueueWaitTimeHealthCheckInfoThreshold,
+      final double connectionQueueWaitTimeHealthCheckWarnThreshold,
+      final double connectionQueueWaitTimeHealthCheckCriticalThreshold)
   {
     this.id = id;
     this.jdbcUrl = jdbcUrl;
@@ -117,10 +166,21 @@ public class PooledDataSourceDescriptor
     }
 
     this.registerHealthChecks = registerHealthChecks;
+
+    this.registerConnectivityHealthCheck = registerConnectivityHealthCheck;
     this.connectivityHealthCheckPeriod = connectivityHealthCheckPeriod;
 
     Preconditions.checkArgument(connectivityHealthCheckPeriod > 0,
         "connectivityHealthCheckPeriod must be greater than 0.");
+
+    this.registerConnectionQueueWaitTimeHealthCheck = registerConnectionQueueWaitTimeHealthCheck;
+    this.connectionQueueWaitTimeHealthCheckInfoThreshold =
+        connectionQueueWaitTimeHealthCheckInfoThreshold;
+    this.connectionQueueWaitTimeHealthCheckWarnThreshold =
+        connectionQueueWaitTimeHealthCheckWarnThreshold;
+    this.connectionQueueWaitTimeHealthCheckCriticalThreshold =
+        connectionQueueWaitTimeHealthCheckCriticalThreshold;
+
   }
 
   public Properties getDataSourceProperties()
@@ -138,6 +198,12 @@ public class PooledDataSourceDescriptor
 
     private boolean registerHealthChecks = true;
 
+    private boolean registerConnectivityHealthCheck = true;
     private long connectivityHealthCheckPeriod = TimeUnit.SECONDS.toMillis(30);
+
+    private boolean registerConnectionQueueWaitTimeHealthCheck = true;
+    private double connectionQueueWaitTimeHealthCheckInfoThreshold = 5d;
+    private double connectionQueueWaitTimeHealthCheckWarnThreshold = 8d;
+    private double connectionQueueWaitTimeHealthCheckCriticalThreshold = 10d;
   }
 }
