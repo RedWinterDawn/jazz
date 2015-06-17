@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 import org.joda.time.Instant;
 
 /**
- * A simple builder for AuditEvent
+ * A simple builder for AuditEvent.
  * @author Binh Tran
  */
 @Accessors(fluent = true)

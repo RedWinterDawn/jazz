@@ -3,17 +3,19 @@ package com.jive.myco.jazz.api.audit;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
-import lombok.Value;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import org.joda.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * A simple audit event
+ * A simple audit event.
  * @author Binh Tran
  */
-@Value
+@Getter
+@EqualsAndHashCode
 @AllArgsConstructor
 public class AuditEvent implements IAuditEvent
 {

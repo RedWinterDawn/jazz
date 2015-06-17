@@ -1,5 +1,9 @@
 package com.jive.myco.jazz.api.audit;
 
+import java.util.Map;
+
+import org.joda.time.Instant;
+
 /**
  * @author Binh Tran
  */
@@ -9,25 +13,25 @@ public interface IAuditEventBuilder
 
   String type();
 
-  org.joda.time.Instant created();
+  Instant created();
 
   String component();
 
   String name();
 
-  java.util.Map<String, Object> meta();
+  Map<String, Object> meta();
 
-  java.util.Map<String, Object> data();
+  Map<String, Object> data();
 
   AuditEventBuilder type(String type);
 
-  AuditEventBuilder created(org.joda.time.Instant created);
+  AuditEventBuilder created(Instant created);
 
   AuditEventBuilder component(String component);
 
   AuditEventBuilder name(String name);
 
-  AuditEventBuilder meta(java.util.Map<String, Object> meta);
+  AuditEventBuilder meta(Map<String, Object> meta);
 
-  AuditEventBuilder data(java.util.Map<String, Object> data);
+  AuditEventBuilder data(Map<String, Object> data);
 }
