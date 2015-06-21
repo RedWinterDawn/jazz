@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
  */
 public interface IAuditService
 {
-  IAuditEventDecorator getDecorator();
   void addStorage(final IAuditStorage storage);
   void submit(final IAuditEvent auditEvent);
   void flush(final TimeUnit unit, final long duration);
