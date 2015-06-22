@@ -3,7 +3,7 @@ package com.jive.myco.jazz.api.audit;
 /**
  * @author Binh Tran
  */
-public interface IAuditStorage
+public interface AuditStorage
 {
-  void submit(IAuditEvent auditEvent);
+  void submit(AuditEvent auditEvent);
 }

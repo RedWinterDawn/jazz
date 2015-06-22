@@ -2,56 +2,36 @@ package com.jive.myco.jazz.api.audit;
 
 import java.util.Map;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
-
 import org.joda.time.Instant;
 
 /**
- * A simple builder for AuditEvent.
  * @author Binh Tran
  */
-@Accessors(fluent = true)
-@Data
-public class AuditEventBuilder implements IAuditEventBuilder
+public interface AuditEventBuilder
 {
-  /**
-   * The audit event type/category of the data.
-   */
-  private String type;
+  AuditEvent build();
 
-  /**
-   * The instant this audit event was created.
-   */
-  private Instant created;
+  String type();
 
-  /**
-   * The auditing component which generated this event.
-   */
-  private String component;
+  Instant created();
 
-  /**
-   * the name of this event.
-   */
-  private String name;
+  String component();
 
-  /**
-   * meta data provided outside the scope of the audit generator (e.g, MDC).
-   */
-  private Map<String, Object> meta;
+  String name();
 
+  Map<String, Object> meta();
 
-  /**
-   * Audit event data, which may be @Value based.
-   *
-   * This does not include metadata around the environment, e.g calling thread etc.
-   *
-   */
-  private Map<String, Object> data;
+  Map<String, Object> data();
 
-  @Override
-  public IAuditEvent build()
-  {
-    return new AuditEvent(type, created, component, name, meta, data);
-  }
+  SimpleAuditEventBuilder type(String type);
+
+  SimpleAuditEventBuilder created(Instant created);
+
+  SimpleAuditEventBuilder component(String component);
+
+  SimpleAuditEventBuilder name(String name);
+
+  SimpleAuditEventBuilder meta(Map<String, Object> meta);
+
+  SimpleAuditEventBuilder data(Map<String, Object> data);
 }

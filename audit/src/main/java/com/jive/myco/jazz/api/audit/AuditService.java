@@ -5,9 +5,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Binh Tran
  */
-public interface IAuditService
+public interface AuditService
 {
-  void addStorage(final IAuditStorage storage);
-  void submit(final IAuditEvent auditEvent);
+  AuditEventDecorator getDecorator();
+  void addStorage(final AuditStorage storage);
+  void submit(final AuditEvent auditEvent);
   void flush(final TimeUnit unit, final long duration);
 }
