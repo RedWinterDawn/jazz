@@ -5,5 +5,16 @@ package com.jive.myco.jazz.api.audit;
  */
 public interface AuditEventDecorator
 {
-  AuditEvent decorate (AuditEvent event);
+  AuditEvent decorate(final AuditEvent event);
+  default AuditEvent composeWith(final AuditEventDecorator decorator, final AuditEvent event)
+  {
+    if (decorator != null)
+    {
+      return decorate(decorator.decorate(event));
+    }
+    else
+    {
+      return decorate(event);
+    }
+  }
 }

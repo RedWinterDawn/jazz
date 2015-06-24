@@ -9,5 +9,4 @@ public interface AuditService
 {
   AuditEventDecorator getDecorator();
   void submit(final AuditEvent auditEvent);
-  void flush(final TimeUnit unit, final long duration);
 }
