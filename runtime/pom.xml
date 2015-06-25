@@ -99,5 +99,11 @@
       <artifactId>guava</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>com.jive.myco.jazz.api</groupId>
+      <artifactId>jazz-api-audit</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
   </dependencies>
 </project>

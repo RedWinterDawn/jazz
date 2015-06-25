@@ -7,6 +7,5 @@ import java.util.concurrent.TimeUnit;
  */
 public interface AuditService
 {
-  AuditEventDecorator getDecorator();
   void submit(final AuditEvent auditEvent);
 }

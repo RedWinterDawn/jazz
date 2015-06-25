@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.codahale.metrics.MetricRegistry;
 import com.jive.myco.commons.hawtdispatch.DispatchQueueBuilder;
 import com.jive.myco.isp.client.api.AsyncIspClient;
+import com.jive.myco.jazz.api.audit.AuditManager;
 import com.jive.myco.jazz.api.config.ConfigurationManager;
 import com.jive.myco.jazz.api.config.JazzConfiguration;
 import com.jive.myco.jazz.api.health.HealthCheckManager;
@@ -56,4 +57,6 @@ public interface JazzCore<T extends JazzConfiguration>
   DispatchQueueBuilder getDispatchQueueBuilder();
 
   Optional<RestClientFactoryManager> getRestClientFactoryManager();
+
+  Optional<AuditManager> getAuditManager();
 }
