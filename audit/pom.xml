@@ -13,20 +13,32 @@
   <name>Jazz :: API :: Audit</name>
 
   <dependencies>
+  
+    <dependency>
+      <groupId>com.jive.myco.commons</groupId>
+      <artifactId>myco-commons-concurrent</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.jive.myco.commons</groupId>
+      <artifactId>myco-commons-lifecycle</artifactId>
+    </dependency>
+    
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
     </dependency>
 
     <dependency>
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
     </dependency>
+
   </dependencies>
 
 </project>

@@ -3,9 +3,11 @@ package com.jive.myco.jazz.api.audit;
 import com.jive.myco.commons.concurrent.PnkyPromise;
 
 /**
- * @author Binh Tran
+ * A binding to an {@link AuditStorage} instance.
+ *
+ * @author David Valeri
  */
-public interface AuditService
+public interface AuditStorageBinding
 {
   /**
    * Submit an event to the audit service.
@@ -13,7 +15,7 @@ public interface AuditService
    * @param auditEvent
    *          the event to record
    *
-   * @return a promise that resolves when the event is written to the audit service
+   * @return a promise that resolves when the event is written to the audit storage
    */
   PnkyPromise<Void> submit(final AuditEvent auditEvent);
 }
