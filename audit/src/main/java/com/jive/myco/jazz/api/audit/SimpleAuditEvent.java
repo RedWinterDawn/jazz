@@ -96,7 +96,7 @@ public class SimpleAuditEvent implements AuditEvent
     public SimpleAuditEventBuilder data(final Map<? extends String, ? extends Object> data)
     {
       this.data.clear();
-      return addData(meta);
+      return addData(data);
     }
 
     public SimpleAuditEventBuilder addData(final Map<? extends String, ? extends Object> data)
