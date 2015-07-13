@@ -59,11 +59,12 @@ public class SimpleAuditEvent implements AuditEvent
   public static SimpleAuditEventBuilder builder(final AuditEvent event)
   {
     return builder()
-        .type(event.getType())
+        .component(event.getComponent())
         .created(event.getCreated())
-        .name(event.getName())
+        .data(event.getData())
         .meta(event.getMeta())
-        .data(event.getData());
+        .name(event.getName())
+        .type(event.getType());
   }
 
   public static final class SimpleAuditEventBuilder
