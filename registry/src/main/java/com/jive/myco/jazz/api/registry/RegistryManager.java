@@ -112,8 +112,13 @@ public interface RegistryManager extends ListenableLifecycled
    * name, optional protocol, and optional version range.
    * <p>
    * The listener will be immediately notified of all matching service instances via calls to
-   * {@link ServiceInstanceListener#registered(ServiceInstance)} followed by subsequent for updates
-   * and removals while the subscription is active.
+   * {@link ServiceInstanceListener#registered(ServiceInstance)} followed by subsequent calls for
+   * updates and removals while the subscription is active.
+   * <p>
+   * NOTE: Implementations of this method are not required to provide guaranteed reporting of
+   * initialization state as such a guarantee would require internal synchronization. The intent of
+   * this synchronous variant is simply to provide a simple interaction for non-asynchronous code
+   * that does not wish to or cannot block while waiting for a promise to complete.
    *
    * @param serviceInterfaceName
    *          the interface name to limit the subscription to

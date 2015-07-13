@@ -46,7 +46,10 @@ public interface JazzRuntimeEnvironment
 
   /**
    * Returns host and port tuples for the ZK ensemble, if available.
+   *
+   * @deprecated will be removed in a future release
    */
+  @Deprecated
   Optional<List<HostAndPort>> getZkAddresses();
 
   /**
