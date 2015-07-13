@@ -32,7 +32,7 @@ public interface AuditEventSerializer
    * @param <U>
    *          type of the object that we serialize to
    *
-   * @return byte array to be announced into ISP
+   * @return byte array to be audit logged
    */
   byte[] serialize(final AuditEvent auditEvent, final String mediaType);
 }
