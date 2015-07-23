@@ -58,4 +58,17 @@ public class AbstractJazzRuntimeEnvironmentVisitor implements
   {
     visitOther(environment);
   }
+
+  /**
+   * Visits {@link DockerJazzRuntimeEnvironment} instances. Defaults to calling
+   * {@link #visitOther(JazzRuntimeEnvironment)}.
+   *
+   * @param environment
+   *          the environment
+   */
+  @Override
+  public void visit(final DockerJazzRuntimeEnvironment environment)
+  {
+    visitOther(environment);
+  }
 }

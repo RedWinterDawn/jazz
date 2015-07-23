@@ -7,6 +7,8 @@ package com.jive.myco.jazz.api.runtime;
  */
 public interface JazzRuntimeEnvironmentVisitor
 {
+  void visit(final DockerJazzRuntimeEnvironment environment);
+
   void visit(final JinstJazzRuntimeEnvironment environment);
 
   void visit(final StandaloneJazzRuntimeEnvironment environment);
