@@ -1,4 +1,4 @@
-package com.jive.myco.jazz.jdbc;
+package com.jive.myco.jazz.api.jdbc;
 
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -16,12 +16,10 @@ import com.google.common.base.Preconditions;
  * A descriptor for creating pooled data sources.
  *
  * @author David Valeri
- * @deprecated use {@link com.jive.myco.jazz.api.jdbc.PooledDataSourceDescriptor} instead
  */
 @Getter
 @ToString
 public class PooledDataSourceDescriptor
-@Deprecated
 {
   @NonNull
   private final String id;

@@ -1,4 +1,4 @@
-package com.jive.myco.jazz.jdbc.dao;
+package com.jive.myco.jazz.api.jdbc.dao;
 
 /**
  * An exception that represents an error on an operation that would introduce a duplicate key into
