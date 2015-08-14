@@ -20,8 +20,8 @@ import com.google.common.base.Preconditions;
  */
 @Getter
 @ToString
-public class PooledDataSourceDescriptor
 @Deprecated
+public class PooledDataSourceDescriptor
 {
   @NonNull
   private final String id;
