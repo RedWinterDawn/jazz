@@ -1,4 +1,4 @@
-package com.jive.myco.jazz.jdbc.dao;
+package com.jive.myco.jazz.api.jdbc.dao;
 
 /**
  * An exception that represents an error on an operation that would create a violation of a
@@ -6,7 +6,7 @@ package com.jive.myco.jazz.jdbc.dao;
  *
  * @author David Valeri
  */
-public final class ConstraintViolationException extends DaoException
+public class ConstraintViolationException extends DaoException
 {
   private static final long serialVersionUID = 3892237930667695938L;
 

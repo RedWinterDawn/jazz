@@ -1,4 +1,4 @@
-package com.jive.myco.jazz.jdbc.dao;
+package com.jive.myco.jazz.api.jdbc.dao;
 
 import java.sql.SQLException;
 
