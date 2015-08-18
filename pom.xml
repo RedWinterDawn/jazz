@@ -9,7 +9,7 @@
 
   <groupId>com.jive.myco.jazz.api</groupId>
   <artifactId>root</artifactId>
-  <version>0.2.70-SNAPSHOT</version>
+  <version>0.2.71-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Jazz :: API :: Root</name>
