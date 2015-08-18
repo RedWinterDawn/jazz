@@ -11,7 +11,8 @@ import com.jive.myco.commons.lifecycle.ListenableLifecycled;
  * @deprecated use {@link com.jive.myco.jazz.api.jdbc.PooledDataSource} instead
  */
 @Deprecated
-public interface PooledDataSource extends DataSource, ListenableLifecycled
+public interface PooledDataSource extends DataSource, ListenableLifecycled,
+    com.jive.myco.jazz.api.jdbc.PooledDataSource
 {
   // No-op
 }
