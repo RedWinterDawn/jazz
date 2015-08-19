@@ -8,7 +8,7 @@ package com.jive.myco.jazz.jdbc;
  * @deprecated use {@link com.jive.myco.jazz.api.jdbc.PooledDataSourceFactory} instead
  */
 @Deprecated
-public interface PooledDataSourceFactory
+public interface PooledDataSourceFactory extends com.jive.myco.jazz.api.jdbc.PooledDataSourceFactory
 {
   /**
    * Creates a new {@code PooledDataSource} instance based on the provided descriptor.

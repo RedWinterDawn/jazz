@@ -208,4 +208,27 @@ public class PooledDataSourceDescriptor
     private double connectionQueueWaitTimeHealthCheckWarnThreshold = 8d;
     private double connectionQueueWaitTimeHealthCheckCriticalThreshold = 10d;
   }
+
+  public static PooledDataSourceDescriptor from(
+      com.jive.myco.jazz.api.jdbc.PooledDataSourceDescriptor pooledDataSourceDescriptor)
+  {
+    return  new PooledDataSourceDescriptor(pooledDataSourceDescriptor.getId(),
+        pooledDataSourceDescriptor.getJdbcUrl(),
+        pooledDataSourceDescriptor.getDataSource(),
+        pooledDataSourceDescriptor.getUser(),
+        pooledDataSourceDescriptor.getPassword(),
+        pooledDataSourceDescriptor.getConnectionTimeout(),
+        pooledDataSourceDescriptor.getIdleTimeout(),
+        pooledDataSourceDescriptor.getMaxLifetime(),
+        pooledDataSourceDescriptor.getMaxPoolSize(),
+        pooledDataSourceDescriptor.getMinIdle(),
+        pooledDataSourceDescriptor.getDataSourceProperties(),
+        pooledDataSourceDescriptor.isRegisterHealthChecks(),
+        pooledDataSourceDescriptor.isRegisterConnectivityHealthCheck(),
+        pooledDataSourceDescriptor.getConnectivityHealthCheckPeriod(),
+        pooledDataSourceDescriptor.isRegisterConnectionQueueWaitTimeHealthCheck(),
+        pooledDataSourceDescriptor.getConnectionQueueWaitTimeHealthCheckInfoThreshold(),
+        pooledDataSourceDescriptor.getConnectionQueueWaitTimeHealthCheckWarnThreshold(),
+        pooledDataSourceDescriptor.getConnectionQueueWaitTimeHealthCheckCriticalThreshold());
+  }
 }
