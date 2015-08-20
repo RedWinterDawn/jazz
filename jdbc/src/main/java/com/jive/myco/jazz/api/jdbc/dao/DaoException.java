@@ -1,13 +1,11 @@
-package com.jive.myco.jazz.jdbc.dao;
+package com.jive.myco.jazz.api.jdbc.dao;
 
 /**
  * Base class for the DAO exception hierarchy.
  *
  * @author David Valeri
- * @deprecated Use {@link com.jive.myco.jazz.api.jdbc.dao.DaoException}
  */
-@Deprecated
-public class DaoException extends com.jive.myco.jazz.api.jdbc.dao.DaoException
+public class DaoException extends RuntimeException
 {
   private static final long serialVersionUID = -7398989543752230591L;
 

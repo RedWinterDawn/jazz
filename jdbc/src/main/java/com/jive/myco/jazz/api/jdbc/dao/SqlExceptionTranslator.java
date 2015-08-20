@@ -1,4 +1,4 @@
-package com.jive.myco.jazz.jdbc.dao;
+package com.jive.myco.jazz.api.jdbc.dao;
 
 import java.sql.SQLException;
 
@@ -6,10 +6,8 @@ import java.sql.SQLException;
  * Interface for translators that can map a generic {@link SQLException} to a {@link DaoException}.
  *
  * @author David Valeri
- * @deprecated  use {@link com.jive.myco.jazz.api.jdbc.dao.SqlExceptionTranslator}
  */
-@Deprecated
-public interface SqlExceptionTranslator extends com.jive.myco.jazz.api.jdbc.dao.SqlExceptionTranslator
+public interface SqlExceptionTranslator
 {
   /**
    * Walks the exception hierarchy towards the root cause, stopping when a {@link SQLException} is

@@ -1,4 +1,4 @@
-package com.jive.myco.jazz.jdbc;
+package com.jive.myco.jazz.api.jdbc;
 
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -16,11 +16,9 @@ import com.google.common.base.Preconditions;
  * A descriptor for creating pooled data sources.
  *
  * @author David Valeri
- * @deprecated use {@link com.jive.myco.jazz.api.jdbc.PooledDataSourceDescriptor} instead
  */
 @Getter
 @ToString
-@Deprecated
 public class PooledDataSourceDescriptor
 {
   @NonNull
@@ -207,28 +205,5 @@ public class PooledDataSourceDescriptor
     private double connectionQueueWaitTimeHealthCheckInfoThreshold = 5d;
     private double connectionQueueWaitTimeHealthCheckWarnThreshold = 8d;
     private double connectionQueueWaitTimeHealthCheckCriticalThreshold = 10d;
-  }
-
-  public static PooledDataSourceDescriptor from(
-      com.jive.myco.jazz.api.jdbc.PooledDataSourceDescriptor pooledDataSourceDescriptor)
-  {
-    return  new PooledDataSourceDescriptor(pooledDataSourceDescriptor.getId(),
-        pooledDataSourceDescriptor.getJdbcUrl(),
-        pooledDataSourceDescriptor.getDataSource(),
-        pooledDataSourceDescriptor.getUser(),
-        pooledDataSourceDescriptor.getPassword(),
-        pooledDataSourceDescriptor.getConnectionTimeout(),
-        pooledDataSourceDescriptor.getIdleTimeout(),
-        pooledDataSourceDescriptor.getMaxLifetime(),
-        pooledDataSourceDescriptor.getMaxPoolSize(),
-        pooledDataSourceDescriptor.getMinIdle(),
-        pooledDataSourceDescriptor.getDataSourceProperties(),
-        pooledDataSourceDescriptor.isRegisterHealthChecks(),
-        pooledDataSourceDescriptor.isRegisterConnectivityHealthCheck(),
-        pooledDataSourceDescriptor.getConnectivityHealthCheckPeriod(),
-        pooledDataSourceDescriptor.isRegisterConnectionQueueWaitTimeHealthCheck(),
-        pooledDataSourceDescriptor.getConnectionQueueWaitTimeHealthCheckInfoThreshold(),
-        pooledDataSourceDescriptor.getConnectionQueueWaitTimeHealthCheckWarnThreshold(),
-        pooledDataSourceDescriptor.getConnectionQueueWaitTimeHealthCheckCriticalThreshold());
   }
 }

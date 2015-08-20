@@ -1,13 +1,11 @@
-package com.jive.myco.jazz.jdbc.dao;
+package com.jive.myco.jazz.api.jdbc.dao;
 
 /**
  * An exception that represents an error on an operation that would create a violation of a
  * constraint on the data in the data store.
  *
  * @author David Valeri
- * @deprecated use {@link com.jive.myco.jazz.api.jdbc.dao.ConstraintViolationException}
  */
-@Deprecated
 public class ConstraintViolationException extends DaoException
 {
   private static final long serialVersionUID = 3892237930667695938L;
