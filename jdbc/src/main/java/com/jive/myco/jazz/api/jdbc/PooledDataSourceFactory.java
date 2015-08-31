@@ -1,14 +1,12 @@
-package com.jive.myco.jazz.jdbc;
+package com.jive.myco.jazz.api.jdbc;
 
 
 /**
  * The factory API for creating pooled data source instances.
  *
  * @author David Valeri
- * @deprecated use {@link com.jive.myco.jazz.api.jdbc.PooledDataSourceFactory} instead
  */
-@Deprecated
-public interface PooledDataSourceFactory extends com.jive.myco.jazz.api.jdbc.PooledDataSourceFactory
+public interface PooledDataSourceFactory
 {
   /**
    * Creates a new {@code PooledDataSource} instance based on the provided descriptor.
